@@ -1,0 +1,52 @@
+.accordion-toggle {
+  display: block;
+  background-color: #7d81be;
+  color: #fff;
+  font-family: 'Fira Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  padding: .25rem 1rem;
+  margin-bottom: 1px;
+}
+.accordion-toggle.active{
+  background-color: #86ae84;
+}
+.accordion-toggle:after{
+  content: '+';
+  position: absolute;
+  right: 1rem;
+}
+.accordion-toggle.active:after{
+  content: '-';
+}
+.accordion-toggle:hover{
+  background-color: #86ae84;
+  color: #fff;
+}
+
+.product-title{
+  padding-bottom: 4px;
+  border-bottom: 2px solid #7d81be;
+}
+.accordion-content,
+.product-content {
+  display: none;
+  padding: 1rem;
+  border-bottom: 2px solid #7d81be;
+  margin-bottom: 3px;
+  font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+.product-content{
+  display: block;
+  padding: 0;
+  border-bottom: 0;
+}
+.accordion-content ul,
+.accordion-content ol{
+  margin-bottom: 1rem;
+}
+
+.accordion-content.active {
+  display: block;
+}

@@ -12,4 +12,5 @@
  * @package         Nccagent_Extras
  */
 
-// Your code starts here.
+// Include required files
+require_once( 'lib/fns/shortcodes.php' );
