@@ -1,0 +1,65 @@
+/* Menu */
+.subnav.elementor-widget .menu{
+    margin-left: 0;
+    padding-left: 0;
+    list-style-type: none;
+    font-family: $headingFont;
+    font-size: 14px;
+    font-weight: 400;
+
+    li.current-menu-item > a{
+        background-color: $nccSecondary;
+        color: #fff;
+    }
+
+    li{
+        margin-bottom: 1px;
+
+        a{
+            display: block;
+            padding: 8px 10px;
+            background-color: $nccPrimary;
+            color: #fff;
+
+            &:hover{
+                background-color: lighten($nccSecondary,10%);
+                color: #fff;
+            }
+        }
+
+        ul{
+            margin-top: 1px;
+            list-style-type: none;
+            padding-left: 10px;
+            font-size: 14px;
+
+            li{
+                a{
+                    border-left: 5px solid $nccPrimary;
+                    padding: 8px 12px;
+                    background-color: $nccTertiary;
+                }
+                &.current-menu-item a{
+                    border-color: $nccPrimary;
+                }
+            }
+        }
+    }
+}
+
+/* Closed Arrow */
+.elementor-element.subnav li.menu-item-has-children > a{
+  background-image: url('../img/open-close.svg');
+  background-repeat: no-repeat;
+  background-size: 16px 48px;
+  background-position: 96% 10px;
+}
+
+/* Open Arrow */
+.elementor-element.subnav li.current-page-ancestor.active > a,
+.elementor-element.subnav li.menu-item-has-children.active > a{
+  background-image: url('../img/open-close.svg');
+  background-repeat: no-repeat;
+  background-size: 16px 48px;
+  background-position: 96% -22px;
+}

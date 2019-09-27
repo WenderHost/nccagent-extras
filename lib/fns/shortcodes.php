@@ -16,8 +16,8 @@ function acf_get_carrier_products( $atts ){
 
   $html = '<h3>' . get_the_title( $args['post_id'] ) . ' Policies and State Availability</h3>';
   $html.= '<div class="product-content"><p>These are ' . get_the_title( $args['post_id'] ) . '\'s current policies and state availability for ' . date('Y') . ', as well as information on contracting and appointment.</p></div>';
-  $accordion_css = file_get_contents( plugin_dir_path(__FILE__) . '../css/accordion.css' );
-  $html.= '<style type="text/css">' . $accordion_css . '</style>';
+  //$accordion_css = file_get_contents( plugin_dir_path(__FILE__) . '../css/accordion.css' );
+  //$html.= '<style type="text/css">' . $accordion_css . '</style>';
 
   if( 3 > count( $products ) ){
     foreach( $products as $product ){
@@ -61,8 +61,8 @@ function acf_get_product_carriers( $atts ){
 
   $html = '';
 
-  $carriers_css = file_get_contents( plugin_dir_path( __FILE__ ) . '../css/carriers.css' );
-  $html.= '<style type="text/css">' . $carriers_css . '</style>';
+  //$carriers_css = file_get_contents( plugin_dir_path( __FILE__ ) . '../css/carriers.css' );
+  //$html.= '<style type="text/css">' . $carriers_css . '</style>';
 
   $html.= '<ul class="carriers">';
 
@@ -78,3 +78,54 @@ function acf_get_product_carriers( $atts ){
   return $html;
 }
 add_shortcode( 'acf_product_carriers', __NAMESPACE__ . '\\acf_get_product_carriers' );
+
+function acf_get_products_by_state( $atts ){
+  $carriers_query_args = [
+    'posts_per_page'  => -1,
+    'post_type'       => 'carrier',
+    'orderby'         => 'title',
+    'order'           => 'ASC',
+  ];
+
+  $carriers_data = [];
+
+  $carriers_array = get_posts( $carriers_query_args );
+  if( $carriers_array ){
+    wp_enqueue_script( 'datatables-init' );
+    wp_enqueue_style( 'datatables' );
+
+    $x = 0;
+    foreach( $carriers_array as $carrier ){
+      /*
+      $carriers_data[$x] = [
+        'name'  => get_the_title( $carrier->ID )
+      ];
+      */
+      $products = get_field( 'products', $carrier->ID );
+      if( $products ){
+        $products_array = [];
+        foreach( $products as $product ){
+          $products_array[] = [
+            'name'      => $product['product']->post_title,
+            'alt_name'  => $product['product_details']['alternate_product_name'],
+            'states'    => $product['product_details']['states'],
+          ];
+        }
+        $carriers_data[$x]['name'] = get_the_title( $carrier->ID );
+        $carriers_data[$x]['products'] = $products_array;
+      }
+      $x++;
+    }
+  }
+
+  foreach( $carriers_data as $carrier ) {
+    foreach( $carrier['products'] as $product ){
+      $table_rows[] = '<tr><td>' . $product['name'] . '</td><td>' . $carrier['name'] . '</td><td>' . implode( ', ', $product['states'] ) . '</td></tr>';
+    }
+  }
+
+  return '<table id="datatable"><thead><tr><th style="width: 25%">Product</th><th style="width: 25%">Carrier</th><th style="width: 50%">States</th></tr></thead><tbody>' . implode( "\n", $table_rows ) . '</tbody></table>';
+
+  //return '<pre>' . print_r( $carriers_data, true ) . '</pre>';
+}
+add_shortcode( 'productsbystate', __NAMESPACE__ . '\\acf_get_products_by_state' );

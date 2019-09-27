@@ -13,4 +13,5 @@
  */
 
 // Include required files
+require_once( 'lib/fns/enqueues.php' );
 require_once( 'lib/fns/shortcodes.php' );
