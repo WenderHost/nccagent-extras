@@ -1,0 +1,45 @@
+/* Global Tweaks */
+a{
+    color: $nccBlue;
+}
+p{
+  font-weight: 300;
+}
+.elementor-widget-theme-post-content{
+    ul,ol{
+        margin-bottom: 1.5rem;
+    }
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: $headingFont;
+}
+
+/* Beamer */
+#beamerSelector{
+    display: none;
+}
+
+.elementor-widget-wrap .elementor-widget-heading.elementor-widget-heading .elementor-heading-title{
+  color: $nccDarkGrey;
+}
+
+/* Buttons */
+.elementor-button{
+  background-color: $nccBlue;
+}
+.elementor-element{
+  .elementor-button{
+    background-color: $nccBlue;
+  }
+  &.elementor-button-info .elementor-button{
+    background-color: $nccPurple;
+  }
+  &.link-button{
+    a{
+      background-color: transparent;
+      color: $nccBlue;
+      border: none;
+      padding: 0;
+    }
+  }
+}

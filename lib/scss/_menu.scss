@@ -8,7 +8,7 @@
     font-weight: 400;
 
     li.current-menu-item > a{
-        background-color: $nccSecondary;
+        background-color: $nccBlue;
         color: #fff;
     }
 
@@ -18,11 +18,11 @@
         a{
             display: block;
             padding: 8px 10px;
-            background-color: $nccPrimary;
+            background-color: $nccDarkPurple;
             color: #fff;
 
             &:hover{
-                background-color: lighten($nccSecondary,10%);
+                background-color: lighten($nccBlue,10%);
                 color: #fff;
             }
         }
@@ -35,12 +35,12 @@
 
             li{
                 a{
-                    border-left: 5px solid $nccPrimary;
+                    border-left: 5px solid $nccDarkPurple;
                     padding: 8px 12px;
-                    background-color: $nccTertiary;
+                    background-color: $nccPurple;
                 }
                 &.current-menu-item a{
-                    border-color: $nccPrimary;
+                    border-color: $nccDarkPurple;
                 }
             }
         }

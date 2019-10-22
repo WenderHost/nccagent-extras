@@ -1,0 +1,16 @@
+/* What's New */
+article.whatsnew{
+  div.whatsnew,
+  div.elementor-inner,
+  div.elementor-section-wrap,
+  div.elementor-section-wrap > section.elementor-element,
+  div.elementor-container{
+    height: 100%;
+  }
+  div.elementor-widget-wrap{
+    flex-flow: column;
+  }
+  div.link-button{
+    margin-top: auto;
+  }
+}

@@ -1,0 +1,27 @@
+/* Top Bar */
+#top-bar-nav li a#contact-us{
+    padding-right: 0;
+}
+
+@media screen and (max-width: 1200px){
+    #top-bar-nav a{
+        display: block;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+    #top-bar-nav li a#contact-us{
+        padding-right: 8px;
+    }
+}
+
+@media screen and (max-width: 767px){
+  #top-bar-nav-column.elementor-column{
+    display: block !important;
+    width: 100%;
+
+    li a{
+      font-size: 14px;
+      padding: 4px 8px;
+    }
+  }
+}

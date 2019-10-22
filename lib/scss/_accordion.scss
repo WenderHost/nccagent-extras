@@ -1,6 +1,6 @@
 .accordion-toggle {
   display: block;
-  background-color: #7d81be;
+  background-color: $nccDarkPurple;
   color: #fff;
   font-family: 'Fira Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 28px;
@@ -26,13 +26,13 @@
 
 .product-title{
   padding-bottom: 4px;
-  border-bottom: 2px solid #7d81be;
+  border-bottom: 2px solid $nccDarkPurple;
 }
 .accordion-content,
 .product-content {
   display: none;
   padding: 1rem;
-  border-bottom: 2px solid #7d81be;
+  border-bottom: 2px solid $nccDarkPurple;
   margin-bottom: 3px;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
