@@ -129,3 +129,9 @@ function acf_get_products_by_state( $atts ){
   //return '<pre>' . print_r( $carriers_data, true ) . '</pre>';
 }
 add_shortcode( 'productsbystate', __NAMESPACE__ . '\\acf_get_products_by_state' );
+
+function display_beamer( $atts ){
+  $html = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/beamer.html' );
+  return $html;
+}
+add_shortcode( 'beamer', __NAMESPACE__ . '\\display_beamer' );
