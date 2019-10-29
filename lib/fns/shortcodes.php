@@ -99,9 +99,12 @@ function acf_get_products_by_state( $atts ){
     'order'           => 'ASC',
   ];
 
-  $carriers_data = [];
+
 
   $carriers_array = get_posts( $carriers_query_args );
+
+  $carriers_data = [];
+  $table_rows = [];
   if( $carriers_array ){
     wp_enqueue_script( 'datatables-init' );
     wp_localize_script( 'datatables-init', 'wpvars', [
@@ -117,12 +120,12 @@ function acf_get_products_by_state( $atts ){
         $products_array = [];
         foreach( $products as $product ){
           $products_array[] = [
-            'name'      => $product['product']->post_title,
+            'name'      => '<a href="' . get_the_permalink( $product['product']->ID ) . '">' . $product['product']->post_title . '</a>',
             'alt_name'  => $product['product_details']['alternate_product_name'],
             'states'    => $product['product_details']['states'],
           ];
         }
-        $carriers_data[$x]['name'] = get_the_title( $carrier->ID );
+        $carriers_data[$x]['name'] = '<a href="' . get_the_permalink( $carrier->ID ) . '">' . get_the_title( $carrier->ID ) . '</a>';
         $carriers_data[$x]['products'] = $products_array;
       }
       $x++;
