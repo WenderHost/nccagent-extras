@@ -79,7 +79,19 @@ function acf_get_product_carriers( $atts ){
 }
 add_shortcode( 'acf_product_carriers', __NAMESPACE__ . '\\acf_get_product_carriers' );
 
+/**
+ * Displays Products by State DataTable
+ *
+ * @param      <type>  $atts   The atts
+ *
+ * @return     string  ( description_of_the_return_value )
+ */
 function acf_get_products_by_state( $atts ){
+  $args = shortcode_atts([
+    'table_id' => 'datatable',
+    'table_class' => '',
+  ], $atts );
+
   $carriers_query_args = [
     'posts_per_page'  => -1,
     'post_type'       => 'carrier',
@@ -92,15 +104,14 @@ function acf_get_products_by_state( $atts ){
   $carriers_array = get_posts( $carriers_query_args );
   if( $carriers_array ){
     wp_enqueue_script( 'datatables-init' );
+    wp_localize_script( 'datatables-init', 'wpvars', [
+      'table_id' => $args['table_id'],
+      'table_class' => $args['table_class']
+    ]);
     wp_enqueue_style( 'datatables' );
 
     $x = 0;
     foreach( $carriers_array as $carrier ){
-      /*
-      $carriers_data[$x] = [
-        'name'  => get_the_title( $carrier->ID )
-      ];
-      */
       $products = get_field( 'products', $carrier->ID );
       if( $products ){
         $products_array = [];
@@ -124,9 +135,7 @@ function acf_get_products_by_state( $atts ){
     }
   }
 
-  return '<table id="datatable"><thead><tr><th style="width: 25%">Product</th><th style="width: 25%">Carrier</th><th style="width: 50%">States</th></tr></thead><tbody>' . implode( "\n", $table_rows ) . '</tbody></table>';
-
-  //return '<pre>' . print_r( $carriers_data, true ) . '</pre>';
+  return '<table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th style="width: 40%">States</th></tr></thead><tbody>' . implode( "\n", $table_rows ) . '</tbody></table>';
 }
 add_shortcode( 'productsbystate', __NAMESPACE__ . '\\acf_get_products_by_state' );
 

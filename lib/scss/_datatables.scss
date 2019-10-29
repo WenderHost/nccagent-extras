@@ -1,0 +1,21 @@
+/* DataTables */
+.dataTables_wrapper{
+  .dataTables_length,
+  .dataTables_filter{
+    label{
+      height: 42px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  }
+  .dataTables_length select{
+    margin: 0 8px;
+  }
+  .dataTables_filter input{
+    padding: .25rem;
+  }
+}
+table.datatable{
+  font-size: 14px;
+}
