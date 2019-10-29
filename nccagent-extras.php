@@ -1,15 +1,16 @@
 <?php
 /**
- * Plugin Name:     NCCAgent Extras
- * Plugin URI:      PLUGIN SITE HERE
- * Description:     Additional helpers for the NCCAgent.com website.
- * Author:          Michael Wender
- * Author URI:      https://mwender.com
- * Text Domain:     nccagent-extras
- * Domain Path:     /languages
- * Version:         1.0.0
+ * Plugin Name:       NCCAgent Extras
+ * Plugin URI:        https://github.com/WenderHost/nccagent-extras
+ * GitHub Plugin URI: https://github.com/WenderHost/nccagent-extras
+ * Description:       Additional helpers for the NCCAgent.com website.
+ * Author:            Michael Wender
+ * Author URI:        https://mwender.com
+ * Text Domain:       nccagent-extras
+ * Domain Path:       /languages
+ * Version:           1.0.1
  *
- * @package         Nccagent_Extras
+ * @package           Nccagent_Extras
  */
 
 // Include required files
