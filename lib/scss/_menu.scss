@@ -8,8 +8,8 @@
     font-weight: 400;
 
     li.current-menu-item > a{
-        background-color: $nccBlue;
-        color: #fff;
+        background-color: #fff;
+        color: $nccBlue;
     }
 
     li{
@@ -18,12 +18,13 @@
         a{
             display: block;
             padding: 8px 10px;
-            background-color: $nccDarkPurple;
+            background-color: $nccBlue;
             color: #fff;
 
             &:hover{
-                background-color: lighten($nccBlue,10%);
-                color: #fff;
+                /*background-color: lighten($nccBlue,10%);*/
+                background-color: darken(#fff,20%);
+                color: $nccBlue;
             }
         }
 
@@ -35,12 +36,17 @@
 
             li{
                 a{
-                    border-left: 5px solid $nccDarkPurple;
+                    border-left: 5px solid $nccBlue;
                     padding: 8px 12px;
-                    background-color: $nccPurple;
+                    background-color: darken(#fff, 20%);
+                    color: $nccBlue;
+
+                    &:hover{
+                        background-color: darken(#fff,10%);
+                    }
                 }
                 &.current-menu-item a{
-                    border-color: $nccDarkPurple;
+                    border-color: $nccBlue;
                 }
             }
         }
