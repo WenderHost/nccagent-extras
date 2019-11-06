@@ -9,6 +9,7 @@ function enqueue_scripts(){
 
   wp_enqueue_script( 'dropdown-side-menu', plugin_dir_url( __FILE__ ) . '../js/menu.js', ['jquery'], filemtime( plugin_dir_path( __FILE__ ) . '../js/menu.js' ), true );
 
-  wp_enqueue_style( 'nccagent-styles', plugin_dir_url( __FILE__ ) . '../css/main.css', ['hello-elementor','elementor-frontend'], plugin_dir_path( __FILE__ ) . '../css/main.css' );
+  wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Open+Sans&display=swap' );
+  wp_enqueue_style( 'nccagent-styles', plugin_dir_url( __FILE__ ) . '../css/main.css', ['google-fonts','hello-elementor','elementor-frontend'], plugin_dir_path( __FILE__ ) . '../css/main.css' );
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts' );
