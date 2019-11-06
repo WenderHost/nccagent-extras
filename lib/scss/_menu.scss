@@ -23,8 +23,7 @@
 
             &:hover{
                 /*background-color: lighten($nccBlue,10%);*/
-                background-color: darken(#fff,20%);
-                color: $nccBlue;
+                background-color: $nccDarkPurple;
             }
         }
 
@@ -38,11 +37,11 @@
                 a{
                     border-left: 5px solid $nccBlue;
                     padding: 8px 12px;
-                    background-color: darken(#fff, 20%);
+                    background-color: lighten($nccPurple, 15%);
                     color: $nccBlue;
 
                     &:hover{
-                        background-color: darken(#fff,10%);
+                        color: #fff;
                     }
                 }
                 &.current-menu-item a{
