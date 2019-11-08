@@ -147,3 +147,27 @@ function display_beamer( $atts ){
   return $html;
 }
 add_shortcode( 'beamer', __NAMESPACE__ . '\\display_beamer' );
+
+/**
+ * Displays post content while adding a "Read more..." link after a `/more` tag
+ *
+ * @param      <type>  $atts   The atts
+ *
+ * @return     string  HTML content with Read More applied.
+ */
+function readmore_content( $atts ){
+  global $post;
+  setup_postdata( $post );
+
+  $post_content = apply_filters( 'the_content', $post->post_content );
+  $split_content = get_extended( $post_content );
+  if( ! empty( $split_content['extended'] ) ){
+    $hidetext_js = "\n" . '<script type="text/javascript">htvars = {"carrier": "' . get_the_title( $post->ID ) . '"}</script>';
+    $hidetext_js.= "\n" . '<script type="text/javascript">' . file_get_contents( plugin_dir_path( __FILE__ ) . '../js/hidetext.js' ) . '</script>';
+
+    return $split_content['main'] . '<div class="hidetext">' . $split_content['extended'] . '</div>' . $hidetext_js;
+  } else {
+    return $post_content;
+  }
+}
+add_shortcode( 'readmore_content', __NAMESPACE__ . '\\readmore_content' );
