@@ -119,10 +119,11 @@ function acf_get_products_by_state( $atts ){
       if( $products ){
         $products_array = [];
         foreach( $products as $product ){
+          $states = ( is_array( $product['product_details']['states'] ) )? implode(', ', $product['product_details']['states'] ) : $product['product_details']['states'] ;
           $products_array[] = [
             'name'      => '<a href="' . get_the_permalink( $product['product']->ID ) . '">' . $product['product']->post_title . '</a>',
             'alt_name'  => $product['product_details']['alternate_product_name'],
-            'states'    => $product['product_details']['states'],
+            'states'    => $states,
           ];
         }
         $carriers_data[$x]['name'] = '<a href="' . get_the_permalink( $carrier->ID ) . '">' . get_the_title( $carrier->ID ) . '</a>';
@@ -134,7 +135,7 @@ function acf_get_products_by_state( $atts ){
 
   foreach( $carriers_data as $carrier ) {
     foreach( $carrier['products'] as $product ){
-      $table_rows[] = '<tr><td>' . $product['name'] . '</td><td>' . $carrier['name'] . '</td><td>' . implode( ', ', $product['states'] ) . '</td></tr>';
+      $table_rows[] = '<tr><td>' . $product['name'] . '</td><td>' . $carrier['name'] . '</td><td>' . $product['states'] . '</td></tr>';
     }
   }
 
