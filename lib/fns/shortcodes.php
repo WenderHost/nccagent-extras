@@ -163,8 +163,8 @@ function readmore_content( $atts ){
 
   $post_content = apply_filters( 'the_content', $post->post_content );
   $split_content = get_extended( $post_content );
-  if( ! empty( $split_content['extended'] ) ){
-    $hidetext_js = "\n" . '<script type="text/javascript">htvars = {"carrier": "' . get_the_title( $post->ID ) . '"}</script>';
+  if( ! empty( $split_content['extended'] ) && ! is_admin() ){
+    $hidetext_js = "\n" . '<script type="text/javascript">hideTextVars = {"carrier": "' . get_the_title( $post->ID ) . '"}</script>';
     $hidetext_js.= "\n" . '<script type="text/javascript">' . file_get_contents( plugin_dir_path( __FILE__ ) . '../js/hidetext.js' ) . '</script>';
 
     return $split_content['main'] . '<div class="hidetext">' . $split_content['extended'] . '</div>' . $hidetext_js;
