@@ -22,7 +22,8 @@ function acf_get_carrier_products( $atts ){
   if( 3 > count( $products ) ){
     foreach( $products as $product ){
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
-      $html.= '<h4 class="product-title">' . $product_title . '</h4><p><code>' . implode(', ', $product['product_details']['states'] ) . '</code></p>';
+      $states = ( is_array( $product['product_details']['states'] ) )? implode(', ', $product['product_details']['states'] ) : $product['product_details']['states'] ;
+      $html.= '<h4 class="product-title">' . $product_title . '</h4><p><code>' . $states . '</code></p>';
       $html.= '<div class="product-content">' . apply_filters( 'the_content', $product['product_details']['description'] ) . '</div>';
     }
   } else {
