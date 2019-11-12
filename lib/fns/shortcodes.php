@@ -159,11 +159,13 @@ add_shortcode( 'beamer', __NAMESPACE__ . '\\display_beamer' );
  */
 function readmore_content( $atts ){
   global $post;
-  setup_postdata( $post );
 
-  $post_content = apply_filters( 'the_content', $post->post_content );
+  $post_content = $post->post_content;
+  if( \Elementor\Plugin::$instance->editor->is_edit_mode() || \Elementor\Plugin::$instance->preview->is_preview_mode() )
+    return $post_content;
+
   $split_content = get_extended( $post_content );
-  if( ! empty( $split_content['extended'] ) && ! is_admin() ){
+  if( ! empty( $split_content['extended'] ) ){
     $hidetext_js = "\n" . '<script type="text/javascript">hideTextVars = {"carrier": "' . get_the_title( $post->ID ) . '"}</script>';
     $hidetext_js.= "\n" . '<script type="text/javascript">' . file_get_contents( plugin_dir_path( __FILE__ ) . '../js/hidetext.js' ) . '</script>';
 
