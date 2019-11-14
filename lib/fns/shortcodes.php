@@ -2,6 +2,15 @@
 
 namespace NCCAgent\shortcodes;
 
+/**
+ * Lists Carrier > Products in an accordion
+ *
+ * @param      array  $atts{
+ *  @type   int   $post_id  The post ID.
+ * }
+ *
+ * @return     string  HTML for the Carrier > Products accordion
+ */
 function acf_get_carrier_products( $atts ){
   $args = shortcode_atts( [
     'post_id' => null,
@@ -16,8 +25,6 @@ function acf_get_carrier_products( $atts ){
 
   $html = '<h3>' . get_the_title( $args['post_id'] ) . ' Policies and State Availability</h3>';
   $html.= '<div class="product-content"><p>These are ' . get_the_title( $args['post_id'] ) . '\'s current policies and state availability for ' . date('Y') . ', as well as information on contracting and appointment.</p></div>';
-  //$accordion_css = file_get_contents( plugin_dir_path(__FILE__) . '../css/accordion.css' );
-  //$html.= '<style type="text/css">' . $accordion_css . '</style>';
 
   if( 3 > count( $products ) ){
     foreach( $products as $product ){
@@ -44,6 +51,15 @@ function acf_get_carrier_products( $atts ){
 }
 add_shortcode( 'acf_carrier_products', __NAMESPACE__ . '\\acf_get_carrier_products' );
 
+/**
+ * Displays a list of Carriers for a Product
+ *
+ * @param      array  $atts{
+ *    @type   int   $post_id  The post ID.
+ * }
+ *
+ * @return     string  HTML list of Carriers for the Product
+ */
 function acf_get_product_carriers( $atts ){
   $args = shortcode_atts( [
     'post_id' => null,
@@ -61,10 +77,6 @@ function acf_get_product_carriers( $atts ){
     return '<p><code>No carriers found for `' . get_the_title( $post_id ) . '`.</code></p>';
 
   $html = '';
-
-  //$carriers_css = file_get_contents( plugin_dir_path( __FILE__ ) . '../css/carriers.css' );
-  //$html.= '<style type="text/css">' . $carriers_css . '</style>';
-
   $html.= '<ul class="carriers">';
 
   foreach( $carriers as $post ){
@@ -72,13 +84,50 @@ function acf_get_product_carriers( $atts ){
     $logo = get_the_post_thumbnail_url( $post, 'full' );
     if( ! $logo || empty( $logo ) )
       $logo = plugin_dir_url( __FILE__ ) . '../img/placeholder_logo_800x450.png';
-    $html.= '<li><a href="' . get_the_permalink() . '"><img src="' . $logo . '" alt="' . get_the_title() . '" /></a><h3><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h3></li>';
+    $html.= '<li><a href="' . get_the_permalink( $post_id ) . $post->post_name . '"><img src="' . $logo . '" alt="' . get_the_title() . '" /></a><h3><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h3></li>';
   }
   $html.= '</ul>';
 
   return $html;
 }
 add_shortcode( 'acf_product_carriers', __NAMESPACE__ . '\\acf_get_product_carriers' );
+
+function productbycarrier(){
+  global $post;
+
+  $carrier_name = sanitize_title_with_dashes( get_query_var( 'productcarrier' ) );
+  $args = [
+    'name'        => $carrier_name,
+    'post_type'   => 'carrier',
+    'post_status' => 'publish',
+    'numberposts' => 1,
+  ];
+  $carrier = get_posts($args);
+  if( $carrier ){
+    $carrier = $carrier[0];
+    $products = get_field( 'products', $carrier->ID );
+    if( have_rows( 'products', $carrier->ID ) ){
+      while( have_rows( 'products', $carrier->ID ) ): the_row();
+        $product = get_sub_field( 'product', true );
+        if( $post->ID == $product->ID ){
+          $current_product = $product;
+          $product_details = get_sub_field('product_details');
+          $product_name = ( ! empty( $product_details['alternate_product_name'] ) )? $product_details['alternate_product_name'] : $product->post_title ;
+          $product_description = $product_details['description'];
+          $product_states = $product_details['states'];
+
+          $states = ( is_array( $product_states ) )? implode(', ', $product_states ) : $product_states ;
+
+          return '<h1>' . $carrier->post_title . ' ' . $product_name . '</h1><p><code>' . $states . '</code></p>' . $product_description;
+        }
+      endwhile;
+    }
+    return '<pre>No product details were found for ' . $carrier->post_title . ' &gt; ' . $post->post_title . '</pre>';
+  }
+
+  return '<code>$carrier_name = ' . $carrier_name . '</code>';
+}
+add_shortcode( 'productbycarrier', __NAMESPACE__ . '\\productbycarrier' );
 
 /**
  * Displays Products by State DataTable
@@ -144,7 +193,12 @@ function acf_get_products_by_state( $atts ){
 }
 add_shortcode( 'productsbystate', __NAMESPACE__ . '\\acf_get_products_by_state' );
 
-function display_beamer( $atts ){
+/**
+ * Displays the Beamer embed HTML
+ *
+ * @return     string  The Beamer embed HTML
+ */
+function display_beamer(){
   $html = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/beamer.html' );
   return $html;
 }
@@ -153,11 +207,9 @@ add_shortcode( 'beamer', __NAMESPACE__ . '\\display_beamer' );
 /**
  * Displays post content while adding a "Read more..." link after a `/more` tag
  *
- * @param      <type>  $atts   The atts
- *
  * @return     string  HTML content with Read More applied.
  */
-function readmore_content( $atts ){
+function readmore_content(){
   global $post;
 
   $post_content = $post->post_content;

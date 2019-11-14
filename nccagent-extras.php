@@ -17,6 +17,7 @@
 require_once( 'lib/fns/enqueues.php' );
 require_once( 'lib/fns/shortcodes.php' );
 require_once( 'lib/fns/wp_nav_menus.php' );
+require_once( 'lib/fns/query_vars.php' );
 
 function ncc_error_log( $message = null ){
   static $counter = 1;
