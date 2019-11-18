@@ -107,10 +107,14 @@ function productbycarrier(){
     $carrier = $carrier[0];
     $products = get_field( 'products', $carrier->ID );
     if( have_rows( 'products', $carrier->ID ) ){
+      $html = '';
+      if( 1 < count( $products ) )
+        $html.= '<h1>' . get_the_title( $post->ID ) . ' Products from ' . get_the_title( $carrier->ID ) . '</h1>';
+
       while( have_rows( 'products', $carrier->ID ) ): the_row();
         $product = get_sub_field( 'product', true );
         if( $post->ID == $product->ID ){
-          $current_product = $product;
+          //$current_product = $product;
           $product_details = get_sub_field('product_details');
           $product_name = ( ! empty( $product_details['alternate_product_name'] ) )? $product_details['alternate_product_name'] : $product->post_title ;
           $product_description = $product_details['description'];
@@ -118,9 +122,12 @@ function productbycarrier(){
 
           $states = ( is_array( $product_states ) )? implode(', ', $product_states ) : $product_states ;
 
-          return '<h1>' . $carrier->post_title . ' ' . $product_name . '</h1><p><code>' . $states . '</code></p>' . $product_description;
+          $headingEle = ( 1 < count( $products ) )? 'h2' : 'h1';
+
+          $html.= '<' . $headingEle . '>' . $carrier->post_title . ' ' . $product_name . '</' . $headingEle . '><p><code>' . $states . '</code></p>' . $product_description;
         }
       endwhile;
+      return $html;
     }
     return '<pre>No product details were found for ' . $carrier->post_title . ' &gt; ' . $post->post_title . '</pre>';
   }
@@ -136,7 +143,7 @@ add_shortcode( 'productbycarrier', __NAMESPACE__ . '\\productbycarrier' );
  *
  * @return     string  ( description_of_the_return_value )
  */
-function acf_get_products_by_state( $atts ){
+function plan_finder( $atts ){
   $args = shortcode_atts([
     'table_id' => 'datatable',
     'table_class' => '',
@@ -169,9 +176,16 @@ function acf_get_products_by_state( $atts ){
       if( $products ){
         $products_array = [];
         foreach( $products as $product ){
-          $states = ( is_array( $product['product_details']['states'] ) )? implode(', ', $product['product_details']['states'] ) : $product['product_details']['states'] ;
+          $states = $product['product_details']['states'];
+          if( is_array( $states ) )
+            sort( $states );
+          $states = ( is_array( $states ) )? implode(' ', $states ) : $states ;
+          $states = $states;
+
+          $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
+
           $products_array[] = [
-            'name'      => '<a href="' . get_the_permalink( $product['product']->ID ) . '">' . $product['product']->post_title . '</a>',
+            'name'      => '<a href="' . get_the_permalink( $product['product']->ID ) . $carrier->post_name . '">' . $product_title . '</a> <span>' . $product['product']->post_title . '</span>',
             'alt_name'  => $product['product_details']['alternate_product_name'],
             'states'    => $states,
           ];
@@ -191,7 +205,7 @@ function acf_get_products_by_state( $atts ){
 
   return '<table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th style="width: 40%">States</th></tr></thead><tbody>' . implode( "\n", $table_rows ) . '</tbody></table>';
 }
-add_shortcode( 'productsbystate', __NAMESPACE__ . '\\acf_get_products_by_state' );
+add_shortcode( 'productsbystate', __NAMESPACE__ . '\\plan_finder' );
 
 /**
  * Displays the Beamer embed HTML

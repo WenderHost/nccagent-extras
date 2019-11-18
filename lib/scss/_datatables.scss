@@ -26,6 +26,7 @@ table.dataTable{
   thead{
     th{
       border: 0 !important;
+      background-color: lighten($nccBlue,60%);
     }
   }
   td.dataTables_empty{

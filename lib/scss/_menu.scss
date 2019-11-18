@@ -4,12 +4,17 @@
     padding-left: 0;
     list-style-type: none;
     font-family: $headingFont;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
 
     li.current-menu-item > a{
         background-color: #fff;
         color: $nccBlue;
+
+        &:hover{
+            background-color: #fff;
+            color: $nccBlue;
+        }
     }
 
     li{
