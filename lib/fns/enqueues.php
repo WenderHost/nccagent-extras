@@ -10,7 +10,7 @@ function enqueue_scripts(){
 
   wp_enqueue_script( 'dropdown-side-menu', plugin_dir_url( __FILE__ ) . '../js/menu.js', ['jquery'], filemtime( plugin_dir_path( __FILE__ ) . '../js/menu.js' ), true );
 
-  wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Fira+Sans:700,700i&Roboto&display=swap' );
-  wp_enqueue_style( 'nccagent-styles', plugin_dir_url( __FILE__ ) . '../' . NCC_CSS_DIR . '/main.css', ['google-fonts','hello-elementor','elementor-frontend'], plugin_dir_path( __FILE__ ) . '../' . NCC_CSS_DIR . '/main.css' );
+  //wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Fira+Sans:700,700i&Roboto&display=swap' ); 'google-fonts',
+  wp_enqueue_style( 'nccagent-styles', plugin_dir_url( __FILE__ ) . '../' . NCC_CSS_DIR . '/main.css', ['hello-elementor','elementor-frontend'], filemtime( plugin_dir_path( __FILE__ ) . '../' . NCC_CSS_DIR . '/main.css' ) );
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts' );
