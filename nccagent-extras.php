@@ -12,10 +12,13 @@
  *
  * @package           Nccagent_Extras
  */
+$css_dir = ( stristr( site_url(), '.local' ) || SCRIPT_DEBUG )? 'css' : 'dist' ;
+define( 'NCC_CSS_DIR', $css_dir );
 
 // Include required files
 require_once( 'lib/fns/enqueues.php' );
 require_once( 'lib/fns/shortcodes.php' );
+require_once( 'lib/fns/wp-login.php' );
 require_once( 'lib/fns/wp_nav_menus.php' );
 require_once( 'lib/fns/query_vars.php' );
 
