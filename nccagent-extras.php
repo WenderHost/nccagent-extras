@@ -23,6 +23,7 @@ require_once( 'lib/fns/wp-login.php' );
 require_once( 'lib/fns/wp_nav_menus.php' );
 require_once( 'lib/fns/query_vars.php' );
 require_once( 'lib/fns/salesforce.php' );
+require_once( 'lib/fns/user-profiles.php' );
 
 function ncc_error_log( $message = null ){
   static $counter = 1;
