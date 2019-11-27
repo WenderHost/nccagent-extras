@@ -21,10 +21,14 @@ function csg_api(){
       $login = $request->get_param('email');
       $password = $request->get_param('password');
 
+      if( empty( $login ) ){
+        return new \WP_Error('noemail', 'You did not provide an email.', ['status' => 400]);
+      }
+
       $user = get_user_by( 'login', $login );
 
       if( ! $user )
-        return new \WP_Error( 'invalid_email', 'We could not locate a user with the login/email you entered (' . $login . ').', [
+        return new \WP_Error( 'invalid_email', 'We could not locate a user with the login/email you provided (`' . $login . '`).', [
           'status' => 400,
         ]);
 
