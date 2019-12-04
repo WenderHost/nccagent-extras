@@ -26,6 +26,20 @@ require_once( 'lib/fns/query_vars.php' );
 require_once( 'lib/fns/salesforce.php' );
 require_once( 'lib/fns/user-profiles.php' );
 
+/**
+ * Don't send the `Login Details` notification email.
+ */
+if ( !function_exists( 'wp_new_user_notification' ) ) :
+  function wp_new_user_notification( $user_id, $plaintext_pass = '' ) {
+    return;
+  }
+endif;
+
+/**
+ * Enhanced logging
+ *
+ * @param      string  $message  The message
+ */
 function ncc_error_log( $message = null ){
   static $counter = 1;
 
