@@ -1,0 +1,64 @@
+/* DataTables */
+.dataTables_wrapper{
+  .dataTables_length,
+  .dataTables_filter{
+    label{
+      height: 42px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  }
+  .dataTables_length select{
+    margin: 0 8px;
+  }
+  .dataTables_filter input{
+    padding: .25rem;
+  }
+}
+.dataTables_length,
+.dataTables_filter{
+  display: none;
+}
+table.dataTable{
+  font-size: 14px;
+  border-collapse: collapse;
+
+  thead{
+    th{
+      border: 0 !important;
+      background-color: lighten($nccBlue,60%);
+    }
+  }
+  td.dataTables_empty{
+    height: 300px;
+    vertical-align: middle;
+    font-family: $headingFont;
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  &.no-footer{
+    border-bottom: 0;
+  }
+}
+.chiclet{
+  /* Positioning */
+
+  /* Box-model */
+  display: inline-block;
+  margin: 0 .4rem .4rem 0;
+  padding: .25em;
+  width: 2rem;
+
+  /* Typography */
+  color: #fff;
+  text-align: center;
+
+  /* Visual */
+  background-color: lighten($nccBlue,40%);
+  border-radius: 3px;
+
+  /* Misc */
+
+}

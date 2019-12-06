@@ -163,12 +163,13 @@ function plan_finder( $atts ){
   $carriers_data = [];
   $table_rows = [];
   if( $carriers_array ){
-    wp_enqueue_script( 'datatables-init' );
-    wp_localize_script( 'datatables-init', 'wpvars', [
+    wp_enqueue_script( 'plan-finder' );
+    wp_localize_script( 'plan-finder', 'wpvars', [
       'table_id' => $args['table_id'],
       'table_class' => $args['table_class']
     ]);
-    wp_enqueue_style( 'datatables' );
+    //wp_enqueue_style( 'datatables' );
+    //wp_enqueue_style( 'select2' );
 
     $x = 0;
     foreach( $carriers_array as $carrier ){
@@ -179,7 +180,7 @@ function plan_finder( $atts ){
           $states = $product['product_details']['states'];
           if( is_array( $states ) )
             sort( $states );
-          $states = ( is_array( $states ) )? implode(' ', $states ) : $states ;
+          $states = ( is_array( $states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $states ) . '</span>' : $states ;
           $states = $states;
 
           $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
