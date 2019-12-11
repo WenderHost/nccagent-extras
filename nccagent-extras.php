@@ -19,12 +19,12 @@ define( 'NCC_CSS_DIR', $css_dir );
 require_once( 'lib/fns/admin-bar.php' );
 require_once( 'lib/fns/csg.php' );
 require_once( 'lib/fns/enqueues.php' );
+require_once( 'lib/fns/hubspot.php' );
+require_once( 'lib/fns/query_vars.php' );
 require_once( 'lib/fns/shortcodes.php' );
 require_once( 'lib/fns/wp-login.php' );
 require_once( 'lib/fns/wp_nav_menus.php' );
-require_once( 'lib/fns/query_vars.php' );
 require_once( 'lib/fns/rest-api.php' );
-require_once( 'lib/fns/salesforce.php' );
 require_once( 'lib/fns/user-profiles.php' );
 
 /**

@@ -15,39 +15,34 @@ function products_rest_api(){
 
       $carriers_array = get_posts( $carriers_query_args );
 
-      $carriers_data = [];
-      $products_data = new \stdClass();
-      $table_rows = [];
+
       if( $carriers_array ){
-        $x = 0;
+
+        // DataTables JSON expects an object with a `data` property containing an array of our rows which will be products.
+        $products_data = new \stdClass();
+
         foreach( $carriers_array as $carrier ){
           $products = get_field( 'products', $carrier->ID );
           if( $products ){
             $products_array = [];
             foreach( $products as $product ){
+
+              // Get our array of `states`, sort them alphabetically, and format them as a string of HTML `chiclets`:
               $states = $product['product_details']['states'];
               if( is_array( $states ) )
                 sort( $states );
               $states = ( is_array( $states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $states ) . '</span>' : $states ;
               $states = $states;
 
+              // Set $product_title to not be empty so that this product always has an `alt_name`:
               $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
-  /*
-  foreach( $carriers_data as $carrier ) {
-    foreach( $carrier['products'] as $product ){
-      $table_rows[] = '<tr><td class="details-control">[+]</td><td>' . $product['link'] . '</td><td>' . $carrier['name'] . '</td><td>' . $product['states'] . '</td><td><h4><a href="' . get_the_permalink( $product['ID'] ) . $product['carrier_slug'] . '">' . $product['carrier_name'] . ' ' . $product['name'] . '</a></h4><div class="states">' . $product['states'] . '</div></td></tr>';
-    }
-  }
-  /**/
-              $products_data->data[$x] = [
-                /*'product'     => '<a href="' . get_the_permalink( $product['product']->ID ) . $carrier->post_name . '">' . $product_title . '</a> <span>' . $product['product']->post_title . '</span>',*/
+
+              $products_data->data[] = [
                 'product' => [
                   'alt_name' => $product_title,
                   'name'     => $product['product']->post_title,
                   'url'      => get_the_permalink( $product['product']->ID ) . $carrier->post_name,
                 ],
-                /*
-                'carrier'     => '<a href="' . get_the_permalink( $carrier->ID ) . '">' . get_the_title( $carrier->ID ). '</a>',*/
                 'carrier' => [
                   'name'  => get_the_title( $carrier->ID ),
                   'url'   => get_the_permalink( $carrier->ID )
@@ -55,13 +50,12 @@ function products_rest_api(){
                 'states'      => $states,
                 'description' => $product['product_details']['description'],
               ];
-              $x++;
             }
           }
 
         }
         wp_send_json( $products_data );
-      } // if( $carriers_array )
+      } // END if( $carriers_array )
       return new \WP_Error('noproducts', __('No products found!') );
     }
   ]);
