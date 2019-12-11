@@ -2,6 +2,20 @@
 
 namespace NCCAgent\csg;
 
+/**
+ * Endpoint setup for CSG Actuarial mobile app authentication.
+ *
+ * Given an email and password, WordPress will respond with a
+ * success or fail if we have a user with `username=$email` and
+ * `password=$password`.
+ *
+ * Route: {site_url}/wp-json/nccagent/v1/verfiyAccount
+ *
+ * REQUEST params:
+ *
+ * - email    (string) User's email address which is their `login` inside WordPress
+ * - password (string) User's password
+ */
 function csg_api(){
   register_rest_route( 'nccagent/v1', 'verifyAccount', [
     'methods'   => 'POST,GET',
