@@ -3,11 +3,12 @@
   font-family: $copyFont;
 }
 .elementor{
-  a:not(.wp-block-button__link){
+  a:not(.accordion-toggle):not(.wp-block-button__link){
     color: $nccBlue;
   }
 
-  .elementor-text-editor a{
+  .elementor-text-editor a,
+  .elementor-widget-shortcode a:not(.accordion-toggle){
     text-decoration: underline;
   }
 }

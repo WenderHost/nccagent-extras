@@ -1,6 +1,6 @@
-.accordion-toggle {
+a.accordion-toggle {
   display: block;
-  background-color: $nccDarkPurple;
+  background-color: $nccNavy;
   color: #fff;
   font-family: $headingFont;
   font-size: 28px;
@@ -9,7 +9,7 @@
   margin-bottom: 1px;
 }
 .accordion-toggle.active{
-  background-color: #86ae84;
+  background-color: $nccBlue;
 }
 .accordion-toggle:after{
   content: '+';
@@ -20,7 +20,7 @@
   content: '-';
 }
 .accordion-toggle:hover{
-  background-color: #86ae84;
+  background-color: $nccBlue;
   color: #fff;
 }
 
