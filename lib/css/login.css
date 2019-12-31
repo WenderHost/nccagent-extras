@@ -1,5 +1,6 @@
 /* Login CSS */
 /* Global Vars */
+/* New Palette */
 body.login div#login h1 a {
   background-image: url(../img/nccagent-logo_1000x242.png);
   background-size: 320px 77px;
@@ -7,6 +8,6 @@ body.login div#login h1 a {
   height: 77px; }
 
 body.login.wp-core-ui .button.button-large {
-  background-color: #0d4ca2;
-  border-color: #0d4ca2; }
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvbG9naW4uc2NzcyIsIi4uL3Njc3MvX3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGNBQUE7QUNBQSxnQkFBQTtBREdBO0VBS1Esd0RBQXdEO0VBQ3hELDJCQUEyQjtFQUMzQixXQUFXO0VBQ1gsWUFBWSxFQUFBOztBQVJwQjtFQWNJLHlCQ2RhO0VEZWIscUJDZmEsRUFBQSIsImZpbGUiOiJsb2dpbi5jc3MifQ== */
+  background-color: #29aae2;
+  border-color: #29aae2; }
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvbG9naW4uc2NzcyIsIi4uL3Njc3MvX3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGNBQUE7QUNBQSxnQkFBQTtBQU9BLGdCQUFBO0FESkE7RUFLUSx3REFBd0Q7RUFDeEQsMkJBQTJCO0VBQzNCLFdBQVc7RUFDWCxZQUFZLEVBQUE7O0FBUnBCO0VBY0kseUJDUmE7RURTYixxQkNUYSxFQUFBIiwiZmlsZSI6ImxvZ2luLmNzcyJ9 */

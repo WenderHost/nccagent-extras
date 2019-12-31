@@ -2,8 +2,14 @@
 *{
   font-family: $copyFont;
 }
-a{
+.elementor{
+  a:not(.wp-block-button__link){
     color: $nccBlue;
+  }
+
+  .elementor-text-editor a{
+    text-decoration: underline;
+  }
 }
 p{
   font-weight: 400;
