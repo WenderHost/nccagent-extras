@@ -16,7 +16,7 @@ function dirlister( $atts ){
     $path = 'http://vpn.ncc-agent.com/docs/';
 
   wp_localize_script( 'dirlister', 'wpvars', [ 'self' => get_permalink( $post ), 'path' => $path, 'endpoint' => rest_url('nccagent/v1/dirlister') ] );
-  return '<style type="text/css">#wpadminbar{display: none;}html{margin-top: 0 !important; background-color: #f3f3f3;}</style><div id="dirlister"><h1>Document Resources</h1><h5>...</h5><ul><li>Loading directory...</li></ul></div>';
+  return '<style type="text/css">#wpadminbar{display: none;}html{margin-top: 0 !important;}</style><div id="dirlister"><h1>Document Resources</h1><h5>...</h5><ul><li>Loading directory...</li></ul></div>';
 }
 add_shortcode( 'dirlister', __NAMESPACE__ . '\\dirlister' );
 
