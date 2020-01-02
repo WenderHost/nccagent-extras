@@ -3,12 +3,12 @@
   font-family: $copyFont;
 }
 .elementor{
-  a:not(.accordion-toggle):not(.wp-block-button__link){
+  a:not(.accordion-toggle):not(.wp-block-button__link):not(.elementor-button){
     color: $nccBlue;
   }
 
   .elementor-text-editor a,
-  .elementor-widget-shortcode a:not(.accordion-toggle){
+  .elementor-widget-shortcode a:not(.accordion-toggle):not(.elementor-button){
     text-decoration: underline;
   }
 }
@@ -38,11 +38,19 @@ ol, ul{
 
 /* Buttons */
 .elementor-button{
-  background-color: $nccBlue;
+  background-color: $nccNavy;
 }
 .elementor-element{
-  .elementor-button{
-    background-color: $nccBlue;
+  a.elementor-button{
+    background-color: $nccNavy;
+    color: #fff;
+    text-decoration: none;
+    border: 2px solid $nccNavy;
+
+    &:hover{
+      background: #fff;
+      color: $nccNavy;
+    }
   }
   &.elementor-button-info .elementor-button{
     background-color: $nccPurple;

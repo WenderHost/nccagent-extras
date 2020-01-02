@@ -3,7 +3,7 @@
 namespace NCCAgent\query_vars;
 
 /**
- * Add `productcarrier` as a query variable.
+ * Add `productcarrier` and `path` as a query variable.
  *
  * @param      array  $vars   The query variables
  *
@@ -11,6 +11,7 @@ namespace NCCAgent\query_vars;
  */
 function add_query_vars( $vars ){
   $vars[] = 'productcarrier';
+  $vars[] = 'path';
   return $vars;
 }
 add_filter( 'query_vars', __NAMESPACE__ . '\\add_query_vars' );
