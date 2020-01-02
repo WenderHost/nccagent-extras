@@ -17,6 +17,8 @@ function enqueue_scripts(){
 
   wp_enqueue_script( 'dropdown-side-menu', plugin_dir_url( __FILE__ ) . '../js/menu.js', ['jquery'], filemtime( plugin_dir_path( __FILE__ ) . '../js/menu.js' ), true );
 
+  wp_register_script( 'dirlister', plugin_dir_url( __FILE__ ) . '../js/dirlister.js', ['jquery'], filemtime( plugin_dir_path( __FILE__ ) . '../js/dirlister.js' ), true );
+
   // We currently are locally hosting our Google Fonts, uncomment the following if we want to offload them to the Google CDN:
   //wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Fira+Sans:700,700i&Roboto&display=swap' ); 'google-fonts',
 
