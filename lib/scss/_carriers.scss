@@ -44,8 +44,10 @@ span.read-more a{
   border: 1px solid #999;
   */
 
-  h5{
+  h5,
+  h5 a{
     font-family: monospace;
+    font-size: 16px;
   }
 
   ul{

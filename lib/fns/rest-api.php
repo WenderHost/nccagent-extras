@@ -25,7 +25,7 @@ function dirlister_rest_api(){
         $path = ltrim( $path, '/' );
         ncc_error_log('Removing initial slash(es) from $path.' . "\n" . '$path = ' . $path );
       }
-      $path_array = explode('/', $path );
+      $path_array = explode('/', trim( $path, '/' ) );
 
       $fullpath = 'http://vpn.ncc-agent.com/docs/' . $path;
       $contents = @file_get_contents( $fullpath );
@@ -43,6 +43,7 @@ function dirlister_rest_api(){
 
       $response = new \stdClass();
       $response->path = $path;
+      $response->path_array = $path_array;
       $response->fullpath = $fullpath;
       $response->carrier = str_replace('%20', ' ', ucwords( $path_array[0] ) );
       $response->data = $links;
