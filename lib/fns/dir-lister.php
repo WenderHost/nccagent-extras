@@ -15,8 +15,13 @@ function dirlister( $atts ){
   if( ! $path )
     $path = 'http://vpn.ncc-agent.com/docs/';
 
-  wp_localize_script( 'dirlister', 'wpvars', [ 'self' => get_permalink( $post ), 'path' => $path, 'endpoint' => rest_url('nccagent/v1/dirlister') ] );
-  return '<style type="text/css">#wpadminbar{display: none;}html{margin-top: 0 !important;}</style><div id="dirlister"><h1>Document Resources</h1><h5>...</h5><ul><li>Loading directory...</li></ul></div>';
+  wp_localize_script( 'dirlister', 'wpvars', [
+    'self' => get_permalink( $post ),
+    'path' => $path,
+    'endpoint' => rest_url('nccagent/v1/dirlister'),
+    'nonce' => wp_create_nonce( 'wp_rest' ) ]
+  );
+  return '<style type="text/css">#wpadminbar{display: none;}html{margin-top: 0 !important;}</style><div id="dirlister"><h1>Carrier Document Library</h1><h5>...</h5><ul><li class="message">Loading directory...</li></ul></div>';
 }
 add_shortcode( 'dirlister', __NAMESPACE__ . '\\dirlister' );
 

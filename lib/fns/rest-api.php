@@ -10,9 +10,15 @@ namespace NCCAgent\restapi;
 function dirlister_rest_api(){
   register_rest_route( 'nccagent/v1', 'dirlister', [
     'methods' => 'GET',
+    'permission_callback' => function(){
+      if( ! current_user_can('read') ){
+        return new \WP_Error('forbidden', __('Only <a href="' . site_url( 'register' ) . '">registered users</a> can access the carrier document library.','nccagent') );
+      } else {
+        return true;
+      }
+    },
     'callback' => function( $data ){
       $path = $data->get_param( 'path' );
-      ncc_error_log('$path = ' . $path );
 
       if( is_null( $path ) || empty( $path ) )
         return new \WP_Error( 'nopath', __( 'No path provided',  'nccagent' ) );
@@ -21,10 +27,10 @@ function dirlister_rest_api(){
       $replace = ['','','','','','%20'];
       $path = str_replace( $search, $replace, $path );
 
-      if( '/' == substr( $path, 0, 1 ) ){
+      // Removing initial slashes from path
+      if( '/' == substr( $path, 0, 1 ) )
         $path = ltrim( $path, '/' );
-        ncc_error_log('Removing initial slash(es) from $path.' . "\n" . '$path = ' . $path );
-      }
+
       $path_array = explode('/', trim( $path, '/' ) );
 
       $fullpath = 'http://vpn.ncc-agent.com/docs/' . $path;
@@ -33,6 +39,7 @@ function dirlister_rest_api(){
         return new \WP_Error( 'notfound', __( 'No listing found at `' . $fullpath . '`', 'nccagent')  );
 
       preg_match_all( "/href=[\"'](?<link>.*?)[\"']>(?<text>.*?)<\/a>/i", $contents, $hrefs );
+
       $links = [];
       if( 0 < count( $hrefs['link'] ) ){
         foreach( $hrefs['link'] as $key => $link ){
