@@ -149,68 +149,6 @@ function plan_finder( $atts ){
     'table_class' => '',
   ], $atts );
 
-  /*
-  $carriers_query_args = [
-    'posts_per_page'  => -1,
-    'post_type'       => 'carrier',
-    'orderby'         => 'title',
-    'order'           => 'ASC',
-  ];
-
-  $carriers_array = get_posts( $carriers_query_args );
-
-  $carriers_data = [];
-  $table_rows = [];
-
-  if( $carriers_array ){
-    wp_enqueue_script( 'plan-finder' );
-    wp_localize_script( 'plan-finder', 'wpvars', [
-      'table_id' => $args['table_id'],
-      'table_class' => $args['table_class'],
-      'planFinderApi' => rest_url( 'nccagent/v1/products' )
-    ]);
-    //wp_enqueue_style( 'datatables' );
-    //wp_enqueue_style( 'select2' );
-
-    $x = 0;
-    foreach( $carriers_array as $carrier ){
-      $products = get_field( 'products', $carrier->ID );
-      if( $products ){
-        $products_array = [];
-        foreach( $products as $product ){
-          $states = $product['product_details']['states'];
-          if( is_array( $states ) )
-            sort( $states );
-          $states = ( is_array( $states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $states ) . '</span>' : $states ;
-          $states = $states;
-
-          $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
-
-          $products_array[] = [
-            'ID'            => $product['product']->ID,
-            'link'          => '<a href="' . get_the_permalink( $product['product']->ID ) . $carrier->post_name . '">' . $product_title . '</a> <span>' . $product['product']->post_title . '</span>',
-            'name'          => $product_title,
-            'carrier_name'  => $carrier->post_title,
-            'carrier_slug'  => $carrier->post_name,
-            'alt_name'      => $product['product_details']['alternate_product_name'],
-            'states'        => $states,
-            'description'   => $product['product_details']['description'],
-          ];
-        }
-        $carriers_data[$x]['name'] = '<a href="' . get_the_permalink( $carrier->ID ) . '">' . get_the_title( $carrier->ID ) . '</a>';
-        $carriers_data[$x]['products'] = $products_array;
-      }
-      $x++;
-    }
-  } // if( $carriers_array )
-
-  foreach( $carriers_data as $carrier ) {
-    foreach( $carrier['products'] as $product ){
-      $table_rows[] = '<tr><td class="details-control">[+]</td><td>' . $product['link'] . '</td><td>' . $carrier['name'] . '</td><td>' . $product['states'] . '</td><td><h4><a href="' . get_the_permalink( $product['ID'] ) . $product['carrier_slug'] . '">' . $product['carrier_name'] . ' ' . $product['name'] . '</a></h4><div class="states">' . $product['states'] . '</div></td></tr>';
-    }
-  }
-  /**/
-
   wp_enqueue_script( 'plan-finder' );
   wp_localize_script( 'plan-finder', 'wpvars', [
     'table_id' => $args['table_id'],
@@ -218,7 +156,8 @@ function plan_finder( $atts ){
     'planFinderApi' => rest_url( 'nccagent/v1/products' )
   ]);
 
-  return '<h5>Plan Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th style="width: 40px;">&nbsp;</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th style="width: 40%">States</th><th id="selectors">&nbsp;</th></tr></thead><tbody></tbody></table>'; // ' . implode( "\n", $table_rows ) . '
+  //return '<h5>Plan Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th style="width: 40px;">&nbsp;</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th style="width: 40%">States</th><th id="selectors">&nbsp;</th></tr></thead><tbody></tbody></table>';
+  return '<h5>Plan Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th class="label" style="width: 40px;">Filters:</th><th style="width: 40%">States</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th id="selectors">&nbsp;</th></tr></thead><tbody></tbody></table>';
 }
 add_shortcode( 'productsbystate', __NAMESPACE__ . '\\plan_finder' );
 

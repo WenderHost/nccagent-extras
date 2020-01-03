@@ -100,6 +100,7 @@ function products_rest_api(){
               $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
 
               $products_data->data[] = [
+                'states'  => $states,
                 'product' => [
                   'alt_name' => $product_title,
                   'name'     => $product['product']->post_title,
@@ -109,7 +110,6 @@ function products_rest_api(){
                   'name'  => get_the_title( $carrier->ID ),
                   'url'   => get_the_permalink( $carrier->ID )
                 ],
-                'states'      => $states,
                 'description' => $product['product_details']['description'],
               ];
             }
