@@ -35,7 +35,7 @@ function dirlister_button( $atts ){
   $html = '<div class="elementor-element elementor-widget elementor-widget-button">
     <div class="elementor-widget-container">
       <div class="elementor-button-wrapper">
-        <a href="{siteurl}?path={vpn_link}" target="_blank" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+        <a href="{siteurl}?path={vpn_link}" class="elementor-button-link elementor-button elementor-size-sm" role="button">
           <span class="elementor-button-content-wrapper">
             <span class="elementor-button-icon elementor-align-icon-right"><i aria-hidden="true" class="far fa-window-restore"></i></span>
             <span class="elementor-button-text">Open {carrier} Document Library</span>
