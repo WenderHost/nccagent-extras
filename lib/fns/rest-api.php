@@ -43,8 +43,10 @@ function dirlister_rest_api(){
       $links = [];
       if( 0 < count( $hrefs['link'] ) ){
         foreach( $hrefs['link'] as $key => $link ){
-          $links[$key] = ['link' => 'http://vpn.ncc-agent.com' . $link, 'text' => $hrefs['text'][$key] ];
-          $links[$key]['type'] = ( '.pdf' == substr( $link, -4 ) )? 'file' : 'dir' ;
+          $text = ( '[To Parent Directory]' != $hrefs['text'][$key] )? $hrefs['text'][$key] : '&larr; To Parent Directory' ;
+          $links[$key] = ['link' => 'http://vpn.ncc-agent.com' . $link, 'text' => $text ];
+          $filetype = wp_check_filetype( basename( $link ) );
+          $links[$key]['type'] = ( ! empty( $filetype['ext'] ) )? 'file' : 'dir' ;
         }
       }
 
