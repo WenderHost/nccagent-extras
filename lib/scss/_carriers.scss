@@ -38,7 +38,6 @@ span.read-more a{
 
   h5,
   h5 a{
-    font-family: monospace;
     font-size: 16px;
   }
 
@@ -58,6 +57,23 @@ span.read-more a{
       &:hover{
         background: lighten($nccBlue,35%);
       }
+
+      &.button{
+        display: inline-block;
+        background: $nccNavy;
+        color: #fff;
+        text-decoration: none;
+        border: 2px solid $nccNavy;
+        border-radius: 3px;
+        margin-bottom: 6px;
+        padding: 3px 6px;
+        font-size: 14px;
+
+        &:hover{
+          background-color: #fff;
+          color: $nccNavy;
+        }
+      }
     }
 
     &.message a{
@@ -65,9 +81,9 @@ span.read-more a{
       padding: 0;
     }
   }
-
+  /*
   li:nth-child(odd){
     background-color: #e6e7e8;
-
   }
+  /**/
 }
