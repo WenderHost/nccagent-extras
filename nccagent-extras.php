@@ -20,6 +20,7 @@ require_once( 'lib/fns/admin-bar.php' );
 require_once( 'lib/fns/csg.php' );
 require_once( 'lib/fns/dir-lister.php' );
 require_once( 'lib/fns/enqueues.php' );
+require_once( 'lib/fns/gravityforms.php' );
 require_once( 'lib/fns/hubspot.php' );
 require_once( 'lib/fns/query_vars.php' );
 require_once( 'lib/fns/shortcodes.php' );
