@@ -41,7 +41,8 @@ function populate_checkbox( $form ) {
 
         $online_contracting = get_post_meta( $carrier->ID, 'online_contracting_link', true );
 
-        $choices[] = array( 'text' => '<a href="' . get_edit_post_link( $carrier->ID ) . '" target="_blank">' . $carrier->post_title . '</a> (' . $online_contracting . ')', 'value' => $carrier->post_title . ' (' . $online_contracting . ')' );
+        //$choices[] = array( 'text' => '<a href="' . get_edit_post_link( $carrier->ID ) . '" target="_blank">' . $carrier->post_title . '</a> (' . $online_contracting . ')', 'value' => $carrier->post_title . ' (' . $online_contracting . ')' );
+        $choices[] = array( 'text' => $carrier->post_title, 'value' => $carrier->post_title . '|' . $online_contracting );
         $inputs[] = array( 'label' => $carrier->post_title, 'id' => "{$field_id}.{$input_id}" );
 
         $input_id++;
