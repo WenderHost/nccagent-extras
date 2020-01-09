@@ -45,6 +45,52 @@ function custom_confirmation( $confirmation, $form, $entry ){
 add_filter( 'gform_confirmation', __NAMESPACE__ . '\\custom_confirmation', 10, 3 );
 
 /**
+ * Modifies the Online Contracting form notification.
+ *
+ * @param      <type>  $notification  The notification
+ * @param      <type>  $form          The form
+ * @param      <type>  $entry         The entry
+ *
+ * @return     <type>  ( description_of_the_return_value )
+ */
+function modify_notification( $notification, $form, $entry ){
+  $form_title = $form['title'];
+  switch( $form_title ){
+    case 'Online Contracting':
+      if( 'Online Contracting Request' == $notification['name'] ){
+        $total_choices = count( $form['fields'][GF_CARRIER_CHECKLIST_FIELD_ID]['choices'] );
+        $carriers = [];
+        for( $x = 1; $x <= $total_choices; $x++ ){
+          $entry_key = GF_CARRIER_CHECKLIST_FIELD_ID . '.' . $x;
+          if( array_key_exists( $entry_key, $entry ) && ! empty( $entry[$entry_key] ) ){
+            $carriers[] = explode('|', $entry[$entry_key] );
+          }
+        }
+        if( 0 < count( $carriers ) ){
+          $html = '<h3><font style="font-family: sans-serif; font-size: 16px; font-weight: bold;">Selected Carrier(s):</font></h3><table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA"><tbody><tr><td><table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#ffffff">';
+          $html.= '<tbody><tr bgcolor="#EAF2FA"><td><font style="font-family: sans-serif; font-size: 12px; font-weight: bold;">Carrier</font></td><td><font style="font-family: sans-serif; font-size: 12px; font-weight: bold;">Type</font></td></tr>';
+          $x = 1;
+          foreach( $carriers as $carrier ){
+            $bgcolor = ( $x % 2 )? '#fff' : '#ededed';
+            $html.= '<tr bgcolor="' . $bgcolor . '"><td><font style="font-family: sans-serif; font-size: 12px">' . $carrier[0] . '</font></td><td><font style="font-family: sans-serif; font-size: 12px">' . $carrier[1] . '</font></td></tr>';
+            $x++;
+          }
+          $html.= '</tbody></table></td></tr></table>';
+          $notification['message'].= $html;
+        }
+      }
+
+      break;
+
+    default:
+      // nothing
+  }
+
+  return $notification;
+}
+add_action( 'gform_notification', __NAMESPACE__ . '\\modify_notification', 10, 3 );
+
+/**
  * Populates the checkbox field of our Online Contracting form
  *
  * In order for this form to work, define the following
