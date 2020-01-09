@@ -1,0 +1,30 @@
+/* GravityForms */
+body.elementor-page .gform_wrapper{
+  .gfield_checkbox{
+    li[class^="gchoice"]{
+      display: flex;
+      align-items: center;
+      margin: 16px 0;
+
+      input[type=checkbox]{
+        margin: 0 8px 0 0;
+      }
+
+      label{
+        font-size: 16px;
+        line-height: 1;
+      }
+    }
+  }
+  .gform_button.button{
+    border: 2px solid $nccNavy;
+    background: $nccNavy;
+    color: #fff;
+    padding: 6px 24px;
+
+    &:hover{
+      background-color: #fff;
+      color: $nccNavy;
+    }
+  }
+}

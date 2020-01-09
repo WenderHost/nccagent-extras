@@ -2,6 +2,48 @@
 
 namespace NCCAgent\gravityforms;
 
+function custom_confirmation( $confirmation, $form, $entry ){
+  $form_title = $form['title'];
+  switch( $form_title ){
+    case 'Online Contracting':
+      $showSureLC = false;
+      $sureLCCarriers = [];
+      $showStandard = false;
+      $standardCarriers = [];
+
+      $confirmation = '<h2>Submission Complete</h2><p>Thank you for signing up for online contracting. Please follow these instructions below:</p>';
+
+      foreach ($entry as $key => $value) {
+        if( GF_CARRIER_CHECKLIST_FIELD_ID == substr( $key, 0, 1 ) && ! empty( $value ) ){
+          $data = explode( '|', $value );
+          if( 'SureLC' == $data[1] ){
+            $sureLCCarriers[] = $data[0];
+            $showSureLC = true;
+          }
+          if( 'Standard' == $data[1] ){
+            $standardCarriers[] = $data[0];
+            $showStandard = true;
+          }
+        }
+      }
+      if( $showSureLC )
+        $confirmation.= '<h3>SureLC Instructions</h3><p>The following carriers have streamlined their signup process via our online signup portal: ' . implode( ', ', $sureLCCarriers ) . '</p><p>SureLC sign up instructions go here.</p><hr>';
+      if( $showStandard )
+        $confirmation.= '<h3>Standard Instructions</h3><p>We will be contacting you to help with the sign up for these carriers: ' . implode( ', ', $standardCarriers ) . '</p><p>Standard sign up instructions go here.</p>';
+
+      $confirmation = '<div class="alert alert-info">' . $confirmation . '</div>';
+
+      //$confirmation.= '<pre>$entry = ' . print_r( $entry, true ) . '</pre>';
+      break;
+
+    default:
+      $confirmation.= "\n<!-- No custom confirmation for `$form_title` form. -->";
+  }
+
+  return $confirmation;
+}
+add_filter( 'gform_confirmation', __NAMESPACE__ . '\\custom_confirmation', 10, 3 );
+
 /**
  * Populates the checkbox field of our Online Contracting form
  *
