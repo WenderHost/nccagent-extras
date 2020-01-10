@@ -27,4 +27,19 @@ body.elementor-page .gform_wrapper{
       color: $nccNavy;
     }
   }
+  .standard-labels{
+    &.field_sublabel_above .ginput_complex.ginput_container label,
+    &.field_sublabel_above div[class*=gfield_time_].ginput_container label{
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: .5pt;
+      white-space: nowrap;
+
+      &::after{
+        content: '*';
+        color: #790000;
+        margin-left: 4px;
+      }
+    }
+  }
 }
