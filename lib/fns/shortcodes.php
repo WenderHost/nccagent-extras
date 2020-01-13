@@ -157,7 +157,7 @@ function plan_finder( $atts ){
   ]);
 
   //return '<h5>Plan Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th style="width: 40px;">&nbsp;</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th style="width: 40%">States</th><th id="selectors">&nbsp;</th></tr></thead><tbody></tbody></table>';
-  return '<h5>Plan Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th class="label" style="width: 40px;">Filters:</th><th style="width: 40%">States</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th id="selectors">&nbsp;</th></tr></thead><tbody></tbody></table>';
+  return '<h5>Plan Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th class="label" style="width: 40px; font-size: 12px; padding: 4px;">Make your selection(s):</th><th style="width: 40%">States</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th id="selectors">&nbsp;</th></tr></thead><tbody></tbody></table>';
 }
 add_shortcode( 'productsbystate', __NAMESPACE__ . '\\plan_finder' );
 

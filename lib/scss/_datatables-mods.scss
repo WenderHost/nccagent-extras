@@ -84,15 +84,22 @@ table.dataTable{
 
 /* Select2 */
 #selectors{
-  //display: flex;
+  display: flex;
+  align-items: center;
+
 
   label{
     font-size: 16px;
     font-weight: bold;
+    margin: 0 4px 0 12px;
+
+    &:first-child{
+      margin-left: 0;
+    }
   }
 
   .select2-container{
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
 
     .select2-selection--single{
 
