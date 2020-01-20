@@ -2,12 +2,15 @@
 /* Global Vars */
 /* New Palette */
 body.login div#login h1 a {
-  background-image: url(../img/nccagent-logo_1000x242.png);
-  background-size: 320px 77px;
+  background-image: url(../img/ncc-logo_1000x186.png);
+  background-size: 320px 60px;
   width: 100%;
-  height: 77px; }
+  height: 60px; }
 
 body.login.wp-core-ui .button.button-large {
-  background-color: #29aae2;
-  border-color: #29aae2; }
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvbG9naW4uc2NzcyIsIi4uL3Njc3MvX3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGNBQUE7QUNBQSxnQkFBQTtBQU9BLGdCQUFBO0FESkE7RUFLUSx3REFBd0Q7RUFDeEQsMkJBQTJCO0VBQzNCLFdBQVc7RUFDWCxZQUFZLEVBQUE7O0FBUnBCO0VBY0kseUJDUmE7RURTYixxQkNUYSxFQUFBIiwiZmlsZSI6ImxvZ2luLmNzcyJ9 */
+  background-color: #002d72;
+  border-color: #002d72; }
+  body.login.wp-core-ui .button.button-large:hover {
+    background-color: #29aae2;
+    border-color: #29aae2; }
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvbG9naW4uc2NzcyIsIi4uL3Njc3MvX3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGNBQUE7QUNBQSxnQkFBQTtBQU9BLGdCQUFBO0FESkE7RUFLUSxtREFBbUQ7RUFDbkQsMkJBQTJCO0VBQzNCLFdBQVc7RUFDWCxZQUFZLEVBQUE7O0FBUnBCO0VBY0kseUJDVGE7RURVYixxQkNWYSxFQUFBO0VETGpCO0lBa0JNLHlCQ1pXO0lEYVgscUJDYlcsRUFBQSIsImZpbGUiOiJsb2dpbi5jc3MifQ== */

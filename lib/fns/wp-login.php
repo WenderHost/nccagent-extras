@@ -2,6 +2,9 @@
 
 namespace NCCAgent\wplogin;
 
+/**
+ * Adds our custom CSS with the NCC logo to the WP Login screen.
+ */
 function login_scripts(){
   wp_enqueue_style('ncc-login', plugin_dir_url( __FILE__ ) . '../' . NCC_CSS_DIR . '/login.css' );
 }
