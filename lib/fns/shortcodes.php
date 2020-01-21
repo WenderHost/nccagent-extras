@@ -92,6 +92,15 @@ function acf_get_product_carriers( $atts ){
 }
 add_shortcode( 'acf_product_carriers', __NAMESPACE__ . '\\acf_get_product_carriers' );
 
+/**
+ * Displays a Carrier's products for a particular product.
+ *
+ * Example: Browsing `Cancer, Heart Attack, Stroke > Aetna`
+ * will show all `Cancer, Heart Attack, Stroke` products
+ * for `Aetna`.
+ *
+ * @return     string  HTML for Products by Carrier
+ */
 function productbycarrier(){
   global $post;
 
@@ -113,14 +122,14 @@ function productbycarrier(){
 
       while( have_rows( 'products', $carrier->ID ) ): the_row();
         $product = get_sub_field( 'product', true );
+        // Display the product if it matches the Product page we're currently viewing
         if( $post->ID == $product->ID ){
-          //$current_product = $product;
           $product_details = get_sub_field('product_details');
           $product_name = ( ! empty( $product_details['alternate_product_name'] ) )? $product_details['alternate_product_name'] : $product->post_title ;
           $product_description = $product_details['description'];
           $product_states = $product_details['states'];
 
-          $states = ( is_array( $product_states ) )? implode(', ', $product_states ) : $product_states ;
+          $states = ( is_array( $product_states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product_states ) . '</span>' : $product_states ;
 
           $headingEle = ( 1 < count( $products ) )? 'h2' : 'h1';
 
