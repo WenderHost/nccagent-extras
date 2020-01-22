@@ -96,7 +96,6 @@ function products_rest_api(){
               if( is_array( $states ) )
                 sort( $states );
               $states = ( is_array( $states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $states ) . '</span>' : $states ;
-              $states = $states;
 
               // Set $product_title to not be empty so that this product always has an `alt_name`:
               $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
