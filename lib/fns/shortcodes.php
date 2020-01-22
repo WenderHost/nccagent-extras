@@ -29,8 +29,8 @@ function acf_get_carrier_products( $atts ){
   if( 3 > count( $products ) ){
     foreach( $products as $product ){
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
-      $states = ( is_array( $product['product_details']['states'] ) )? implode(', ', $product['product_details']['states'] ) : $product['product_details']['states'] ;
-      $html.= '<h4 class="product-title">' . $product_title . '</h4><p><code>' . $states . '</code></p>';
+      $states = ( is_array( $product['product_details']['states'] ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product['product_details']['states'] ) . '</span>' : $product['product_details']['states'] ;
+      $html.= '<h4 class="product-title">' . $product_title . '</h4><p>' . $states . '</p>';
       $html.= '<div class="product-content">' . apply_filters( 'the_content', $product['product_details']['description'] ) . '</div>';
     }
   } else {
@@ -42,7 +42,8 @@ function acf_get_carrier_products( $atts ){
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
       $html.= '<a href="#' . $product['product']->post_name . '-' . $x . '" class="accordion-toggle">' . $product_title . '</a>';
       $product_description = apply_filters( 'the_content', $product['product_details']['description'] );
-      $html.= '<div class="accordion-content" id="' . $product['product']->post_name . '-' . $x . '"><p><code>' . implode(', ', $product['product_details']['states'] ) . '</code></p>' . $product_description . '</div>';
+      $states = ( is_array( $product['product_details']['states'] ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product['product_details']['states'] ) . '</span>' : $product['product_details']['states'] ;
+      $html.= '<div class="accordion-content" id="' . $product['product']->post_name . '-' . $x . '"><p>' . $states . '</p>' . $product_description . '</div>';
       $x++;
     }
   }
