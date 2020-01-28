@@ -28,6 +28,7 @@ require_once( 'lib/fns/wp-login.php' );
 require_once( 'lib/fns/wp_nav_menus.php' );
 require_once( 'lib/fns/rest-api.php' );
 require_once( 'lib/fns/user-profiles.php' );
+require_once( 'lib/fns/wpcli.php' );
 
 /**
  * Don't send the `Login Details` notification email.
