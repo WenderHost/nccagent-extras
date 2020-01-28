@@ -193,12 +193,9 @@ table.dataTable{
   text-align: center;
 
   /* Visual */
-  background-color: lighten($nccDarkGrey,25%);
+  background-color: darken(#91b9dc,5%);
   border-radius: 3px;
 
   /* Misc */
 
-}
-.product-template-default .chiclet{
-  background-color: lighten($nccDarkGrey,35%);
 }
