@@ -44,7 +44,8 @@ class NCC_Cli{
           $product = get_sub_field( 'product' );
           $product_details = get_sub_field( 'product_details' );
           $states = ( ! empty($product_details['states']) )? implode(',', $product_details['states'] ) : '';
-          $product_columns = [ 'Product' => $product->post_title, 'Alternate_Product_Name' => $product_details['alternate_product_name'], 'States' => $states ];
+          $product_name = ( is_object( $product ) )? $product->post_title : '***NO_PRODUCT_FOUND***';
+          $product_columns = [ 'Product' => $product_name, 'Alternate_Product_Name' => $product_details['alternate_product_name'], 'States' => $states ];
           $items[] = array_merge( $carrier_columns, $product_columns );
         endwhile;
       } else {
