@@ -43,7 +43,8 @@ class NCC_Cli{
         while( \have_rows( 'products', $carrier->ID ) ): the_row();
           $product = get_sub_field( 'product' );
           $product_details = get_sub_field( 'product_details' );
-          $product_columns = [ 'Product' => $product->post_title, 'Alternate_Product_Name' => $product_details['alternate_product_name'], 'States' => implode(',', $product_details['states'] ) ];
+          $states = ( ! empty($product_details['states']) )? implode(',', $product_details['states'] ) : '';
+          $product_columns = [ 'Product' => $product->post_title, 'Alternate_Product_Name' => $product_details['alternate_product_name'], 'States' => $states ];
           $items[] = array_merge( $carrier_columns, $product_columns );
         endwhile;
       } else {
