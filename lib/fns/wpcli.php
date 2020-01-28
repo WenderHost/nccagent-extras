@@ -41,15 +41,18 @@ class NCC_Cli{
       $carrier_columns = [ 'ID' => $carrier->ID, 'Carrier' => $carrier->post_title ];
       if( \have_rows( 'products', $carrier->ID ) ){
         while( \have_rows( 'products', $carrier->ID ) ): the_row();
+          $row_id = get_row_index();
           $product = get_sub_field( 'product' );
           $product_details = get_sub_field( 'product_details' );
+
           $states = ( ! empty($product_details['states']) )? implode(',', $product_details['states'] ) : '';
           $product_name = ( is_object( $product ) )? $product->post_title : '***NO_PRODUCT_FOUND***';
-          $product_columns = ['Row_ID' => get_row_index(), 'Product' => $product_name, 'Alternate_Product_Name' => $product_details['alternate_product_name'], 'States' => $states ];
+
+          $product_columns = ['Row_ID' => $row_id, 'Product' => $product_name, 'Alternate_Product_Name' => $product_details['alternate_product_name'], 'States' => $states ];
           $items[] = array_merge( $carrier_columns, $product_columns );
         endwhile;
       } else {
-        $items[] = array_merge( $carrier_columns, ['Row_ID' => get_row_index(), 'Product' => '', 'Alternate_Product_Name' => '', 'States' => '' ] );
+        $items[] = array_merge( $carrier_columns, ['Row_ID' => '', 'Product' => '', 'Alternate_Product_Name' => '', 'States' => '' ] );
       }
     }
     $headers = ['ID','Carrier', 'Row_ID','Product','Alternate_Product_Name','States'];
