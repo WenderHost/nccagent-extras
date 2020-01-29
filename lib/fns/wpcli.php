@@ -67,6 +67,72 @@ class NCC_Cli{
     fclose( $handle );
     \WP_CLI::success('Created ' . $csv_filename );
   }
+
+  /**
+   * Imports a CSV of Carriers and Products.
+   *
+   * ## OPTIONS
+   *
+   * <filename>
+   * : The CSV file we're importing.
+   *
+   * @param      <type>  $args        The arguments
+   * @param      <type>  $assoc_args  The associated arguments
+   */
+  public function import( $args, $assoc_args ){
+    list( $filename ) = $args;
+    \WP_CLI::line('🔔 Importing `' . basename($filename) . '`');
+
+    if( ! file_exists($filename) )
+      \WP_CLI::error('File does not exist (`' . $filename . '`). Exiting!');
+
+    $items = [];
+    if(($h = fopen( $filename, 'r' )) !== FALSE ){
+      $total_lines = count( file( $filename ) );
+      $x = 0;
+      $updated_carrier_products = 0;
+      $progress = \WP_CLI\Utils\make_progress_bar( '🔔 Updating Carrier > Products > States', $total_lines );
+      while(( $data = fgetcsv( $h, 2048, ',' )) !== FALSE ){
+        if( 0 == $x ){
+          // Process column headings
+          if( ! is_array( $data ) )
+            \WP_CLI::error('Strange...are you sure your file is formatted as a CSV?');
+
+          if( 'ID' != $data[0] )
+            \WP_CLI::error('Your CSV needs the following header row:' . "\n\n" . 'ID,Carrier,Row_ID,Product,Alternate_Product_Name,States');
+
+          $headers = $data;
+          \WP_CLI::line('🔔 We are importing with the following columns: ' . implode( ', ', $headers ) );
+        } else {
+          // Process the row
+          $row_id = $data[2] - 1;
+          $selector = 'products_' . $row_id . '_product_details_states';
+          $states = explode( ',', $data[5] );
+          sort($states);
+          $post_id = $data[0];
+          $product_name = ( ! empty( $data[4] ) )? $data[4] . ' (' . $data[3] . ')' : $data[3] ;
+
+          // Update the field
+          $updated = update_field( $selector, $states, $post_id );
+          if( $updated ){
+            $items[] = [ 'Carrier' => $data[1], 'Product' => $product_name, 'States' => implode( ',', $states ), '✅' => '✅' ];
+            $updated_carrier_products++;
+          } else {
+            $items[] = [ 'Carrier' => $data[1], 'Product' => $product_name, 'States' => implode( ',', $states ), '✅' => '⛔︎' ];
+          }
+        }
+        $progress->tick();
+        $x++;
+      }
+      fclose( $h );
+      $progress->finish();
+      \WP_CLI\Utils\format_items( 'table', $items, ['Carrier','Product','States','✅'] );
+      \WP_CLI::success( 'Import finished with ' . $updated_carrier_products . ' Carrier > Products updated.' );
+    } else {
+      \WP_CLI::error('I\'m unable to open your file.');
+    }
+
+  }
 }
 $nccCli = new NCC_Cli();
 if( class_exists( '\\WP_CLI' ) )
