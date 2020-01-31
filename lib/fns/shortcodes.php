@@ -159,14 +159,19 @@ function plan_finder( $atts ){
     'table_class' => '',
   ], $atts );
 
+  global $post;
+  $help_graphic;
+  if( get_field( 'plan_finder_help_graphic', $post->ID ) )
+    $help_graphic = get_field( 'plan_finder_help_graphic', $post->ID );
+
   wp_enqueue_script( 'plan-finder' );
   wp_localize_script( 'plan-finder', 'wpvars', [
     'table_id' => $args['table_id'],
     'table_class' => $args['table_class'],
-    'planFinderApi' => rest_url( 'nccagent/v1/products' )
+    'planFinderApi' => rest_url( 'nccagent/v1/products' ),
+    'helpGraphic' => $help_graphic,
   ]);
 
-  //return '<h5>Plan Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th style="width: 40px;">&nbsp;</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th style="width: 40%">States</th><th id="selectors">&nbsp;</th></tr></thead><tbody></tbody></table>';
   return '<h5>Plan Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th class="label" style="width: 40px; font-size: 12px; padding: 4px;">Make your selection(s):</th><th style="width: 40%">States</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th id="selectors">&nbsp;</th></tr></thead><tbody></tbody></table>';
 }
 add_shortcode( 'productsbystate', __NAMESPACE__ . '\\plan_finder' );
