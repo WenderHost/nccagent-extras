@@ -129,6 +129,10 @@ function products_rest_api(){
             $products_array = [];
             foreach( $products as $product ){
 
+              // Skip if the Product isn't published
+              if( 'publish' != $product['product']->post_status )
+                continue;
+
               // Get our array of `states`, sort them alphabetically, and format them as a string of HTML `chiclets`:
               $states = $product['product_details']['states'];
               if( is_array( $states ) )
