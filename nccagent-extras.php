@@ -17,6 +17,7 @@ define( 'NCC_CSS_DIR', $css_dir );
 
 // Include required files
 require_once( 'lib/fns/admin-bar.php' );
+require_once( 'lib/fns/admin-custom-columns.php' );
 require_once( 'lib/fns/csg.php' );
 require_once( 'lib/fns/dir-lister.php' );
 require_once( 'lib/fns/enqueues.php' );
@@ -24,6 +25,7 @@ require_once( 'lib/fns/gravityforms.php' );
 require_once( 'lib/fns/hubspot.php' );
 require_once( 'lib/fns/query_vars.php' );
 require_once( 'lib/fns/shortcodes.php' );
+require_once( 'lib/fns/utilities.php' );
 require_once( 'lib/fns/wp-login.php' );
 require_once( 'lib/fns/wp_nav_menus.php' );
 require_once( 'lib/fns/rest-api.php' );

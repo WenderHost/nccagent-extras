@@ -64,6 +64,44 @@ function dirlister_rest_api(){
 add_action('rest_api_init', __NAMESPACE__ . '\\dirlister_rest_api' );
 
 /**
+ * Adds the `orderby=rand` option for REST queries for the `Team Member` CPT Collection.
+ *
+ * @param      array  $params  The parameters
+ *
+ * @return     array  The filtered $params
+ */
+function filter_add_team_member_rest_orderby_params( $params ){
+  $params['orderby']['enum'][] = 'rand';
+  return $params;
+}
+add_filter( 'rest_team_member_collection_params', __NAMESPACE__ . '\\filter_add_team_member_rest_orderby_params' );
+
+/**
+ * Adds custom fields to REST response for `team_member` CPT.
+ */
+function register_team_member_fields(){
+  register_rest_field( 'team_member', 'team_member_details', [
+    'get_callback' => function( ){
+      global $post;
+      $name = $post->post_title;
+      $title = get_field('title');
+      $phone = get_field('phone');
+      $email = get_field('email');
+      $bio = get_field('bio');
+      $states = strip_tags( get_the_term_list( $post->ID, 'state', '', ', ', '' ) );
+      $photo = ( has_post_thumbnail( $post ) )? get_the_post_thumbnail_url( $post, 'large' ) : plugin_dir_url( __FILE__ ) . '../img/avatar.png' ;
+      $team_member_details = [ 'name' => $name, 'title' => $title, 'phone' => $phone, 'email' => $email, 'bio' => $bio, 'states' => $states, 'photo' => $photo ];
+      return $team_member_details;
+    },
+    'schema' => [
+      'description' => __( 'Team member phone number.' ),
+      'type' => 'string',
+    ],
+  ]);
+}
+add_action( 'rest_api_init', __NAMESPACE__ . '\\register_team_member_fields' );
+
+/**
  * Provides a `Products` endpoint for use in the Plan Finder.
  */
 function products_rest_api(){
@@ -101,7 +139,6 @@ function products_rest_api(){
               $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
 
               $products_data->data[] = [
-                'states'  => $states,
                 'product' => [
                   'alt_name' => $product_title,
                   'name'     => $product['product']->post_title,
@@ -112,6 +149,7 @@ function products_rest_api(){
                   'url'   => get_the_permalink( $carrier->ID )
                 ],
                 'description' => $product['product_details']['description'],
+                'states'  => $states,
               ];
             }
           }
