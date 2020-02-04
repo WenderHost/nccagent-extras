@@ -154,6 +154,9 @@ add_shortcode( 'productbycarrier', __NAMESPACE__ . '\\productbycarrier' );
  * @return     string  ( description_of_the_return_value )
  */
 function plan_finder( $atts ){
+
+  static $called = false;
+
   $args = shortcode_atts([
     'table_id' => 'datatable',
     'table_class' => '',
@@ -165,14 +168,20 @@ function plan_finder( $atts ){
     $help_graphic = get_field( 'plan_finder_help_graphic', $post->ID );
 
   wp_enqueue_script( 'plan-finder' );
-  wp_localize_script( 'plan-finder', 'wpvars', [
-    'table_id' => $args['table_id'],
-    'table_class' => $args['table_class'],
-    'planFinderApi' => rest_url( 'nccagent/v1/products' ),
-    'helpGraphic' => $help_graphic,
-  ]);
+  if( ! $called ){
+    $state_options = \NCCAgent\utilities\get_state_options();
+    wp_localize_script( 'plan-finder', 'wpvars', [
+      'table_id'        => $args['table_id'],
+      'table_class'     => $args['table_class'],
+      'planFinderApi'   => rest_url( 'nccagent/v1/products' ),
+      'helpGraphic'     => $help_graphic,
+      'stateOptions'    => $state_options,
+      'marketerUrl'     => rest_url( 'wp/v2/team_member/' ),
+    ]);
+    $called = true;
+  }
 
-  return '<h5>Plan Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th class="label" style="width: 40px; font-size: 12px; padding: 4px;">Make your selection(s):</th><th style="width: 40%">States</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th id="selectors">&nbsp;</th></tr></thead><tbody></tbody></table>';
+  return '<h5>Plan Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th class="label" style="width: 40px; font-size: 12px; padding: 4px;">Make your selection(s):</th><th style="width: 40%">States</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th id="selectors">&nbsp;</th></tr><tr><th id="ncc-staff" colspan="5"></th></tr></thead><tbody></tbody></table>';
 }
 add_shortcode( 'productsbystate', __NAMESPACE__ . '\\plan_finder' );
 
