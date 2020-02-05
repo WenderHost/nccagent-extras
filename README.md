@@ -14,6 +14,10 @@ I've built the NCC website using Elementor and the Hello Elementor theme. This i
 
 ## Changelog ##
 
+### 1.4.1 ###
+* Adding dropdown to last page in breadcrumb for `[supercrumbs]`.
+* Refactoring "down chevron" for `[supercrumbs]`.
+
 ### 1.4.0 ###
 * Adding `[supercrumbs]` shortcode for "Super Breadcrumbs" with dropdown menus for child pages.
 

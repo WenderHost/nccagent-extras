@@ -168,9 +168,16 @@ function custom_breadcrumbs( $atts ) {
                 $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><strong class="dropbtn" title="' . get_the_title() . '"> ' . get_the_title() . '</strong>' . $children_subnav . '</li>';
 
             } else {
+              $item_classes = [ 'item-current', 'item-' . $post->ID ];
+              $anchor_classes = [ 'bread-current', 'bread-' . $post->ID ];
+              $children_subnav = get_subnav( $post->ID, $post->post_type );
+              if( $children_subnav ){
+                $item_classes[] = 'dropdown';
+                $anchor_classes[] = 'dropbtn';
+              }
 
-                // Just display current page if not parents
-                $html[] = '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '"> ' . get_the_title() . '</strong></li>';
+              // Just display current page if not parents
+              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><strong class="' . implode( ' ', $anchor_classes ) . '"> ' . get_the_title() . '</strong>' . $children_subnav . '</li>';
 
             }
 
@@ -281,7 +288,7 @@ function get_subnav( $post_parent_id, $post_type = 'page' ){
         $item_classes[] = 'item-current';
       $childrens[] = '<a class="' . implode( ' ', $item_classes ) . '" href="' . get_permalink( $child ) . '" title="' . get_the_title( $child ) . '">' . get_the_title( $child ) . '</a>';
     }
-    $children_subnav = '<div class="child-subnav dropdown-content">' . implode( '', $childrens ) . '</div>';
+    $children_subnav = '<div class="down-arrow"></div><div class="child-subnav dropdown-content">' . implode( '', $childrens ) . '</div>';
   }
 
   return $children_subnav;
