@@ -8,7 +8,7 @@
  * Author URI:        https://mwender.com
  * Text Domain:       nccagent-extras
  * Domain Path:       /languages
- * Version:           1.3.1
+ * Version:           1.4.0
  *
  * @package           Nccagent_Extras
  */
@@ -18,6 +18,7 @@ define( 'NCC_CSS_DIR', $css_dir );
 // Include required files
 require_once( 'lib/fns/admin-bar.php' );
 require_once( 'lib/fns/admin-custom-columns.php' );
+require_once( 'lib/fns/breadcrumbs.php' );
 require_once( 'lib/fns/csg.php' );
 require_once( 'lib/fns/dir-lister.php' );
 require_once( 'lib/fns/enqueues.php' );

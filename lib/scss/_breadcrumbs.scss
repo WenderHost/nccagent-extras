@@ -1,0 +1,115 @@
+#breadcrumbs{
+  list-style:none;
+  margin: 0;
+  padding: 0;
+
+  & > li{
+      display:inline-block;
+      vertical-align:middle;
+      margin-right:15px;
+
+      a{
+        display: block;
+        padding: 8px 0;
+        text-decoration: none;
+
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+  }
+
+  .separator{
+      font-size:18px;
+      font-weight:300;
+      color: lighten($nccDarkGrey,25%);
+  }
+
+  .dropdown{
+    position: relative;
+    display: inline-block;
+    padding-right: 8px;
+
+    &:after{
+      content: '\f0d7';
+      font-family: 'Font Awesome 5 Free';
+      color: $nccNavy;
+      position: absolute;
+      right: -8px;
+      top: 6px;
+    }
+
+    @media only screen and (max-width: 500px){
+      position: inherit;
+
+      &:after{
+        position: relative;
+        float: right;
+        margin-top: -40px;
+        margin-right: -8px;
+      }
+    }
+
+    .dropbtn{
+      cursor: pointer;
+      display: block;
+      padding: 8px 0;
+    }
+
+    $dropDownWidth: 300px;
+    .dropdown-content{
+      display: none;
+      position: absolute;
+      left: -8px;
+      max-width: $dropDownWidth;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+      z-index: 99;
+      border: 1px solid lighten($nccDarkGrey,60%);
+      border-width: 1px 1px 0 1px;
+      border-radius: 0 5px 5px 5px;
+
+      a:first-child{
+        border-radius: 0 5px 0 0 ;
+      }
+      a:last-child{
+        border-radius: 0 0 5px 5px;
+      }
+
+      a{
+        display: block;
+        padding: 6px 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: $dropDownWidth;
+        background-color: #fff;
+        text-decoration: none;
+        color: $nccNavy;
+        border-bottom: 1px solid lighten($nccDarkGrey,60%);
+
+        &.item-current{
+          background-color: lighten($nccDarkGrey,55%);
+        }
+
+        &:hover{
+          background-color: $nccNavy;
+          color: #fff;
+        }
+      }
+
+      @media only screen and (max-width: 500px){
+        max-width: 100vw;
+        width: 100vw;
+        left: -8vw;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        a{
+          max-width: 100vw;
+        }
+      }
+    }
+  }
+  .dropdown:hover .dropdown-content{display: block;}
+
+}
