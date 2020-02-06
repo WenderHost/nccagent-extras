@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.3.2
-Stable tag: 1.4.0
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 1.4.2 =
+* Adding `Staff Type(s)` and `Photo` columns to Team Members admin listing.
+* Adding `admin.css` for styling Team Members columns admin listing.
 
 = 1.4.1 =
 * Adding dropdown to last page in breadcrumb for `[supercrumbs]`.
