@@ -1,0 +1,14 @@
+/* WP Admin Styles */
+.column-photo{
+
+  width: 60px;
+}
+.column-title{
+  width: 25%;
+}
+.column-states{
+  width: 50%;
+}
+.column-staff_type{
+  width: 15%;
+}

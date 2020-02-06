@@ -30,3 +30,11 @@ function enqueue_scripts(){
   wp_enqueue_style( 'nccagent-styles', plugin_dir_url( __FILE__ ) . '../' . NCC_CSS_DIR . '/main.css', ['hello-elementor','elementor-frontend'], filemtime( plugin_dir_path( __FILE__ ) . '../' . NCC_CSS_DIR . '/main.css' ) );
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts' );
+
+/**
+ * Custom styles for the WP Admin
+ */
+function custom_admin_styles(){
+  wp_enqueue_style( 'ncc-admin-styles', plugin_dir_url( __FILE__ ) . '../css/admin.css', null, filemtime( plugin_dir_path( __FILE__ ) . '../css/admin.css' ) );
+}
+add_action( 'admin_head', __NAMESPACE__ . '\\custom_admin_styles' );
