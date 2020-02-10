@@ -2,6 +2,11 @@
 
 namespace NCCAgent\userprofiles;
 
+/**
+ * Adds fields to user profiles
+ *
+ * @param      object  $user   The user
+ */
 function extra_user_profile_fields( $user ) {
 ?>
     <h3><?php _e("NCC profile information", "blank"); ?></h3>
@@ -20,6 +25,13 @@ function extra_user_profile_fields( $user ) {
 add_action( 'show_user_profile', __NAMESPACE__ . '\\extra_user_profile_fields' );
 add_action( 'edit_user_profile', __NAMESPACE__ . '\\extra_user_profile_fields' );
 
+/**
+ * Saves data from extra user profile fields
+ *
+ * @param      int   $user_id  The user identifier
+ *
+ * @return     boolean  Returns `false` when user data isn't saved.
+ */
 function save_extra_user_profile_fields( $user_id ) {
   if ( !current_user_can( 'edit_user', $user_id ) ) {
       return false;
@@ -28,3 +40,33 @@ function save_extra_user_profile_fields( $user_id ) {
 }
 add_action( 'personal_options_update', __NAMESPACE__ . '\\save_extra_user_profile_fields' );
 add_action( 'edit_user_profile_update', __NAMESPACE__ . '\\save_extra_user_profile_fields' );
+
+function my_marketer( $atts ){
+  $args = shortcode_atts( [
+    'foo' => 'bar',
+  ], $atts );
+
+  $user = wp_get_current_user();
+  if( ! $user )
+    return '<p><strong>No User Found!</strong>You don\'t appear to be logged in.</p>';
+
+  $marketers = get_posts([
+    'post_type'     => 'team_member',
+    'meta_query'    => [
+      [
+        'key'     => 'agents',
+        'value'   => serialize( $user->ID ),
+        'compare' => 'LIKE'
+      ]
+    ]
+  ]);
+  $html = '';
+  foreach( $marketers as $marketer ){
+    $photo = get_the_post_thumbnail( $marketer->ID, 'medium', ['class' => 'photo'] );
+    $marketerFields = get_fields( $marketer->ID, false );
+    $html.= '<div class="marketer user-profile">' . $photo . '<h5>Your NCC Contact:</h5><h3>' . $marketer->post_title . '<span class="">' . $marketerFields['title'] . '</span></h3><p>' . $marketerFields['phone'] . ' &bull; <a href="' . $marketerFields['email'] . '">' . $marketerFields['email'] . '</a></p></div>';
+  }
+
+  return $html;
+}
+add_shortcode( 'mymarketer', __NAMESPACE__ . '\\my_marketer' );
