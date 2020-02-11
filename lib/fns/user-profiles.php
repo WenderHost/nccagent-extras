@@ -62,9 +62,13 @@ function my_marketer( $atts ){
   ]);
   $html = '';
   foreach( $marketers as $marketer ){
-    $photo = get_the_post_thumbnail( $marketer->ID, 'medium', ['class' => 'photo'] );
+    $photo = get_the_post_thumbnail_url( $marketer->ID, 'medium' );
     $marketerFields = get_fields( $marketer->ID, false );
-    $html.= '<div class="marketer user-profile">' . $photo . '<h5>Your NCC Contact:</h5><h3>' . $marketer->post_title . '<span class="">' . $marketerFields['title'] . '</span></h3><p>' . $marketerFields['phone'] . ' &bull; <a href="' . $marketerFields['email'] . '">' . $marketerFields['email'] . '</a></p></div>';
+    $template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/marketer.html' );
+    $search = [ '{photo}', '{name}', '{title}', '{phone}', '{email}' ];
+    $replace = [ $photo, $marketer->post_title, $marketerFields['title'], $marketerFields['phone'], $marketerFields['email'] ];
+    $html = str_replace( $search, $replace, $template );
+    //$html.= '<div class="marketer user-profile"><class="row">' . $photo . '<h5>Your NCC Contact:</h5><h3>' . $marketer->post_title . '<span class="">' . $marketerFields['title'] . '</span></h3><p>' . $marketerFields['phone'] . ' &bull; <a href="' . $marketerFields['email'] . '">' . $marketerFields['email'] . '</a></p></div></div>';
   }
 
   return $html;
