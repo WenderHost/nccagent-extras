@@ -151,7 +151,7 @@ function custom_breadcrumbs( $atts ) {
                   $children_subnav = get_subnav( $ancestor, $post->post_type );
                   if( $children_subnav )
                     $item_classes[] = 'dropdown';
-                  $parents .= '<li class="' . implode( ' ', $item_classes ) . '"><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '" title="' . get_the_title($ancestor) . '">' . get_the_title($ancestor) . '</a>' . $children_subnav . '</li>';
+                  $parents .= '<li class="' . implode( ' ', $item_classes ) . '"><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '">' . get_the_title($ancestor) . '</a>' . $children_subnav . '</li>';
                   $parents .= '<li class="separator separator-' . $ancestor . '"> ' . $separator . ' </li>';
                 }
 
@@ -165,7 +165,7 @@ function custom_breadcrumbs( $atts ) {
                 $item_classes = [ 'item-current', 'item-' . $post->ID ];
                 if( $children_subnav )
                   $item_classes[] = 'dropdown';
-                $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><strong class="dropbtn" title="' . get_the_title() . '"> ' . get_the_title() . '</strong>' . $children_subnav . '</li>';
+                $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><strong class="dropbtn"> ' . get_the_title() . '</strong>' . $children_subnav . '</li>';
 
             } else {
               $item_classes = [ 'item-current', 'item-' . $post->ID ];
@@ -286,7 +286,7 @@ function get_subnav( $post_parent_id, $post_type = 'page' ){
       $item_classes = ['subnav-item'];
       if( is_page( $child->ID ) )
         $item_classes[] = 'item-current';
-      $childrens[] = '<a class="' . implode( ' ', $item_classes ) . '" href="' . get_permalink( $child ) . '" title="' . get_the_title( $child ) . '">' . get_the_title( $child ) . '</a>';
+      $childrens[] = '<a class="' . implode( ' ', $item_classes ) . '" href="' . get_permalink( $child ) . '">' . get_the_title( $child ) . '</a>';
     }
     $children_subnav = '<div class="down-arrow"></div><div class="child-subnav dropdown-content">' . implode( '', $childrens ) . '</div>';
   }
