@@ -76,6 +76,39 @@ add_action( 'personal_options_update', __NAMESPACE__ . '\\save_extra_user_profil
 add_action( 'edit_user_profile_update', __NAMESPACE__ . '\\save_extra_user_profile_fields' );
 
 /**
+ * Displays a Marketer's testimonials.
+ *
+ * @param      <type>  $atts   The atts
+ */
+function marketer_testimonials( $atts ){
+  global $post;
+
+  $args = shortcode_atts( [
+    'id' => null,
+  ], $atts );
+
+  $marketer_id = ( ! is_null( $args['id'] ) && is_numeric( $args['id'] ) )? $args['id'] : $post->ID ;
+
+  $marketer = get_post( $marketer_id );
+  $name = explode( ' ', $marketer->post_title );
+
+  if( ! have_rows('testimonials') )
+    return '<p>Testimonials coming soon. If you have a testimonials to share about ' . $name[0] . ', please share it with us at NCC.</p>';
+
+  $html = '<h3>Testimonials</h3>';
+  $template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/testimonial.html' );
+  while( have_rows('testimonials') ): the_row();
+    $testimonial = get_sub_field('testimonial');
+    $search = [ '{text}', '{name}', '{description}' ];
+    $replace = [ $testimonial['text'], $testimonial['name'], $testimonial['description'] ];
+    $html.= str_replace( $search, $replace, $template );
+  endwhile;
+
+  return $html;
+}
+add_shortcode( 'marketer_testimonials', __NAMESPACE__ . '\\marketer_testimonials' );
+
+/**
  * Displays a user's assigned Team Member (i.e. Marketer)
  *
  * @param      <type>  $atts   The atts

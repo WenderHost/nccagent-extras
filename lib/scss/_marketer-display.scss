@@ -61,3 +61,33 @@
   }
 
 }
+
+.testimonial{
+  background: lighten($nccBlue,40%);
+  padding: 20px;
+  margin: 0 0 1em 0;
+  border-radius: 10px;
+
+  blockquote{
+    font-size: 18px;
+    font-style: italic;
+  }
+
+  div{
+    margin-left: 80%;
+
+    &.description{
+      font-size: 14px;
+    }
+  }
+
+  @media screen and (max-width: 600px){
+    blockquote{
+      margin: 18px 20px;
+    }
+
+    div{
+      margin-left: 55%;
+    }
+  }
+}
