@@ -94,6 +94,17 @@ function acf_get_product_carriers( $atts ){
 add_shortcode( 'acf_product_carriers', __NAMESPACE__ . '\\acf_get_product_carriers' );
 
 /**
+ * Displays the Beamer embed HTML
+ *
+ * @return     string  The Beamer embed HTML
+ */
+function display_beamer(){
+  $html = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/beamer.html' );
+  return $html;
+}
+add_shortcode( 'beamer', __NAMESPACE__ . '\\display_beamer' );
+
+/**
  * Displays a Carrier's products for a particular product.
  *
  * Example: Browsing `Cancer, Heart Attack, Stroke > Aetna`
@@ -186,17 +197,6 @@ function plan_finder( $atts ){
 add_shortcode( 'productsbystate', __NAMESPACE__ . '\\plan_finder' );
 
 /**
- * Displays the Beamer embed HTML
- *
- * @return     string  The Beamer embed HTML
- */
-function display_beamer(){
-  $html = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/beamer.html' );
-  return $html;
-}
-add_shortcode( 'beamer', __NAMESPACE__ . '\\display_beamer' );
-
-/**
  * Displays post content while adding a "Read more..." link after a `/more` tag
  *
  * @return     string  HTML content with Read More applied.
@@ -219,3 +219,53 @@ function readmore_content(){
   }
 }
 add_shortcode( 'readmore_content', __NAMESPACE__ . '\\readmore_content' );
+
+function team_member_list( $atts ){
+  $args = shortcode_atts([
+    'type' => null
+  ], $atts );
+
+  $query_args = [
+    'numberposts' => -1,
+    'post_type'   => 'team_member',
+    'orderby'     => 'menu_order',
+    'order'       => 'ASC',
+  ];
+  if( ! is_null( $args['type'] ) ){
+    $type = get_term_by( 'slug', strtolower( $args['type'] ), 'staff_type' );
+    if( ! $type )
+      return '<p><strong>No `' . $args['type'] . '` Staff Type</strong><br>We could not locate the Staff Type you entered. Please check your spelling, and make sure the <code>type</code> you entered matches one of the Staff Types in the admin.</p>';
+
+    $query_args['tax_query'] = [
+      [
+        'taxonomy'  => 'staff_type',
+        'field'     => 'slug',
+        'terms'     => $args['type'],
+      ]
+    ];
+  }
+
+  $team_members = get_posts( $query_args );
+  if( ! $team_members )
+    return '<p><strong>No Team Members Found</strong><br/>No Team Members found. Please check your shortcode parameters.</p>';
+
+  $html = '';
+  $template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/team_member.html' );
+  foreach( $team_members as $team_member ){
+    $photo = get_the_post_thumbnail_url( $team_member->ID, 'large' );
+    $name = $team_member->post_title;
+
+    if( 'marketing' == strtolower( $args['type'] ) && have_rows( 'testimonials', $team_member->ID ) )
+      $name = '<a href="' . get_permalink( $team_member->ID ) . '">' . $name . '</a>';
+
+    $teamMemberFields = get_fields( $team_member->ID, false );
+    $search = [ '{photo}', '{name}', '{title}', '{bio}', '{tel}', '{phone}', '{email}' ];
+    $phone = ( ! empty( $teamMemberFields['extension'] ) )? $teamMemberFields['phone'] . ' ext. ' . $teamMemberFields['extension'] : $teamMemberFields['phone'] ;
+    $tel = ( ! empty( $teamMemberFields['extension'] ) )? $teamMemberFields['phone'] . ';ext=' . $teamMemberFields['extension'] : $teamMemberFields['phone'] ;
+    $replace = [ $photo, $name, $teamMemberFields['title'], apply_filters( 'the_content', $teamMemberFields['bio'] ), $tel, $phone, $teamMemberFields['email'] ];
+    $html.= str_replace( $search, $replace, $template );
+  }
+
+  return $html;
+}
+add_shortcode( 'team_member_list', __NAMESPACE__ . '\\team_member_list' );
