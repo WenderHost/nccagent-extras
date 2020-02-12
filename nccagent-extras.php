@@ -8,7 +8,7 @@
  * Author URI:        https://mwender.com
  * Text Domain:       nccagent-extras
  * Domain Path:       /languages
- * Version:           1.4.6
+ * Version:           1.4.7
  *
  * @package           Nccagent_Extras
  */
@@ -24,6 +24,7 @@ require_once( 'lib/fns/dir-lister.php' );
 require_once( 'lib/fns/enqueues.php' );
 require_once( 'lib/fns/gravityforms.php' );
 require_once( 'lib/fns/hubspot.php' );
+require_once( 'lib/fns/marketers.php' );
 require_once( 'lib/fns/query_vars.php' );
 require_once( 'lib/fns/shortcodes.php' );
 require_once( 'lib/fns/utilities.php' );
