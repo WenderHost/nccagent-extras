@@ -15,6 +15,7 @@ I've built the NCC website using Elementor and the Hello Elementor theme. This i
 == Changelog ==
 
 = 1.4.6 =
+* Adding `[marketer_testimonials]`.
 
 = 1.4.5 =
 * Moving user's Team Member/Marketer association to the user's meta.
