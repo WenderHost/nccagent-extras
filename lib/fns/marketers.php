@@ -75,7 +75,7 @@ function my_marketer( $atts ){
 
   $marketer_id = get_user_meta( $user->ID, 'marketer', true );
   if( ! $marketer_id )
-    return '<p><strong>No Team Member Assigned</strong> No Team Member has been assigned to your user profile. Please contact NCC to have our staff assign a Team Member to you.</p>';
+    return '<p><strong>No Team Member Assigned</strong><br />No Team Member has been assigned to your user profile. Please contact NCC to have our staff assign a Team Member to you.</p>';
 
   $marketer = get_post( $marketer_id );
 
