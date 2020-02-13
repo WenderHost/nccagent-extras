@@ -17,11 +17,20 @@ class NCC_Cli{
    *
    * - ID
    * - Carrier
+   * - Row_ID
    * - Product
    * - Alternate_Product_Name
    * - States
+   *
+   * ## OPTIONS
+   *
+   * [--carrier=<carrier_name>]
+   * : Specify a Carrier name to export only that carrier. Optional.
+   *
+   * @param      <type>  $args        The arguments
+   * @param      <type>  $assoc_args  The associated arguments
    */
-  public function export(){
+  public function export( $args, $assoc_args ){
 
     // Get all Carriers
     $args = [
@@ -31,9 +40,18 @@ class NCC_Cli{
       'orderby'     => 'title',
       'order'       => 'ASC',
     ];
+
+    if( isset( $assoc_args['carrier'] ) && ! empty( $assoc_args['carrier'] ) ){
+      $carrier = $assoc_args['carrier'];
+      \WP_CLI::line('Limiting export Carrier `' . $carrier . '`');
+      $args['title'] = $carrier;
+    }
+
     $carriers = get_posts($args);
-    if( ! $carriers )
-      \WP_CLI::error('No Carriers found!');
+    if( ! $carriers ){
+      $error_message = ( isset( $args['title'] ) )? 'No Carrier found with the name `' . $args['title'] . '`' : 'No Carriers found.' ;
+      \WP_CLI::error( $error_message );
+    }
 
     $items = [];
     $counter = 0;
@@ -61,7 +79,8 @@ class NCC_Cli{
     \WP_CLI\Utils\format_items( 'table', $items, $headers );
 
     // Save the data as a CSV
-    $csv_filename = current_time( 'Y-m-d_Gis') . '_carriers-and-products.csv';
+    $file_timestamp = current_time( 'Y-m-d_Gis');
+    $csv_filename = ( isset( $args['title'] ) )? $file_timestamp . '_' . sanitize_title_with_dashes( $args['title'], '', 'save' ) . '-products.csv'  : $file_timestamp . '_carriers-and-products.csv';
     $handle = fopen( $csv_filename, 'w' );
     \WP_CLI\Utils\write_csv( $handle, $items, $headers );
     fclose( $handle );
@@ -99,7 +118,7 @@ class NCC_Cli{
             \WP_CLI::error('Strange...are you sure your file is formatted as a CSV?');
 
           if( 'ID' != $data[0] )
-            \WP_CLI::error('Your CSV needs the following header row:' . "\n\n" . 'ID,Carrier,Row_ID,Product,Alternate_Product_Name,States');
+            \WP_CLI::error('Your CSV needs the following header rows:' . "\n" . 'ID,Carrier,Row_ID,Product,Alternate_Product_Name,States');
 
           $headers = $data;
           \WP_CLI::line('🔔 We are importing with the following columns: ' . implode( ', ', $headers ) );

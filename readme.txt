@@ -16,6 +16,7 @@ I've built the NCC website using Elementor and the Hello Elementor theme. This i
 
 = 1.4.9 =
 * Removing `title` attribute from page in `[supercrumbs]`.
+* Adding `--carrier=<carrier_name>` option to `wp ncc export`.
 
 = 1.4.8 =
 * Adding `[team_member_list]`.
