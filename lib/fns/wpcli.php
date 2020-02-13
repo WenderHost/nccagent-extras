@@ -110,7 +110,9 @@ class NCC_Cli{
       $total_lines = count( file( $filename ) );
       $x = 0;
       $updated_carrier_products = 0;
+      $new_carrier_products = 0;
       $progress = \WP_CLI\Utils\make_progress_bar( '🔔 Updating Carrier > Products > States', $total_lines );
+      $row_messages = [];
       while(( $data = fgetcsv( $h, 2048, ',' )) !== FALSE ){
         if( 0 == $x ){
           // Process column headings
@@ -124,12 +126,25 @@ class NCC_Cli{
           \WP_CLI::line('🔔 We are importing with the following columns: ' . implode( ', ', $headers ) );
         } else {
           // Process the row
-          $row_id = $data[2] - 1;
-          $selector = 'products_' . $row_id . '_product_details_states';
-          $states = explode( ',', $data[5] );
-          sort($states);
+          $states = $this->_states_to_array( $data[5] );
           $post_id = $data[0];
           $product_name = ( ! empty( $data[4] ) )? $data[4] . ' (' . $data[3] . ')' : $data[3] ;
+
+          // If no Row_ID, create a new row.
+          if( empty( $data[2] ) ){
+            $row_id = $this->_create_carrier_product( $data );
+            if( ! is_wp_error( $row_id ) ){
+              $row_messages[] = '🔔 Created product for ' . $data[1] . ' > ' . $product_name ;
+              $items[] = [ 'Carrier' => $data[1], 'Product' => $product_name, 'States' => implode( ',', $states ), '✅' => '💡' ];
+              $new_carrier_products++;
+            } else {
+              $row_messages[] = '🚨 ' . $row_id->get_error_message();
+            }
+            continue;
+          }
+
+          $row_id = $data[2] - 1;
+          $selector = 'products_' . $row_id . '_product_details_states';
 
           // Update the field
           $updated = update_field( $selector, $states, $post_id );
@@ -146,11 +161,83 @@ class NCC_Cli{
       fclose( $h );
       $progress->finish();
       \WP_CLI\Utils\format_items( 'table', $items, ['Carrier','Product','States','✅'] );
-      \WP_CLI::success( 'Import finished with ' . $updated_carrier_products . ' Carrier > Products updated.' );
+      \WP_CLI::success( 'Import finished with ' . $updated_carrier_products . ' Carrier > Product(s) updated.' );
+      if( 0 < $new_carrier_products )
+        \WP_CLI::success( $new_carrier_products . ' Carrier > Product(s) created.' );
+      \WP_CLI::line( "\n----\nKey:\n✅ Row updated\n⛔︎ Row not updated\n💡 Row created\n----\n" );
+      if( ! empty( $row_messages ) ){
+        foreach( $row_messages as $message ){
+          \WP_CLI::line( $message );
+        }
+      }
     } else {
       \WP_CLI::error('I\'m unable to open your file.');
     }
 
+  }
+
+  /**
+   * Creates a Carrier > Product
+   *
+   * @param      array  $data   The data
+   *
+   * @return     int\obj        Returns the Row_ID on success or a WP_Error object on fail.
+   */
+  private function _create_carrier_product( $data = array() ){
+    if( ! is_array( $data ) || empty( $data ) )
+      return new \WP_Error('bad_args', __( 'Attempting to create a carrier product with bad arguments. Check your CSV.', 'nccagent' ) );;
+
+    $product_name = $data[3];
+    $product = get_posts([
+      'numberposts' => -1,
+      'title'       => $product_name,
+      'post_type'   => 'product',
+    ]);
+
+    if( ! $product )
+      return new \WP_Error('no_product', __( 'I could not find a product named `' . $product_name . '`. Check your spelling and update your CSV.', 'nccagent' ) );
+
+    $row = [
+      'product'         => $product,
+      'product_details' => [
+        'alternate_product_name'  => $data[4],
+        'description'             => '',
+        'states'                  => $this->_states_to_array( $data[5] ),
+      ],
+    ];
+
+    if( ! get_post( $data[0] ) )
+      return new \WP_Error('no_product_by_id', __( 'The ID in your CSV row does not match any Product IDs in the database.', 'nccagent' ) );
+
+    $row_count = add_row( 'products', $row, $data[0] );
+    if( ! $row_count ){
+      $product_name = ( ! empty( $data[4] ) )? $data[4] . ' (' . $data[3] . ')' : $data[3] ;
+      return new \WP_Error('row_not_added', __( 'Could not add product `' . $data[1] . ' > ' . $product_name . '`.', 'nccagent' ) );
+    } else {
+      return $row_count;
+    }
+  }
+
+  /**
+   * Converts a CSV string of states to an array.
+   *
+   * @param      string  $states  The states
+   *
+   * @return     string  Array of states.
+   */
+  private function _states_to_array( $states ){
+    // Remove spaces
+    $states = str_replace(' ', '', $states );
+    // Remove leading/trailing commas
+    $states = trim( $states, ',' );
+    // Convert to array
+    $states = explode(',', $states );
+    // Remove empty elements
+    $states = array_filter( $states );
+    // Sort array
+    sort( $states );
+
+    return $states;
   }
 }
 $nccCli = new NCC_Cli();
