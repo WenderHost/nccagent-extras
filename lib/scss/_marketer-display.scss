@@ -61,6 +61,11 @@
     background-color: #eee;
 
     /* Misc */
+    @media screen and (max-width: 600px){
+      max-width: 64px;
+      max-height: 64px;
+      padding-top: 128px;
+    }
 
   }
 
