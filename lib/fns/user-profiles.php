@@ -3,7 +3,11 @@
 namespace NCCAgent\userprofiles;
 
 /**
- * Adds fields to user profiles
+ * Adds fields to user profiles.
+ *
+ * Fields added:
+ * - NPN
+ * - Marketer
  *
  * @param      object  $user   The user
  */
