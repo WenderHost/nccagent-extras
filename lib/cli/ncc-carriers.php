@@ -1,11 +1,8 @@
 <?php
-
-namespace NCCAgent\wpcli;
-
 /**
- * Tools for working with the NCC website.
+ * NCC Carrier import/export.
  */
-class NCC_Cli{
+class NCC_Carriers_CLI  extends WP_CLI_Command{
   public function __construct(){
 
   }
@@ -240,6 +237,6 @@ class NCC_Cli{
     return $states;
   }
 }
-$nccCli = new NCC_Cli();
+$nccCarriersCLI = new NCC_Carriers_CLI();
 if( class_exists( '\\WP_CLI' ) )
-  \WP_CLI::add_command( 'ncc', $nccCli );
+  \WP_CLI::add_command( 'ncc carriers', $nccCarriersCLI );

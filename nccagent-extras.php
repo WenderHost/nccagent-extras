@@ -8,7 +8,7 @@
  * Author URI:        https://mwender.com
  * Text Domain:       nccagent-extras
  * Domain Path:       /languages
- * Version:           1.5.1
+ * Version:           1.5.2
  *
  * @package           Nccagent_Extras
  */
@@ -32,7 +32,20 @@ require_once( 'lib/fns/wp-login.php' );
 require_once( 'lib/fns/wp_nav_menus.php' );
 require_once( 'lib/fns/rest-api.php' );
 require_once( 'lib/fns/user-profiles.php' );
-require_once( 'lib/fns/wpcli.php' );
+
+function nccagent_cli_init() {
+  require_once( 'lib/cli/ncc-carriers.php' );
+  require_once( 'lib/cli/ncc-users.php' );
+
+  // Only add the namespace if the required base class exists (WP-CLI 1.5.0+).
+  // This is optional and only adds the description of the root `ncc`
+  // command.
+  require_once( 'lib/cli/class-cli-ncc-command-namespace.php' );
+  if ( class_exists( 'WP_CLI\Dispatcher\CommandNamespace' ) )
+    WP_CLI::add_command( 'ncc', 'NCCAgent_CLI_NCC_Command_Namespace' );
+}
+if ( defined( 'WP_CLI' ) && WP_CLI )
+  add_action( 'plugins_loaded', 'nccagent_cli_init', 20 );
 
 /**
  * Don't send the `Login Details` notification email.
