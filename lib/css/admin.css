@@ -6,10 +6,13 @@
   border-radius: 50%;
 }
 .column-title{
-  width: 25%;
+  width: 20%;
 }
 .column-states{
-  width: 50%;
+  width: 35%;
+}
+.column-email{
+  width: 20%;
 }
 .column-staff_type{
   width: 15%;
