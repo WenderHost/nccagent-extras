@@ -4,7 +4,7 @@
  */
 class NCC_Carriers_CLI  extends WP_CLI_Command{
   public function __construct(){
-
+    $this->data_keys = [];
   }
 
   /**
@@ -17,6 +17,9 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
    * - Row_ID
    * - Product
    * - Alternate_Product_Name
+   * - Review_Date
+   * - Source_File_Name
+   * - Source_File_Date
    * - States
    *
    * ## OPTIONS
@@ -63,14 +66,22 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
           $states = ( ! empty($product_details['states']) )? implode(',', $product_details['states'] ) : '';
           $product_name = ( is_object( $product ) )? $product->post_title : '***NO_PRODUCT_FOUND***';
 
-          $product_columns = ['Row_ID' => $row_id, 'Product' => $product_name, 'Alternate_Product_Name' => $product_details['alternate_product_name'], 'States' => $states ];
+          $product_columns = [
+            'Row_ID'                  => $row_id,
+            'Product'                 => $product_name,
+            'Alternate_Product_Name'  => $product_details['alternate_product_name'],
+            'Review_Date'             => $product_details['review_date'],
+            'Source_File_Name'        => $product_details['source_file_name'],
+            'Source_File_Date'        => $product_details['source_file_date'],
+            'States'                  => $states,
+          ];
           $items[] = array_merge( $carrier_columns, $product_columns );
         endwhile;
       } else {
-        $items[] = array_merge( $carrier_columns, ['Row_ID' => '', 'Product' => '', 'Alternate_Product_Name' => '', 'States' => '' ] );
+        $items[] = array_merge( $carrier_columns, ['Row_ID' => '', 'Product' => '', 'Alternate_Product_Name' => '', 'Review_Date' => '', 'Source_File_Name' => '', 'Source_File_Date' => '', 'States' => '' ] );
       }
     }
-    $headers = ['ID','Carrier', 'Row_ID','Product','Alternate_Product_Name','States'];
+    $headers = ['ID','Carrier', 'Row_ID','Product','Alternate_Product_Name','Review_Date','Source_File_Name','Source_File_Date','States'];
 
     // Display the data
     \WP_CLI\Utils\format_items( 'table', $items, $headers );
@@ -117,39 +128,54 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
             \WP_CLI::error('Strange...are you sure your file is formatted as a CSV?');
 
           if( 'ID' != $data[0] )
-            \WP_CLI::error('Your CSV needs the following header rows:' . "\n" . 'ID,Carrier,Row_ID,Product,Alternate_Product_Name,States');
+            \WP_CLI::error('Your CSV needs the following header rows:' . "\n" . 'ID,Carrier,Row_ID,Product,Alternate_Product_Name,Review_Date,Source_File_Name,Source_File_Date,States');
 
           $headers = $data;
+          // Get the keys for each column
+          //$data_keys = [];
+          foreach( $headers as $key => $column ){
+            $column_name = $this->_format_column_name( $column );
+            $this->data_keys[$column_name] = $key;
+          }
           \WP_CLI::line('🔔 We are importing with the following columns: ' . implode( ', ', $headers ) );
+          //\WP_CLI::error('Halting...$headers = ' . print_r( $headers, true ) . "\n" . '$this->data_keys = ' . print_r( $this->data_keys, true ) );
         } else {
           // Process the row
-          $states = $this->_states_to_array( $data[5] );
-          $post_id = $data[0];
-          $product_name = ( ! empty( $data[4] ) )? $data[4] . ' (' . $data[3] . ')' : $data[3] ;
+          $mapped_data = $this->_map_row_values( $data );
+          //\WP_CLI::error('Here is our first row: $mapped_data = ' . print_r( $mapped_data, true ) );
+
+          $states = $mapped_data['states'];
+          $post_id = $mapped_data['id'];
+          $product_name = ( ! empty( $mapped_data['alternate_product_name'] ) )? $mapped_data['alternate_product_name'] . ' (' . $mapped_data['product'] . ')' : $mapped_data['product'] ;
 
           // If no Row_ID, create a new row.
-          if( empty( $data[2] ) ){
-            $row_id = $this->_create_carrier_product( $data );
+          if( empty( $mapped_data['row_id'] ) ){
+            $row_id = $this->_create_carrier_product( $mapped_data );
             if( ! is_wp_error( $row_id ) ){
-              $row_messages[] = '🔔 Created product for ' . $data[1] . ' > ' . $product_name ;
-              $items[] = [ 'Carrier' => $data[1], 'Product' => $product_name, 'States' => implode( ',', $states ), '✅' => '💡' ];
+              $row_messages[] = '🔔 Created product for ' . $mapped_data['carrier'] . ' > ' . $product_name ;
+              $items[] = [ 'Carrier' => $mapped_data['carrier'], 'Product' => $mapped_data['product'], 'Alt Product Name' => $mapped_data['alternate_product_name'], 'Review Date' => $mapped_data['review_date'], 'Source File Name' => $mapped_data['source_file_name'], 'Source File Date' => $mapped_data['source_file_date'], '# States' => count($states), '✅' => '💡' ];
               $new_carrier_products++;
             } else {
               $row_messages[] = '🚨 ' . $row_id->get_error_message();
             }
-            continue;
+            continue; // By pass the below, no need to "update" since we just created all the meta fields.
           }
 
-          $row_id = $data[2] - 1;
-          $selector = 'products_' . $row_id . '_product_details_states';
+          $row_id = $mapped_data['row_id'] - 1;
+          $row_updated = false;
+          $selectors = ['states','review_date','source_file_name','source_file_date'];
+          foreach( $selectors as $selector ){
+            $field_name = 'products_' . $row_id . '_product_details_' . $selector;
+            $field_updated = update_field( $field_name, $mapped_data[$selector], $mapped_data['id'] );
+            if( $field_updated )
+              $row_updated = true;
+          }
 
-          // Update the field
-          $updated = update_field( $selector, $states, $post_id );
-          if( $updated ){
-            $items[] = [ 'Carrier' => $data[1], 'Product' => $product_name, 'States' => implode( ',', $states ), '✅' => '✅' ];
+          if( $row_updated ){
+            $items[] = [ 'Carrier' => $mapped_data['carrier'], 'Product' => $mapped_data['product'], 'Alt Product Name' => $mapped_data['alternate_product_name'], 'Review Date' => $mapped_data['review_date'], 'Source File Name' => $mapped_data['source_file_name'], 'Source File Date' => $mapped_data['source_file_date'], '# States' => count($states), '✅' => '✅' ];
             $updated_carrier_products++;
           } else {
-            $items[] = [ 'Carrier' => $data[1], 'Product' => $product_name, 'States' => implode( ',', $states ), '✅' => '⛔︎' ];
+            $items[] = [ 'Carrier' => $mapped_data['carrier'], 'Product' => $mapped_data['product'], 'Alt Product Name' => $mapped_data['alternate_product_name'], 'Review Date' => $mapped_data['review_date'], 'Source File Name' => $mapped_data['source_file_name'], 'Source File Date' => $mapped_data['source_file_date'], '# States' => count($states), '✅' => '⛔︎' ];
           }
         }
         $progress->tick();
@@ -157,11 +183,12 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
       }
       fclose( $h );
       $progress->finish();
-      \WP_CLI\Utils\format_items( 'table', $items, ['Carrier','Product','States','✅'] );
+      \WP_CLI\Utils\format_items( 'table', $items, ['Carrier','Product','Alt Product Name','Review Date','Source File Name','Source File Date','# States','✅'] );
+      \WP_CLI::line( "| Key: ✅ Row updated • ⛔︎ Row not updated • 💡 Row created |\n+" . str_repeat('-', 59 ) . "+\n" );
       \WP_CLI::success( 'Import finished with ' . $updated_carrier_products . ' Carrier > Product(s) updated.' );
       if( 0 < $new_carrier_products )
         \WP_CLI::success( $new_carrier_products . ' Carrier > Product(s) created.' );
-      \WP_CLI::line( "\n----\nKey:\n✅ Row updated\n⛔︎ Row not updated\n💡 Row created\n----\n" );
+
       if( ! empty( $row_messages ) ){
         foreach( $row_messages as $message ){
           \WP_CLI::line( $message );
@@ -176,15 +203,15 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
   /**
    * Creates a Carrier > Product
    *
-   * @param      array  $data   The data
+   * @param      array  $mapped_data   The data in an associative array
    *
-   * @return     int\obj        Returns the Row_ID on success or a WP_Error object on fail.
+   * @return     int\obj               Returns the Row_ID on success or a WP_Error object on fail.
    */
-  private function _create_carrier_product( $data = array() ){
-    if( ! is_array( $data ) || empty( $data ) )
+  private function _create_carrier_product( $mapped_data = array() ){
+    if( ! is_array( $mapped_data ) || empty( $mapped_data ) )
       return new \WP_Error('bad_args', __( 'Attempting to create a carrier product with bad arguments. Check your CSV.', 'nccagent' ) );;
 
-    $product_name = $data[3];
+    $product_name = $mapped_data['product'];
     $product = get_posts([
       'numberposts' => -1,
       'title'       => $product_name,
@@ -197,22 +224,87 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
     $row = [
       'product'         => $product,
       'product_details' => [
-        'alternate_product_name'  => $data[4],
+        'alternate_product_name'  => $mapped_data['alternate_product_name'],
+        'review_date'             => $mapped_data['review_date'],
+        'source_file_name'        => $mapped_data['source_file_name'],
+        'source_file_date'        => $mapped_data['source_file_date'],
         'description'             => '',
-        'states'                  => $this->_states_to_array( $data[5] ),
+        'states'                  => $mapped_data['states'],
       ],
     ];
 
-    if( ! get_post( $data[0] ) )
+    if( ! get_post( $mapped_data['id'] ) )
       return new \WP_Error('no_product_by_id', __( 'The ID in your CSV row does not match any Product IDs in the database.', 'nccagent' ) );
 
-    $row_count = add_row( 'products', $row, $data[0] );
+    $row_count = add_row( 'products', $row, $mapped_data['id'] );
     if( ! $row_count ){
-      $product_name = ( ! empty( $data[4] ) )? $data[4] . ' (' . $data[3] . ')' : $data[3] ;
-      return new \WP_Error('row_not_added', __( 'Could not add product `' . $data[1] . ' > ' . $product_name . '`.', 'nccagent' ) );
+      $product_name = ( ! empty( $mapped_data['alternate_product_name'] ) )? $mapped_data['alternate_product_name'] . ' (' . $mapped_data['product'] . ')' : $data[3] ;
+      return new \WP_Error('row_not_added', __( 'Could not add product `' . $mapped_data['carrier'] . ' > ' . $product_name . '`.', 'nccagent' ) );
     } else {
       return $row_count;
     }
+  }
+
+  /**
+   * Formats a column heading.
+   *
+   * Formats a column heading according to these specs:
+   *
+   * - Trims whitespace before and after
+   * - All lower case
+   * - Replaces interior spaces with underscores
+   *
+   * Example: `Source File Name` becomes `source_file_name`.
+   *
+   * @param      string  $name   The column name
+   *
+   * @return     string  The formatted column name
+   */
+  private function _format_column_name( $name = '' ){
+    if( empty( $name ) )
+      \WP_CLI::error( '🚨 _format_column_name() received an empty input. Halting...' );
+
+    $formatted_name = trim( $name );
+    $formatted_name = strtolower( $formatted_name );
+    $formatted_name = str_replace(' ', '_', $formatted_name );
+    return $formatted_name;
+  }
+
+  /**
+   * Maps a row of data to an associative array.
+   *
+   * Maps a row of CSV data to an associative array with the
+   * array keys corresponding to the column heading.
+   *
+   * @param      array          $data   The row data
+   *
+   * @return     array|boolean  The row data mapped to an associative array.
+   */
+  private function _map_row_values( $data = [] ){
+    if( 0 == count( $data ) )
+      return false;
+
+    $row_values = [];
+    $data_keys = $this->data_keys;
+    foreach ( $data_keys as $name => $key ) {
+      switch( $name ){
+        case 'review_date':
+        case 'source_file_date':
+          $date = date_create( $data[$key] );
+          $row_values[$name] = date_format( $date, 'm/d/Y' );
+          break;
+
+        case 'states':
+          $row_values['states'] = $this->_states_to_array( $data[$key] );
+          break;
+
+        default:
+          $row_values[$name] = $data[$key];
+      }
+
+    }
+
+    return $row_values;
   }
 
   /**

@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.3.2  
-**Stable tag:** 1.5.2  
+**Stable tag:** 1.5.3  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -14,9 +14,13 @@ I've built the NCC website using Elementor and the Hello Elementor theme. This i
 
 ## Changelog ##
 
+### 1.5.3 ###
+* Adding import/export of "Review Date", "Source File Name", and "Source File Date" for `wp ncc carriers import/export`.
+
 ### 1.5.2 ###
 * Adding `wp ncc users import`.
 * Updating user import to include `NPN` and `Marketer`.
+* Adding `Email` column for admin Team Member CPT list.
 
 ### 1.5.1 ###
 * Adjusting CSS for Marketer Display in Product Finder.
