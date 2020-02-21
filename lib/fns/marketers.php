@@ -14,10 +14,11 @@ function marketer_contact_details( $atts ){
 
   $html = '';
   $marketerFields = get_fields( $marketer_id, false );
+  $marketerFields['hubspot'] = get_field( 'hubspot', $marketer->ID );
   $template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/marketer_contact_details.html' );
   $extension = ( ! empty( $marketerFields['extension'] ) )? ' ext. ' . $marketerFields['extension'] : '';
-  $search = [ '{phone}', '{extension}', '{email}' ];
-  $replace = [ $marketerFields['phone'], $extension, $marketerFields['email'] ];
+  $search = [ '{phone}', '{extension}', '{email}', '{calendar_link}' ];
+  $replace = [ $marketerFields['phone'], $extension, $marketerFields['email'], $marketerFields['hubspot']['calendar_link'] ];
   $html = str_replace( $search, $replace, $template );
 
   return $html;
@@ -82,9 +83,15 @@ function my_marketer( $atts ){
   $html = '';
   $photo = get_the_post_thumbnail_url( $marketer->ID, 'medium' );
   $marketerFields = get_fields( $marketer->ID, false );
+  $marketerFields['hubspot'] = get_field( 'hubspot', $marketer->ID );
   $template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/marketer.html' );
-  $search = [ '{photo}', '{name}', '{title}', '{phone}', '{email}' ];
-  $replace = [ $photo, $marketer->post_title, $marketerFields['title'], $marketerFields['phone'], $marketerFields['email'] ];
+
+  $search = [ '{photo}', '{name}', '{title}', '{phone}', '{email}', '{marketer_page}', '{calendar_link}', '{extension}' ];
+
+  $calendarLink = ( ! empty( $marketerFields['hubspot']['calendar_link'] ) )? $marketerFields['hubspot']['calendar_link'] : '';
+  $extension = ( ! empty( $marketerFields['extension'] ) )? ' ext. ' . $marketerFields['extension'] : '' ;
+  $replace = [ $photo, $marketer->post_title, $marketerFields['title'], $marketerFields['phone'], $marketerFields['email'], get_permalink( $marketer_id ), $calendarLink, $extension ];
+
   $html = str_replace( $search, $replace, $template );
 
   return $html;
