@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.3.2
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 1.5.5 =
+* Adjusting the CSS for Marketer photos.
+* Adding a "No Marketer Found" alert to `[mymarketer]` when a user either doesn't have a Marketer assigned or their assigned Marketer has a `post_status` other than "publish".
 
 = 1.5.4 =
 * Adding calendar link to Marketer's display

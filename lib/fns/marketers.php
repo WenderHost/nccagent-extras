@@ -28,7 +28,11 @@ add_shortcode( 'marketer_contact_details', __NAMESPACE__ . '\\marketer_contact_d
 /**
  * Displays a Marketer's testimonials.
  *
- * @param      <type>  $atts   The atts
+ * @param      array  $atts {
+ *    @type  int  $id  Team Member CPT post ID.
+ * }
+ *
+ * @return     string Team Member testimonials HTML.
  */
 function marketer_testimonials( $atts ){
   global $post;
@@ -61,7 +65,9 @@ add_shortcode( 'marketer_testimonials', __NAMESPACE__ . '\\marketer_testimonials
 /**
  * Displays a user's assigned Team Member (i.e. Marketer)
  *
- * @param      <type>  $atts   The atts
+ * @param      array  $atts {
+ *  @type  int  $id  The post ID of the Team Member CPT.
+ * }
  *
  * @return     string  Marketer HTML.
  */
@@ -79,6 +85,8 @@ function my_marketer( $atts ){
     return '<p><strong>No Team Member Assigned</strong><br />No Team Member has been assigned to your user profile. Please contact NCC to have our staff assign a Team Member to you.</p>';
 
   $marketer = get_post( $marketer_id );
+  if( ! $marketer || 'publish' != $marketer->post_status )
+    return \NCCAgent\utilities\get_alert(['title' => 'No Marketer Found', 'description' => 'No marketer was found for your user profile. Please contact NCC so that we can assign a marketer to your profile.']);
 
   $html = '';
   $photo = get_the_post_thumbnail_url( $marketer->ID, 'medium' );

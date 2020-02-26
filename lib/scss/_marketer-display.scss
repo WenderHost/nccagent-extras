@@ -47,9 +47,9 @@
     /* Positioning */
 
     /* Box-model */
-    width: 100%;
-    min-width: 128px;
-    padding-top: 100%;
+    width: 128px;
+    height: 128px;
+    /*padding-top: 100%;*/
     margin: 0 1.5em 1em 0;
 
     /* Typography */
@@ -62,9 +62,7 @@
 
     /* Misc */
     @media screen and (max-width: 600px){
-      max-width: 64px;
-      max-height: 64px;
-      padding-top: 128px;
+
     }
 
   }

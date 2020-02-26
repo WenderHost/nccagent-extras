@@ -3,6 +3,30 @@
 namespace NCCAgent\utilities;
 
 /**
+ * Returns an HTML alert message
+ *
+ * @param      array  $atts {
+ *   @type  string  $type         The alert type (defaults to `warning`).
+ *   @type  string  $title        The title of the alert.
+ *   @type  string  $description  The content of the alert.
+ * }
+ *
+ * @return     html  The alert.
+ */
+function get_alert( $atts ){
+  $args = shortcode_atts([
+   'type'         => 'warning',
+   'title'        => 'Alert Title Goes Here',
+   'description'  => 'Alert description goes here.',
+  ], $atts );
+
+  $search = ['{type}', '{title}', '{description}' ];
+  $replace = [ esc_attr( $args['type'] ), $args['title'], $args['description'] ];
+  $html = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/alert.html' );
+  return str_replace( $search, $replace, $html );
+}
+
+/**
  * Builds a <select/> of `State` options from the States Taxonomy.
  *
  * @return     string  The state options.
