@@ -47,7 +47,8 @@ function marketer_testimonials( $atts ){
   $name = explode( ' ', $marketer->post_title );
 
   if( ! have_rows('testimonials') )
-    return '<p>Testimonials coming soon. If you have a testimonials to share about ' . $name[0] . ', please share it with us at NCC.</p>';
+    return null;
+  //return '<p>Testimonials coming soon. If you have a testimonials to share about ' . $name[0] . ', please share it with us at NCC.</p>';
 
   $html = '<h3>Testimonials</h3>';
   $template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/testimonial.html' );
@@ -81,8 +82,10 @@ function my_marketer( $atts ){
     return '<p><strong>No User Found!</strong> You don\'t appear to be logged in.</p>';
 
   $marketer_id = get_user_meta( $user->ID, 'marketer', true );
-  if( ! $marketer_id )
-    return '<p><strong>No Team Member Assigned</strong><br />No Team Member has been assigned to your user profile. Please contact NCC to have our staff assign a Team Member to you.</p>';
+  if( ! $marketer_id ){
+    //return \NCCAgent\utilities\get_alert(['title' => 'No Team Member Assigned', 'description' => 'No Team Member has been assigned to your user profile. Please contact NCC to have our staff assign a Team Member to you.']);
+    return null;
+  }
 
   $marketer = get_post( $marketer_id );
   if( ! $marketer || 'publish' != $marketer->post_status )
