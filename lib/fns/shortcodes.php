@@ -220,6 +220,15 @@ function readmore_content(){
 }
 add_shortcode( 'readmore_content', __NAMESPACE__ . '\\readmore_content' );
 
+/**
+ * Returns a list of team members
+ *
+ * @param      array  $atts {
+ *   @type   string   $type The type of team member (e.g. marketer, administrative, etc)
+ * }
+ *
+ * @return     string  HTML for Team Member list
+ */
 function team_member_list( $atts ){
   $args = shortcode_atts([
     'type' => null
@@ -255,7 +264,7 @@ function team_member_list( $atts ){
     $photo = get_the_post_thumbnail_url( $team_member->ID, 'large' );
     $name = $team_member->post_title;
 
-    if( 'marketing' == strtolower( $args['type'] ) && have_rows( 'testimonials', $team_member->ID ) )
+    if( 'marketing' == strtolower( $args['type'] ) )
       $name = '<a href="' . get_permalink( $team_member->ID ) . '">' . $name . '</a>';
 
     $teamMemberFields = get_fields( $team_member->ID, false );
