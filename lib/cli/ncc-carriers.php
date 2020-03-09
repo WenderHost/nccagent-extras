@@ -17,6 +17,8 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
    * - Row_ID
    * - Product
    * - Alternate_Product_Name
+   * - Lower_Issue_Age
+   * - Upper_Issue_Age
    * - Review_Date
    * - Source_File_Name
    * - Source_File_Date
@@ -70,6 +72,8 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
             'Row_ID'                  => $row_id,
             'Product'                 => $product_name,
             'Alternate_Product_Name'  => $product_details['alternate_product_name'],
+            'Lower_Issue_Age'         => $product_details['lower_issue_age'],
+            'Upper_Issue_Age'         => $product_details['upper_issue_age'],
             'Review_Date'             => $product_details['review_date'],
             'Source_File_Name'        => $product_details['source_file_name'],
             'Source_File_Date'        => $product_details['source_file_date'],
@@ -78,10 +82,10 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
           $items[] = array_merge( $carrier_columns, $product_columns );
         endwhile;
       } else {
-        $items[] = array_merge( $carrier_columns, ['Row_ID' => '', 'Product' => '', 'Alternate_Product_Name' => '', 'Review_Date' => '', 'Source_File_Name' => '', 'Source_File_Date' => '', 'States' => '' ] );
+        $items[] = array_merge( $carrier_columns, ['Row_ID' => '', 'Product' => '', 'Alternate_Product_Name' => '', 'Lower_Issue_Age' => '' , 'Upper_Issue_Age' => '', 'Review_Date' => '', 'Source_File_Name' => '', 'Source_File_Date' => '', 'States' => '' ] );
       }
     }
-    $headers = ['ID','Carrier', 'Row_ID','Product','Alternate_Product_Name','Review_Date','Source_File_Name','Source_File_Date','States'];
+    $headers = ['ID','Carrier', 'Row_ID','Product','Alternate_Product_Name','Lower_Issue_Age','Upper_Issue_Age','Review_Date','Source_File_Name','Source_File_Date','States'];
 
     // Display the data
     \WP_CLI\Utils\format_items( 'table', $items, $headers );
@@ -128,7 +132,7 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
             \WP_CLI::error('Strange...are you sure your file is formatted as a CSV?');
 
           if( 'ID' != $data[0] )
-            \WP_CLI::error('Your CSV needs the following header rows:' . "\n" . 'ID,Carrier,Row_ID,Product,Alternate_Product_Name,Review_Date,Source_File_Name,Source_File_Date,States');
+            \WP_CLI::error('Your CSV needs the following header rows:' . "\n" . 'ID,Carrier,Row_ID,Product,Alternate_Product_Name,Lower_Issue_Age,Upper_Issue_Age,Review_Date,Source_File_Name,Source_File_Date,States');
 
           $headers = $data;
           // Get the keys for each column
@@ -153,7 +157,7 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
             $row_id = $this->_create_carrier_product( $mapped_data );
             if( ! is_wp_error( $row_id ) ){
               $row_messages[] = '🔔 Created product for ' . $mapped_data['carrier'] . ' > ' . $product_name ;
-              $items[] = [ 'Carrier' => $mapped_data['carrier'], 'Product' => $mapped_data['product'], 'Alt Product Name' => $mapped_data['alternate_product_name'], 'Review Date' => $mapped_data['review_date'], 'Source File Name' => $mapped_data['source_file_name'], 'Source File Date' => $mapped_data['source_file_date'], '# States' => count($states), '✅' => '💡' ];
+              $items[] = [ 'Carrier' => $mapped_data['carrier'], 'Product' => $mapped_data['product'], 'Alt Product Name' => $mapped_data['alternate_product_name'], 'Lower Issue Age' => $mapped_data['lower_issue_age'], 'Upper Issue Age' => $mapped_data['upper_issue_age'], 'Review Date' => $mapped_data['review_date'], 'Source File Name' => $mapped_data['source_file_name'], 'Source File Date' => $mapped_data['source_file_date'], '# States' => count($states), '✅' => '💡' ];
               $new_carrier_products++;
             } else {
               $row_messages[] = '🚨 ' . $row_id->get_error_message();
@@ -163,7 +167,7 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
 
           $row_id = $mapped_data['row_id'] - 1;
           $row_updated = false;
-          $selectors = ['states','review_date','source_file_name','source_file_date'];
+          $selectors = ['states','review_date','source_file_name','source_file_date','lower_issue_age','upper_issue_age'];
           foreach( $selectors as $selector ){
             $field_name = 'products_' . $row_id . '_product_details_' . $selector;
             $field_updated = update_field( $field_name, $mapped_data[$selector], $mapped_data['id'] );
@@ -172,10 +176,10 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
           }
 
           if( $row_updated ){
-            $items[] = [ 'Carrier' => $mapped_data['carrier'], 'Product' => $mapped_data['product'], 'Alt Product Name' => $mapped_data['alternate_product_name'], 'Review Date' => $mapped_data['review_date'], 'Source File Name' => $mapped_data['source_file_name'], 'Source File Date' => $mapped_data['source_file_date'], '# States' => count($states), '✅' => '✅' ];
+            $items[] = [ 'Carrier' => $mapped_data['carrier'], 'Product' => $mapped_data['product'], 'Alt Product Name' => $mapped_data['alternate_product_name'], 'Lower Issue Age' => $mapped_data['lower_issue_age'], 'Upper Issue Age' => $mapped_data['upper_issue_age'], 'Review Date' => $mapped_data['review_date'], 'Source File Name' => $mapped_data['source_file_name'], 'Source File Date' => $mapped_data['source_file_date'], '# States' => count($states), '✅' => '✅' ];
             $updated_carrier_products++;
           } else {
-            $items[] = [ 'Carrier' => $mapped_data['carrier'], 'Product' => $mapped_data['product'], 'Alt Product Name' => $mapped_data['alternate_product_name'], 'Review Date' => $mapped_data['review_date'], 'Source File Name' => $mapped_data['source_file_name'], 'Source File Date' => $mapped_data['source_file_date'], '# States' => count($states), '✅' => '⛔︎' ];
+            $items[] = [ 'Carrier' => $mapped_data['carrier'], 'Product' => $mapped_data['product'], 'Alt Product Name' => $mapped_data['alternate_product_name'], 'Lower Issue Age' => $mapped_data['lower_issue_age'], 'Upper Issue Age' => $mapped_data['upper_issue_age'], 'Review Date' => $mapped_data['review_date'], 'Source File Name' => $mapped_data['source_file_name'], 'Source File Date' => $mapped_data['source_file_date'], '# States' => count($states), '✅' => '⛔︎' ];
           }
         }
         $progress->tick();
@@ -183,7 +187,7 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
       }
       fclose( $h );
       $progress->finish();
-      \WP_CLI\Utils\format_items( 'table', $items, ['Carrier','Product','Alt Product Name','Review Date','Source File Name','Source File Date','# States','✅'] );
+      \WP_CLI\Utils\format_items( 'table', $items, ['Carrier','Product','Alt Product Name', 'Lower Issue Age', 'Upper Issue Age','Review Date','Source File Name','Source File Date','# States','✅'] );
       \WP_CLI::line( "| Key: ✅ Row updated • ⛔︎ Row not updated • 💡 Row created |\n+" . str_repeat('-', 59 ) . "+\n" );
       \WP_CLI::success( 'Import finished with ' . $updated_carrier_products . ' Carrier > Product(s) updated.' );
       if( 0 < $new_carrier_products )
