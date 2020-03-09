@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.3.2  
-**Stable tag:** 1.5.5  
+**Stable tag:** 1.5.6  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,13 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 1.5.6 ###
+* Plan Finder: Updating drop down placeholder styling (`color: #000; font-weight: normal`).
+* Plan Finder: Updating `plan-finder.js` to reference the correct column when ordering Products.
+* Updating `[mymarketer]` to show nothing when no Marketer is assigned to the user.
+* Adding `global.js` with `e.preventDefault()` for main menu link clicks where `href="#"`.
+* Updating `[team_member_list]` to link to all Marketers.
 
 ### 1.5.5 ###
 * Adjusting the CSS for Marketer photos.
