@@ -23,6 +23,17 @@ function catch_register()
 add_action( 'login_form_register', __NAMESPACE__ . '\\catch_register' );
 
 /**
+ * Redirects the user upon login
+ *
+ * @return     string  User dashboard URL
+ */
+function dashboard_redirect() {
+  return '/my-profile';
+}
+
+add_filter('login_redirect', __NAMESPACE__ . '\\dashboard_redirect');
+
+/**
  * Filters the login URL.
  *
  * @since 2.8.0
@@ -36,7 +47,7 @@ add_action( 'login_form_register', __NAMESPACE__ . '\\catch_register' );
  */
 function custom_login_url( $login_url, $redirect, $force_reauth ){
     // This will append /custom-login/ to you main site URL as configured in general settings (ie https://domain.com/custom-login/)
-    $login_url = site_url( '/login/' );
+    $login_url = site_url( '/my-profile/' );
 
     if ( ! empty( $redirect ) )
         $login_url = add_query_arg( 'redirect_to', urlencode( $redirect ), $login_url );
@@ -46,4 +57,4 @@ function custom_login_url( $login_url, $redirect, $force_reauth ){
 
     return $login_url;
 }
-add_filter( 'login_url', __NAMESPACE__ . '\\custom_login_url', 10, 3 );
+//add_filter( 'login_url', __NAMESPACE__ . '\\custom_login_url', 10, 3 );
