@@ -22,6 +22,8 @@ function custom_breadcrumbs( $atts ) {
     $home_title         = $args['home_title'];
     $html               = [];
 
+    $carrierproduct = sanitize_title_with_dashes( get_query_var( 'carrierproduct' ) );
+
     // If you have any custom post types with custom taxonomies, put the taxonomy name below (e.g. product_cat)
     $custom_taxonomy    = 'product_cat';
 
@@ -63,70 +65,82 @@ function custom_breadcrumbs( $atts ) {
 
         } else if ( is_single() ) {
 
-            // If post is a custom post type
-            $post_type = get_post_type();
+          // If post is a custom post type
+          $post_type = get_post_type();
 
-            // If it is a custom post type display name and link
-            if($post_type != 'post') {
+          // If it is a custom post type display name and link
+          if($post_type != 'post') {
 
-                $post_type_object = get_post_type_object($post_type);
-                $post_type_archive = get_post_type_archive_link($post_type);
+            $post_type_object = get_post_type_object( $post_type );
+            $post_type_archive = get_post_type_archive_link( $post_type );
 
-                $html[] = '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '">' . $post_type_object->labels->name . '</a></li>';
-                $html[] = '<li class="separator"> ' . $separator . ' </li>';
+            $link_text = ( 'Carriers' == $post_type_object->labels->name )? 'Carriers &amp; Products' : $post_type_object->labels->name ;
 
+            $html[] = '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '">' . $link_text . '</a></li>';
+            $html[] = '<li class="separator"> ' . $separator . ' </li>';
+
+          }
+
+          // Get post category info
+          $category = get_the_category();
+
+          if( ! empty( $category ) ) {
+
+            // Get last category post is in
+            $last_category = end( array_values( $category ) );
+
+            // Get parent any categories and create array
+            $get_cat_parents = rtrim( get_category_parents( $last_category->term_id, true, ',' ), ',' );
+            $cat_parents = explode(',',$get_cat_parents);
+
+            // Loop through parent categories and store in variable $cat_display
+            $cat_display = '';
+            foreach($cat_parents as $parents) {
+              $cat_display .= '<li class="item-cat">'.$parents.'</li>';
+              $cat_display .= '<li class="separator"> ' . $separator . ' </li>';
             }
 
-            // Get post category info
-            $category = get_the_category();
+          }
 
-            if(!empty($category)) {
+          // If it's a custom post type within a custom taxonomy
+          $taxonomy_exists = taxonomy_exists($custom_taxonomy);
+          if(empty($last_category) && !empty($custom_taxonomy) && $taxonomy_exists) {
 
-                // Get last category post is in
-                $last_category = end(array_values($category));
+            $taxonomy_terms = get_the_terms( $post->ID, $custom_taxonomy );
+            $cat_id         = $taxonomy_terms[0]->term_id;
+            $cat_nicename   = $taxonomy_terms[0]->slug;
+            $cat_link       = get_term_link($taxonomy_terms[0]->term_id, $custom_taxonomy);
+            $cat_name       = $taxonomy_terms[0]->name;
 
-                // Get parent any categories and create array
-                $get_cat_parents = rtrim(get_category_parents($last_category->term_id, true, ','),',');
-                $cat_parents = explode(',',$get_cat_parents);
+          }
 
-                // Loop through parent categories and store in variable $cat_display
-                $cat_display = '';
-                foreach($cat_parents as $parents) {
-                    $cat_display .= '<li class="item-cat">'.$parents.'</li>';
-                    $cat_display .= '<li class="separator"> ' . $separator . ' </li>';
-                }
+          // Check if the post is in a category
+          if( ! empty( $last_category ) ) {
+            $html[] = $cat_display;
+            $html[] = '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
 
-            }
+          // Else if post is in a custom taxonomy
+          } else if( ! empty( $cat_id ) ) {
 
-            // If it's a custom post type within a custom taxonomy
-            $taxonomy_exists = taxonomy_exists($custom_taxonomy);
-            if(empty($last_category) && !empty($custom_taxonomy) && $taxonomy_exists) {
+            $html[] = '<li class="item-cat item-cat-' . $cat_id . ' item-cat-' . $cat_nicename . '"><a class="bread-cat bread-cat-' . $cat_id . ' bread-cat-' . $cat_nicename . '" href="' . $cat_link . '" title="' . $cat_name . '">' . $cat_name . '</a></li>';
+            $html[] = '<li class="separator"> ' . $separator . ' </li>';
+            $html[] = '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
 
-                $taxonomy_terms = get_the_terms( $post->ID, $custom_taxonomy );
-                $cat_id         = $taxonomy_terms[0]->term_id;
-                $cat_nicename   = $taxonomy_terms[0]->slug;
-                $cat_link       = get_term_link($taxonomy_terms[0]->term_id, $custom_taxonomy);
-                $cat_name       = $taxonomy_terms[0]->name;
+          } else {
 
-            }
+            $link_text = ( $carrierproduct )? '<a href="' . get_the_permalink( $post->ID ) . '">' . get_the_title() . '</a>' : '<strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong>' ;
+            $html[] = '<li class="item-current item-' . $post->ID . '">' . $link_text . '</li>';
 
-            // Check if the post is in a category
-            if(!empty($last_category)) {
-                $html[] = $cat_display;
-                $html[] = '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
+          }
 
-            // Else if post is in a custom taxonomy
-            } else if(!empty($cat_id)) {
-
-                $html[] = '<li class="item-cat item-cat-' . $cat_id . ' item-cat-' . $cat_nicename . '"><a class="bread-cat bread-cat-' . $cat_id . ' bread-cat-' . $cat_nicename . '" href="' . $cat_link . '" title="' . $cat_name . '">' . $cat_name . '</a></li>';
-                $html[] = '<li class="separator"> ' . $separator . ' </li>';
-                $html[] = '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
-
-            } else {
-
-                $html[] = '<li class="item-current item-' . $post->ID . '"><strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong></li>';
-
-            }
+          if( $carrierproduct ){
+            $html[] = '<li class="separator"> ' . $separator . ' </li>';
+            $link_text = ucwords( str_replace('-', ' ', $carrierproduct ) );
+            $search = ['Pdp', 'Mapd'];
+            $replace = ['(PDP)','(MAPD)'];
+            $link_text = str_replace( $search, $replace, $link_text );
+            $html[] = '<li class="item-current"><strong class="bread-current">' . $link_text . '</strong></li>';
+          }
 
         } else if ( is_category() ) {
 
@@ -138,34 +152,34 @@ function custom_breadcrumbs( $atts ) {
             // Standard page
             if( $post->post_parent ){
 
-                // If child page, get parents
-                $anc = get_post_ancestors( $post->ID );
+              // If child page, get parents
+              $anc = get_post_ancestors( $post->ID );
 
-                // Get parents in the right order
-                $anc = array_reverse($anc);
+              // Get parents in the right order
+              $anc = array_reverse($anc);
 
-                // Parent page loop
-                if ( !isset( $parents ) ) $parents = null;
-                foreach ( $anc as $ancestor ) {
-                  $item_classes = [ 'item-parent', 'item-parent-' . $ancestor ];
-                  $children_subnav = get_subnav( $ancestor, $post->post_type );
-                  if( $children_subnav )
-                    $item_classes[] = 'dropdown';
-                  $parents .= '<li class="' . implode( ' ', $item_classes ) . '"><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '">' . get_the_title($ancestor) . '</a>' . $children_subnav . '</li>';
-                  $parents .= '<li class="separator separator-' . $ancestor . '"> ' . $separator . ' </li>';
-                }
-
-                // Display parent pages
-                $html[] = $parents;
-
-                // Get children
-                $children_subnav = get_subnav( $post->ID, $post->post_type );
-
-                // Current page
-                $item_classes = [ 'item-current', 'item-' . $post->ID ];
+              // Parent page loop
+              if ( !isset( $parents ) ) $parents = null;
+              foreach ( $anc as $ancestor ) {
+                $item_classes = [ 'item-parent', 'item-parent-' . $ancestor ];
+                $children_subnav = get_subnav( $ancestor, $post->post_type );
                 if( $children_subnav )
                   $item_classes[] = 'dropdown';
-                $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><strong class="dropbtn"> ' . get_the_title() . '</strong>' . $children_subnav . '</li>';
+                $parents .= '<li class="' . implode( ' ', $item_classes ) . '"><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '">' . get_the_title($ancestor) . '</a>' . $children_subnav . '</li>';
+                $parents .= '<li class="separator separator-' . $ancestor . '"> ' . $separator . ' </li>';
+              }
+
+              // Display parent pages
+              $html[] = $parents;
+
+              // Get children
+              $children_subnav = get_subnav( $post->ID, $post->post_type );
+
+              // Current page
+              $item_classes = [ 'item-current', 'item-' . $post->ID ];
+              if( $children_subnav )
+                $item_classes[] = 'dropdown';
+              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><strong class="dropbtn"> ' . get_the_title() . '</strong>' . $children_subnav . '</li>';
 
             } else {
               $item_classes = [ 'item-current', 'item-' . $post->ID ];
