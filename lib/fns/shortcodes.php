@@ -158,6 +158,54 @@ function productbycarrier(){
 add_shortcode( 'productbycarrier', __NAMESPACE__ . '\\productbycarrier' );
 
 /**
+ * Displays specific product information for a carrier.
+ *
+ * @param      <type>  $atts   The atts
+ */
+function carrierproduct( $atts ){
+  global $post;
+  $carrier = $post;
+  $carrierproduct = sanitize_title_with_dashes( get_query_var( 'carrierproduct' ) );
+
+  $post_type = get_post_type();
+  if( 'carrier' != $post_type )
+    return '';
+
+  $products = get_field( 'products', $carrier->ID );
+  if( have_rows( 'products', $carrier->ID ) && ! empty( $carrierproduct ) ){
+    $html = '';
+    while( have_rows( 'products' ) ): the_row();
+      $product = get_sub_field( 'product' );
+      $product_details = get_sub_field( 'product_details' );
+      $product_name = ( ! empty( $product_details['alternate_product_name'] ) )? $product_details['alternate_product_name'] : $product->post_title ;
+      if( strtolower( sanitize_title_with_dashes( $product_name ) ) == strtolower( $carrierproduct ) ){
+        $product_description = $product_details['description'];
+        $product_states = $product_details['states'];
+
+        $states = ( is_array( $product_states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product_states ) . '</span>' : $product_states ;
+
+        $headingEle = ( 1 < count( $products ) )? 'h2' : 'h1';
+
+        $html.= '<' . $headingEle . '>' . $carrier->post_title . ' ' . $product_name . '</' . $headingEle . '><p><code>' . $states . '</code></p>' . $product_description;
+        return $html;
+      }
+    endwhile;
+  } else if ( have_rows( 'products', $carrier->ID ) && empty( $carrierproduct ) ){
+    $product_list = [];
+    while( have_rows( 'products' ) ): the_row();
+      $product = get_sub_field( 'product' );
+      $product_details = get_sub_field( 'product_details' );
+      $product_name = ( ! empty( $product_details['alternate_product_name'] ) )? $product_details['alternate_product_name'] : $product->post_title ;
+      $product_list[] = '<a href="' . get_permalink( $carrier->ID ) . sanitize_title_with_dashes( $product_name ) . '">' . $product_name . '</a>';
+    endwhile;
+    return '<p class="all-products-list"><strong>All ' .$carrier->post_title . ' Products:</strong> ' . implode( ', ', $product_list ) . '</p>';
+  }
+
+  return '<p><code>[carrierproduct/]</code> shortcode. <code>carrierproduct = ' . $carrierproduct . '; $post_type = ' . $post_type . '; $carrier->ID = ' . $carrier->ID . '</code></p>';
+}
+add_shortcode( 'carrierproduct', __NAMESPACE__ . '\\carrierproduct' );
+
+/**
  * Displays Products by State DataTable
  *
  * @param      <type>  $atts   The atts
