@@ -22,6 +22,10 @@ span.read-more a{
   font-weight: bold;
 }
 
+.all-products-list{
+  font-family: $headingFont;
+}
+
 #dirlister{
   &::-webkit-scrollbar {
       width: 1em;
