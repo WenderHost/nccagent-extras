@@ -25,7 +25,7 @@ function dirlister( $atts ){
 }
 add_shortcode( 'dirlister', __NAMESPACE__ . '\\dirlister' );
 
-function dirlister_button( $atts ){
+function dirlister_button(){
   global $post;
   $vpn_link = get_field( 'vpn_link', $post->ID );
 
