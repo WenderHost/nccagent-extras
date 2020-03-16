@@ -24,10 +24,11 @@ function carrier_page(){
     $html[] = \NCCAgent\shortcodes\carrierproduct();
   } else {
     $html[] = '<h1>' . get_the_title( $carrier->ID ) . ' Contracting &amp; Appointment</h1>';
-    $html[] = '<div style="margin-bottom: 2em;">' . do_shortcode( '[elementor-template id="4073"]' ) . '</div>';
+    $template = ncc_get_template('contract-online-cta');
+    $html[] = '<div style="margin-bottom: 2em;">' . str_replace( '{{contract_online_url}}', site_url( 'contracting/contract-online' ), $template ) . '</div>';
     $html[] = '<div style="margin-bottom: 2em;">' . \NCCAgent\shortcodes\readmore_content() . '</div>';
     $html[] = '<div style="margin-bottom: 2em;">' . \NCCAgent\shortcodes\acf_get_carrier_products([ 'post_id' => $carrier->ID ]) . '</div>';
-    $html[] = do_shortcode( '[elementor-template id="4070"]' );
+    $html[] = '<div style="margin-bottom: 2em;">' . ncc_get_template('free-carrier-contracting-kit') . '</div>';
     $html[] = \NCCAgent\shortcodes\carrierdocs\carrierdocs();
   }
   return implode( '', $html );

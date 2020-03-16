@@ -83,13 +83,13 @@ function my_marketer( $atts ){
 
   $marketer_id = get_user_meta( $user->ID, 'marketer', true );
   if( ! $marketer_id ){
-    //return \NCCAgent\utilities\get_alert(['title' => 'No Team Member Assigned', 'description' => 'No Team Member has been assigned to your user profile. Please contact NCC to have our staff assign a Team Member to you.']);
+    //return ncc_get_alert(['title' => 'No Team Member Assigned', 'description' => 'No Team Member has been assigned to your user profile. Please contact NCC to have our staff assign a Team Member to you.']);
     return null;
   }
 
   $marketer = get_post( $marketer_id );
   if( ! $marketer || 'publish' != $marketer->post_status )
-    return \NCCAgent\utilities\get_alert(['title' => 'No Marketer Found', 'description' => 'No marketer was found for your user profile. Please contact NCC so that we can assign a marketer to your profile.']);
+    return ncc_get_alert(['title' => 'No Marketer Found', 'description' => 'No marketer was found for your user profile. Please contact NCC so that we can assign a marketer to your profile.']);
 
   $html = '';
   $photo = get_the_post_thumbnail_url( $marketer->ID, 'medium' );

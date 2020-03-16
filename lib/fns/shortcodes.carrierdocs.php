@@ -14,7 +14,7 @@ function carrierdocs(){
 
   global $post;
   if( 'carrier' != get_post_type( $post ) )
-    return NCCAgent\utilities\get_alert(['title' => 'Not a Carrier CPT', 'description' => 'This shortcode only works with the Carrier custom post type.']);
+    return ncc_get_alert(['title' => 'Not a Carrier CPT', 'description' => 'This shortcode only works with the Carrier custom post type.']);
 
   $args = shortcode_atts([
     'foo' => 'bar'], $atts );

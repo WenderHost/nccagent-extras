@@ -228,7 +228,7 @@ function plan_finder( $atts ){
 
   wp_enqueue_script( 'plan-finder' );
   if( ! $called ){
-    $state_options = \NCCAgent\utilities\get_state_options();
+    $state_options = ncc_get_state_options();
     wp_localize_script( 'plan-finder', 'wpvars', [
       'table_id'        => $args['table_id'],
       'table_class'     => $args['table_class'],
