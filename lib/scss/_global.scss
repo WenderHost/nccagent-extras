@@ -11,6 +11,9 @@ p, ul, ol, li{
   .elementor-widget-shortcode a:not(.accordion-toggle):not(.elementor-button){
     text-decoration: underline;
   }
+  .elementor-widget-call-to-action a{
+    text-decoration: none !important;
+  }
 }
 p{
   font-weight: 400;

@@ -28,6 +28,8 @@ require_once( 'lib/fns/marketers.php' );
 require_once( 'lib/fns/query_vars.php' );
 require_once( 'lib/fns/shortcodes.php' );
 require_once( 'lib/fns/shortcodes.carrierdocs.php' );
+require_once( 'lib/fns/shortcodes.carrier_page.php' );
+require_once( 'lib/fns/shortcodes.product_page.php' );
 require_once( 'lib/fns/utilities.php' );
 require_once( 'lib/fns/wp-login.php' );
 require_once( 'lib/fns/wp_nav_menus.php' );

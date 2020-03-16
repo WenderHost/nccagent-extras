@@ -23,6 +23,7 @@ function custom_breadcrumbs( $atts ) {
     $html               = [];
 
     $carrierproduct = sanitize_title_with_dashes( get_query_var( 'carrierproduct' ) );
+    $productcarrier = sanitize_title_with_dashes( get_query_var( 'productcarrier' ) );
 
     // If you have any custom post types with custom taxonomies, put the taxonomy name below (e.g. product_cat)
     $custom_taxonomy    = 'product_cat';
@@ -128,14 +129,15 @@ function custom_breadcrumbs( $atts ) {
 
           } else {
 
-            $link_text = ( $carrierproduct )? '<a href="' . get_the_permalink( $post->ID ) . '">' . get_the_title() . '</a>' : '<strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong>' ;
+            $link_text = ( $carrierproduct || $productcarrier )? '<a href="' . get_the_permalink( $post->ID ) . '">' . get_the_title() . '</a>' : '<strong class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</strong>' ;
             $html[] = '<li class="item-current item-' . $post->ID . '">' . $link_text . '</li>';
 
           }
 
-          if( $carrierproduct ){
+          if( $carrierproduct || $productcarrier ){
             $html[] = '<li class="separator"> ' . $separator . ' </li>';
-            $link_text = ucwords( str_replace('-', ' ', $carrierproduct ) );
+            $link_text = ( $carrierproduct )? $carrierproduct : $productcarrier ;
+            $link_text = ucwords( str_replace('-', ' ', $link_text ) );
             $search = ['Pdp', 'Mapd'];
             $replace = ['(PDP)','(MAPD)'];
             $link_text = str_replace( $search, $replace, $link_text );
