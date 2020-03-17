@@ -234,7 +234,8 @@ function plan_finder( $atts ){
       'table_class'     => $args['table_class'],
       'planFinderApi'   => rest_url( 'nccagent/v1/products' ),
       'helpGraphic'     => $help_graphic,
-      'stateOptions'    => $state_options,
+      'stateOptions'    => $state_options['options'],
+      'stateOptionData' => $state_options['data'],
       'marketerUrl'     => rest_url( 'wp/v2/team_member/' ),
     ]);
     $called = true;
