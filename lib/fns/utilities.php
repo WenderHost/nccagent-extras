@@ -40,9 +40,12 @@ function ncc_get_state_options(){
   $options[] = '<option class="first-option" value="">Select a State...</option>';
   foreach( $terms as $term ){
     $options[] = '<option value="' . strtoupper( $term->slug ) . '-' . $term->term_id . '">' . $term->name . '</option>';
+    $data[ strtoupper($term->slug) ] = $term->term_id;
   }
+  $options = '<select class="dt-select" id="states" data-colId="1">' . implode( '', $options ) . '</select>';
 
-  return '<select class="dt-select" id="states" data-colId="1">' . implode( '', $options ) . '</select>';
+  $state_options = [ 'data' => $data, 'options' => $options ];
+  return $state_options;
 }
 
 function ncc_get_template( $template = null ){
