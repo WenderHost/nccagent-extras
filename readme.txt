@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.3.2
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 1.7.1 =
+* Adding "Quick Links" for display at the bottom of "Product &gt; Carrier" and "Carrier &gt; Product" pages.
+* Adding chevron SVG as list item image for unordered lists.
 
 = 1.7.0 =
 * NEW: Saved `state` for Plan Finder. Plan Finder now remembers your search settings after you browse to another page on the site.

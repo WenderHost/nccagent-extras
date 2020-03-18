@@ -22,11 +22,7 @@ function product_page(){
   $html = [];
   if( ! empty( $productcarrier ) ){
     $html[] = '<div style="margin-bottom: 2em;">' . do_shortcode( '[productbycarrier]' ) . '</div>';
-    $html[] = '<div style="margin-bottom: 2em;"><h3>Quick Links:</h3><ul>
-      <li><a href="' . site_url( 'contract-online' ) . '">Online Contracting for Medicare Agents</a></li>
-      <li><a href="' . site_url( 'contracting/kit-request/' ) . '">Request a Contracting Kit</a></li>
-      <li><a href="' . site_url( 'plans' ) . '">All Carriers & Products</a></li>
-    </ul></div>';
+    $html[] = ncc_quick_links();
   } else {
     $html[] = '<h1>' . get_the_title( $product->ID ) . ' FMO for Agent Contracting</h1>';
     $html[] = '<div style="margin-bottom: 2em;">' . get_the_content() . '</div>';

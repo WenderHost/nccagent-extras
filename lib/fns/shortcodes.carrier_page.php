@@ -22,6 +22,7 @@ function carrier_page(){
   $html = [];
   if( ! empty( $carrierproduct ) ){
     $html[] = \NCCAgent\shortcodes\carrierproduct();
+    $html[] = ncc_quick_links();
   } else {
     $html[] = '<h1>' . get_the_title( $carrier->ID ) . ' Contracting &amp; Appointment</h1>';
     $template = ncc_get_template('contract-online-cta');
