@@ -48,6 +48,13 @@ function ncc_get_state_options(){
   return $state_options;
 }
 
+/**
+ * Returns an HTML template from `lib/html/`
+ *
+ * @param      string  $template  The template's name
+ *
+ * @return     string  The template
+ */
 function ncc_get_template( $template = null ){
   if( is_null( $template ) )
     return ncc_get_alert(['title' => 'No Template Requested', 'description' => 'Please specify a template.']);
