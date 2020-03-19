@@ -31,7 +31,7 @@ ol, ul{
 }
 .elementor-shortcode,
 .elementor-text-widget{
-  ul:not(.breadcrumbs):not(.carriers):not(.directory-listing){
+  ul:not(.breadcrumbs):not(.carriers):not(.directory-listing):not(.gform_fields){
     list-style: none;
     padding-left: .5em;
 
