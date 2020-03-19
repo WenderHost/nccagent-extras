@@ -51,18 +51,35 @@ function ncc_get_state_options(){
 /**
  * Returns an HTML template from `lib/html/`
  *
- * @param      string  $template  The template's name
+ * @param      array  $atts {
+ *   @type   string  $template The template
+ *   @type   array   $search   An array of items we are searching to replace.
+ *   @type   array   $replace  An array of replacements
+ * }
  *
  * @return     string  The template
  */
-function ncc_get_template( $template = null ){
-  if( is_null( $template ) )
+function ncc_get_template( $atts ){
+
+  // If we call this function w/o passing an array
+  // of attributes, assume we've passed a string
+  // for the template:
+  if( ! is_array( $atts ) )
+    $atts = [ 'template' => $atts ];
+
+  $args = shortcode_atts([
+    'template'  => null,
+    'search'    => null,
+    'replace'   => null,
+  ], $atts );
+
+  if( is_null( $args['template'] ) )
     return ncc_get_alert(['title' => 'No Template Requested', 'description' => 'Please specify a template.']);
 
-  if( substr( $template, -5 ) != '.html' )
-    $template.= '.html';
+  if( substr( $args['template'], -5 ) != '.html' )
+    $args['template'].= '.html';
 
-  $filename = plugin_dir_path( __FILE__ ) . '../html/' . $template;
+  $filename = plugin_dir_path( __FILE__ ) . '../html/' . $args['template'];
   if( ! file_exists( $filename ) )
     return ncc_get_alert(['title' => 'Template not found!', 'description' => 'I could not find your template (<code>' . basename( $template ) . '</code>).']);
 
@@ -73,11 +90,17 @@ function ncc_get_template( $template = null ){
     '{{kit_request_url}}',
     '{{site_url}}'
   ];
+  if( ! is_null( $args['search'] ) && is_array( $args['search'] ) && 0 < count( $args['search'] ) )
+    $search = array_merge( $search, $args['search'] );
+
   $replace = [
     plugin_dir_url( __FILE__ ) . '../img/',
     site_url('contracting/kit-request/'),
     site_url(),
   ];
+  if( ! is_null( $args['replace'] ) && is_array( $args['replace'] ) && 0 < count( $args['replace'] ) )
+    $replace = array_merge( $replace, $args['replace'] );
+
   $template = str_replace( $search, $replace, $template );
   return $template;
 }
