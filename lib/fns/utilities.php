@@ -70,11 +70,13 @@ function ncc_get_template( $template = null ){
 
   $search = [
     '{{image_path}}',
-    '{{kit_request_url}}'
+    '{{kit_request_url}}',
+    '{{site_url}}'
   ];
   $replace = [
     plugin_dir_url( __FILE__ ) . '../img/',
     site_url('contracting/kit-request/'),
+    site_url(),
   ];
   $template = str_replace( $search, $replace, $template );
   return $template;

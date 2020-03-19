@@ -24,7 +24,7 @@ function carrierdocs(){
   if( is_user_logged_in() ){
     $carrierdocslink = \NCCAgent\dirlister\dirlister_button();
   } else {
-    $carrierdocslink = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/agent-docs-login-or-register.html' );
+    $carrierdocslink = ncc_get_template('agent-docs-login-or-register');
   }
   $replace = [ $post->post_title, $carrierdocslink ];
 
