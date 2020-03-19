@@ -3,21 +3,23 @@ a.accordion-toggle {
   background-color: $nccNavy;
   color: #fff;
   font-family: $headingFont;
-  font-size: 28px;
-  font-weight: 500;
-  padding: .25rem 1rem;
+  font-size: 20px;
+  font-weight: 400;
+  padding: .55rem 1rem;
   margin-bottom: 1px;
 }
 .accordion-toggle.active{
   background-color: $nccBlue;
 }
 .accordion-toggle:after{
-  content: '+';
+  font-family: 'fontawesome';
+  content: '\f067';
   position: absolute;
   right: 1rem;
 }
 .accordion-toggle.active:after{
-  content: '-';
+  font-family: 'fontawesome';
+  content: '\f00d';
 }
 .accordion-toggle:hover{
   background-color: $nccBlue;
