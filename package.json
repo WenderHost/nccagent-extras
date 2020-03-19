@@ -22,7 +22,8 @@
     "production:scss-compile": "node-sass-chokidar lib/scss/ -o lib/dist --output-style compressed ",
     "production:autoprefixer": "postcss lib/dist/*.css --no-map --use autoprefixer -d lib/dist",
     "dev": "npm-run-all -p development:*",
-    "prod": "npm-run-all -p production:*"
+    "prod": "npm-run-all -p production:*",
+    "devbuild": "npm-run-all -p build-task:*"
   },
   "dependencies": {
     "npm-check-updates": "^4.0.4"
