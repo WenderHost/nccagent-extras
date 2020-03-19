@@ -2,6 +2,15 @@
 
 namespace NCCAgent\gravityforms;
 
+/**
+ * Modifies the on-screen confirmation that appears after the user submits a GF form.
+ *
+ * @param      string  $confirmation  The confirmation
+ * @param      object  $form          The form
+ * @param      object  $entry         The entry
+ *
+ * @return     string  The filtered confirmation message
+ */
 function custom_confirmation( $confirmation, $form, $entry ){
   $form_title = $form['title'];
   switch( $form_title ){
@@ -32,8 +41,6 @@ function custom_confirmation( $confirmation, $form, $entry ){
         $confirmation.= '<h3>Standard Instructions</h3><p>We will be contacting you to help with the sign up for these carriers: ' . implode( ', ', $standardCarriers ) . '</p><p>Standard sign up instructions go here.</p>';
 
       $confirmation = '<div class="alert alert-info">' . $confirmation . '</div>';
-
-      //$confirmation.= '<pre>$entry = ' . print_r( $entry, true ) . '</pre>';
       break;
 
     default:
