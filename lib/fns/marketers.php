@@ -11,11 +11,17 @@ function marketer_contact_details( $atts ){
 
   $marketer_id = ( ! is_null( $args['id'] ) && is_numeric( $args['id'] ) )? $args['id'] : $post->ID ;
 
+  $name = explode(' ', get_the_title( $post ) );
+
 
   $html = '';
   $marketerFields = get_fields( $marketer_id, false );
   $marketerFields['hubspot'] = get_field( 'hubspot', $marketer->ID );
-  $template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/marketer_contact_details.html' );
+  $template = ncc_get_template([
+    'template'  => 'marketer_contact_details',
+    'search'    => ['{{first_name}}'],
+    'replace'   => [ $name[0] ],
+  ]);
   $extension = ( ! empty( $marketerFields['extension'] ) )? ' ext. ' . $marketerFields['extension'] : '';
   $search = [ '{phone}', '{extension}', '{email}', '{calendar_link}' ];
   $replace = [ $marketerFields['phone'], $extension, $marketerFields['email'], $marketerFields['hubspot']['calendar_link'] ];
