@@ -21,7 +21,7 @@ function dirlister( $atts ){
     'endpoint' => rest_url('nccagent/v1/dirlister'),
     'nonce' => wp_create_nonce( 'wp_rest' ) ]
   );
-  return '<div id="dirlister"><h1>Carrier Document Library</h1><h5>...</h5><ul><li class="message">Loading directory...</li></ul></div>';
+  return '<div id="dirlister"><h1>Carrier Document Library</h1><h5>...</h5><ul class="directory-listing"><li class="message">Loading directory...</li></ul></div>';
 }
 add_shortcode( 'dirlister', __NAMESPACE__ . '\\dirlister' );
 
