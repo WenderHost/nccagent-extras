@@ -12,7 +12,7 @@ function marketer_contact_details( $atts ){
   $marketer_id = ( ! is_null( $args['id'] ) && is_numeric( $args['id'] ) )? $args['id'] : $post->ID ;
 
   $name = explode(' ', get_the_title( $post ) );
-
+  $lastname = array_pop( $name );
 
   $html = '';
   $marketerFields = get_fields( $marketer_id, false );
@@ -20,7 +20,7 @@ function marketer_contact_details( $atts ){
   $template = ncc_get_template([
     'template'  => 'marketer_contact_details',
     'search'    => ['{{first_name}}'],
-    'replace'   => [ $name[0] ],
+    'replace'   => [ implode(' ', $name ) ],
   ]);
   $extension = ( ! empty( $marketerFields['extension'] ) )? ' ext. ' . $marketerFields['extension'] : '';
   $search = [ '{phone}', '{extension}', '{email}', '{calendar_link}' ];

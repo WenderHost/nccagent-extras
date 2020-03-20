@@ -91,7 +91,10 @@ function register_team_member_fields(){
       $states = strip_tags( get_the_term_list( $post->ID, 'state', '', ', ', '' ) );
       $photo = ( has_post_thumbnail( $post ) )? get_the_post_thumbnail_url( $post, 'large' ) : plugin_dir_url( __FILE__ ) . '../img/avatar.png' ;
       $permalink = get_the_permalink( $post->ID );
-      $team_member_details = [ 'name' => $name, 'title' => $title, 'phone' => $phone, 'email' => $email, 'bio' => $bio, 'states' => $states, 'photo' => $photo, 'permalink' => $permalink ];
+      $name_array = explode( ' ', $name );
+      $lastname = array_pop( $name_array );
+      $firstname = implode(' ', $name_array );
+      $team_member_details = [ 'name' => $name ,'firstname' => $firstname, 'lastname' => $lastname, 'title' => $title, 'phone' => $phone, 'email' => $email, 'bio' => $bio, 'states' => $states, 'photo' => $photo, 'permalink' => $permalink ];
       return $team_member_details;
     },
     'schema' => [
