@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.3.2
-Stable tag: 1.7.7
+Stable tag: 1.7.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 1.7.8 =
+* Online Contracting: Adding options for Aetna/Cigna SureLC &amp; Standard sign ups.
+* Supercrumbs: Removing "bold" text from last breadcrumb.
 
 = 1.7.7 =
 * Updating the breadcrumb separator to a slash.
