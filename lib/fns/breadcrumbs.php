@@ -193,7 +193,7 @@ function custom_breadcrumbs( $atts ) {
               }
 
               // Just display current page if not parents
-              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><strong class="' . implode( ' ', $anchor_classes ) . '"> ' . get_the_title() . '</strong>' . $children_subnav . '</div></li>';
+              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="' . implode( ' ', $anchor_classes ) . '"> ' . get_the_title() . '</span>' . $children_subnav . '</div></li>';
 
             }
 
