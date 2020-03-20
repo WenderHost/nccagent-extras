@@ -90,7 +90,8 @@ function register_team_member_fields(){
       $bio = get_field('bio');
       $states = strip_tags( get_the_term_list( $post->ID, 'state', '', ', ', '' ) );
       $photo = ( has_post_thumbnail( $post ) )? get_the_post_thumbnail_url( $post, 'large' ) : plugin_dir_url( __FILE__ ) . '../img/avatar.png' ;
-      $team_member_details = [ 'name' => $name, 'title' => $title, 'phone' => $phone, 'email' => $email, 'bio' => $bio, 'states' => $states, 'photo' => $photo ];
+      $permalink = get_the_permalink( $post->ID );
+      $team_member_details = [ 'name' => $name, 'title' => $title, 'phone' => $phone, 'email' => $email, 'bio' => $bio, 'states' => $states, 'photo' => $photo, 'permalink' => $permalink ];
       return $team_member_details;
     },
     'schema' => [
