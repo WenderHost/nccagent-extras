@@ -72,15 +72,18 @@ table.dataTable{
 
   td.child-details{
     padding: 20px 20px 10px 20px;
+    font-size: 16px;
   }
 
   h4.row-title{
+    margin: 0 0 .35em 0;
+    font-size: 22px;
+
     @media screen and (max-width : 520px){
       font-size: 18px;
       font-weight: bold;
     }
     a{
-      color: $nccNavy !important;
     }
   }
   a.details-link{
@@ -92,13 +95,9 @@ table.dataTable{
       font-family: 'fontawesome';
       content: '\f057';
     }
+
     /* Positioning */
-    /*
-    margin: 12px 12px 6px 0;
-    @media screen and (max-width : 520px){
-      margin-top: 8px;
-    }
-    */
+    margin: .5em 0 0 0;
 
     /* Box-model */
     display: block;
@@ -108,27 +107,11 @@ table.dataTable{
     float: left;*/
 
     /* Typography */
-    font-size: 16px;
+    font-size: 18px;
     text-decoration: none !important;
-    color: $nccNavy !important;
 
     /* Visual */
     cursor: pointer;
-    /*
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cstyle%3E.st0%7Bdisplay:none%7D.st1%7Bdisplay:inline%7D.st2%7Bfill:%230063c6%7D.st3%7Bfill:%23fff%7D.st4%7Bfill:%23002d72%7D%3C/style%3E%3Cg id='Layer_1' class='st0'%3E%3Cg class='st1'%3E%3Ccircle class='st2' cx='32' cy='32' r='32'/%3E%3Cpath class='st3' d='M15.7 23.6L32 49l16.3-25.4z'/%3E%3C/g%3E%3C/g%3E%3Cg id='Layer_1_copy'%3E%3Ccircle class='st4' cx='32' cy='32' r='32'/%3E%3Cpath class='st3' d='M68.8 27h38v10h-38zM37 27h14v10H37zM13 27h14v10H13zM37 13H27v38h10V27z'/%3E%3C/g%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: 24px;
-    background-position: center;
-    */
-
-
-    /* Misc */
-    /*
-    &.shown{
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cstyle%3E.st0%7Bdisplay:none%7D.st1%7Bdisplay:inline%7D.st2%7Bfill:%230063c6%7D.st3%7Bfill:%23fff%7D.st4%7Bfill:%23002d72%7D.st5%7Bdisplay:inline;fill:%23fff%7D%3C/style%3E%3Cg id='Layer_1' class='st0'%3E%3Cg class='st1'%3E%3Ccircle class='st2' cx='32' cy='32' r='32'/%3E%3Cpath class='st3' d='M15.7 23.6L32 49l16.3-25.4z'/%3E%3C/g%3E%3C/g%3E%3Cg id='Layer_1_copy'%3E%3Ccircle class='st4' cx='32' cy='32' r='32'/%3E%3Cpath class='st3' d='M13 27h38v10H13z'/%3E%3Cg class='st0'%3E%3Cpath class='st5' d='M37 27h14v10H37zM13 27h14v10H13zM37 13H27v38h10V27z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-    */
-
   }
 
 
@@ -200,13 +183,14 @@ table.dataTable{
 
   /* Box-model */
   display: inline-block;
-  margin: 0 .15rem .5rem 0;
-  padding: .25em;
-  width: 2rem;
+  margin: 0 .1rem .35rem 0;
+  padding: .2em;
+  width: 1.8rem;
 
   /* Typography */
   color: #fff;
   text-align: center;
+  font-size: 13px;
 
   /* Visual */
   background-color: darken(#91b9dc,5%);
