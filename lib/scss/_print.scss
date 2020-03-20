@@ -12,3 +12,12 @@
     display: none;
   }
 }
+
+@media print{
+  a[href]:after{
+    content: '';
+  }
+  #breadcrumbs .dropdown .down-arrow{
+    display: none;
+  }
+}

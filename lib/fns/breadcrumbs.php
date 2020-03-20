@@ -9,7 +9,7 @@ namespace NCCAgent\breadcrumbs;
  */
 function custom_breadcrumbs( $atts ) {
     $args = shortcode_atts([
-        'separator'         => '&gt;',
+        'separator'         => '/',
         'breadcrumbs_id'    => 'breadcrumbs',
         'breadcrumbs_class' => 'breadcrumbs',
         'home_title'        => 'Home',
@@ -38,7 +38,7 @@ function custom_breadcrumbs( $atts ) {
         $html[] = '<ul id="' . $breadcrumbs_id . '" class="' . $breadcrumbs_class . '">';
 
         // Home page
-        $html[] = '<li class="item-home"><a class="bread-link bread-home" href="' . get_home_url() . '" title="' . $home_title . '">' . $home_title . '</a></li>';
+        $html[] = '<li class="item-home"><a class="bread-link bread-home" href="' . get_home_url() . '" title="' . $home_title . '"><i class="fas fa-home"></i></a></li>';
         $html[] = '<li class="separator separator-home"> ' . $separator . ' </li>';
 
         if ( is_archive() && !is_tax() && !is_category() && !is_tag() ) {
@@ -167,7 +167,7 @@ function custom_breadcrumbs( $atts ) {
                 $children_subnav = get_subnav( $ancestor, $post->post_type );
                 if( $children_subnav )
                   $item_classes[] = 'dropdown';
-                $parents .= '<li class="' . implode( ' ', $item_classes ) . '"><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '">' . get_the_title($ancestor) . '</a>' . $children_subnav . '</li>';
+                $parents .= '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '">' . get_the_title($ancestor) . '</a>' . $children_subnav . '</div></li>';
                 $parents .= '<li class="separator separator-' . $ancestor . '"> ' . $separator . ' </li>';
               }
 
@@ -181,7 +181,7 @@ function custom_breadcrumbs( $atts ) {
               $item_classes = [ 'item-current', 'item-' . $post->ID ];
               if( $children_subnav )
                 $item_classes[] = 'dropdown';
-              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><strong class="dropbtn"> ' . get_the_title() . '</strong>' . $children_subnav . '</li>';
+              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="dropbtn"> ' . get_the_title() . '</span>' . $children_subnav . '</div></li>';
 
             } else {
               $item_classes = [ 'item-current', 'item-' . $post->ID ];
@@ -193,7 +193,7 @@ function custom_breadcrumbs( $atts ) {
               }
 
               // Just display current page if not parents
-              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><strong class="' . implode( ' ', $anchor_classes ) . '"> ' . get_the_title() . '</strong>' . $children_subnav . '</li>';
+              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><strong class="' . implode( ' ', $anchor_classes ) . '"> ' . get_the_title() . '</strong>' . $children_subnav . '</div></li>';
 
             }
 
