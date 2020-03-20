@@ -134,11 +134,27 @@ function populate_checkbox( $form ) {
         if ( $input_id % 10 == 0 )
             $input_id++;
 
-        $online_contracting = get_post_meta( $carrier->ID, 'online_contracting_link', true );
-
-        //$choices[] = array( 'text' => '<a href="' . get_edit_post_link( $carrier->ID ) . '" target="_blank">' . $carrier->post_title . '</a> (' . $online_contracting . ')', 'value' => $carrier->post_title . ' (' . $online_contracting . ')' );
-        $choices[] = array( 'text' => $carrier->post_title, 'value' => $carrier->post_title . '|' . $online_contracting );
-        $inputs[] = array( 'label' => $carrier->post_title, 'id' => "{$field_id}.{$input_id}" );
+        if( 'aetna' == strtolower( $carrier->post_title ) ){
+          $choices[] = [ 'text' => 'Aetna MA/SilverScript', 'value' => 'Aetna MA/SilverScript|Standard' ];
+          $inputs[] = [ 'label' => 'Aetna MA/SilverScript', 'id' => "{$field_id}.{$input_id}" ];
+          //skipping index that are multiples of 10 (multiples of 10 create problems as the input IDs)
+          if ( $input_id % 10 == 0 )
+              $input_id++;
+          $choices[] = [ 'text' => 'Aetna Supplemental', 'value' => 'Aetna Supplemental|SureLC' ];
+          $inputs[] = [ 'label' => 'Aetna Supplemental', 'id' => "{$field_id}.{$input_id}" ];
+        } else if( 'cigna' == strtolower( $carrier->post_title ) ){
+          $choices[] = [ 'text' => 'Cigna MA', 'value' => 'Cigna MA|SureLC' ];
+          $inputs[] = [ 'label' => 'Cigna MA', 'id' => "{$field_id}.{$input_id}" ];
+          //skipping index that are multiples of 10 (multiples of 10 create problems as the input IDs)
+          if ( $input_id % 10 == 0 )
+              $input_id++;
+          $choices[] = [ 'text' => 'Cigna Supplemental', 'value' => 'Cigna Supplemental|Standard' ];
+          $inputs[] = [ 'label' => 'Cigna Supplemental', 'id' => "{$field_id}.{$input_id}" ];
+        } else {
+          $online_contracting = get_post_meta( $carrier->ID, 'online_contracting_link', true );
+          $choices[] = array( 'text' => $carrier->post_title, 'value' => $carrier->post_title . '|' . $online_contracting );
+          $inputs[] = array( 'label' => $carrier->post_title, 'id' => "{$field_id}.{$input_id}" );
+        }
 
         $input_id++;
       }
