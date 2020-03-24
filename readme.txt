@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.3.2
-Stable tag: 1.8.2
+Stable tag: 1.8.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,12 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 1.8.3 =
+* Updating Plan Finder product links to use `/carrier/${carrier}/${product}` permalinks.
+* Updating current item for Supercrubms to use `<span/>` instead of `<strong/>`.
+* Updating `ul > li` chevrons to `#26ace2`.
+* Handling links to `/product/${product}/${carrier}`. Showing a list of products under a category when there are multple ones for a Carrier or redirecting to the `/carrier/${carrier}/${product}/` page if there is only one.
 
 = 1.8.2 =
 * Styling for Supercrumbs: increasing right margin from 5 to 8px, updating down chevron to NCC Blue `#26ACE2`.
