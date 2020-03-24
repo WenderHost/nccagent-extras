@@ -150,7 +150,7 @@ function products_rest_api(){
                 'product' => [
                   'alt_name' => $product_title,
                   'name'     => $product['product']->post_title,
-                  'url'      => get_the_permalink( $product['product']->ID ) . $carrier->post_name,
+                  'url'      => get_the_permalink( $carrier->ID ) . sanitize_title_with_dashes( $product_title ),
                 ],
                 'carrier' => [
                   'name'  => get_the_title( $carrier->ID ),
