@@ -132,22 +132,31 @@ function productbycarrier(){
       if( 1 < count( $products ) )
         $html.= '<h1>' . get_the_title( $post->ID ) . ' Products from ' . get_the_title( $carrier->ID ) . '</h1>';
 
+      $urls = [];
+      $list_items = [];
       while( have_rows( 'products', $carrier->ID ) ): the_row();
         $product = get_sub_field( 'product', true );
         // Display the product if it matches the Product page we're currently viewing
         if( $post->ID == $product->ID ){
           $product_details = get_sub_field('product_details');
           $product_name = ( ! empty( $product_details['alternate_product_name'] ) )? $product_details['alternate_product_name'] : $product->post_title ;
-          $product_description = $product_details['description'];
-          $product_states = $product_details['states'];
+          //$product_description = $product_details['description'];
+          //$product_states = $product_details['states'];
 
-          $states = ( is_array( $product_states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product_states ) . '</span>' : $product_states ;
+          //$states = ( is_array( $product_states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product_states ) . '</span>' : $product_states ;
 
-          $headingEle = ( 1 < count( $products ) )? 'h2' : 'h1';
+          //$headingEle = ( 1 < count( $products ) )? 'h2' : 'h1';
 
-          $html.= '<' . $headingEle . '>' . $carrier->post_title . ' ' . $product_name . '</' . $headingEle . '><p><code>' . $states . '</code></p>' . $product_description;
+          //$html.= '<' . $headingEle . '>' . $carrier->post_title . ' ' . $product_name . '</' . $headingEle . '><p><code>' . $states . '</code></p>' . $product_description;
+          $urls[] = get_permalink( $carrier->ID ) . sanitize_title_with_dashes( $product_name );
+          $list_items[] = '<a href="' . get_permalink( $carrier->ID ) . sanitize_title_with_dashes( $product_name ) . '">' . $product_name . '</a>';
         }
       endwhile;
+      if( 1 === count( $urls ) )
+        wp_redirect( $urls[0], 302 );
+
+      if( 0 < count( $list_items ) )
+        $html.= '<ul><li>' . implode('</li><li>', $list_items ) . '</li></ul>';
       return $html;
     }
     return '<pre>No product details were found for ' . $carrier->post_title . ' &gt; ' . $post->post_title . '</pre>';
