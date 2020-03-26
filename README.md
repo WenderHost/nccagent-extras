@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.3.2  
-**Stable tag:** 1.8.3  
+**Stable tag:** 1.8.4  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 1.8.4 ###
+* Updating `Register` link to redirect to `/login/`.
+* Updating Supercrumbs to only show the current page if that page has child elements.
 
 ### 1.8.3 ###
 * Updating Plan Finder product links to use `/carrier/${carrier}/${product}` permalinks.

@@ -166,18 +166,22 @@ function custom_breadcrumbs( $atts ) {
               $anc = array_reverse($anc);
 
               // Parent page loop
-              if ( !isset( $parents ) ) $parents = null;
+              if ( ! isset( $parents ) ) $parents = [];
               foreach ( $anc as $ancestor ) {
                 $item_classes = [ 'item-parent', 'item-parent-' . $ancestor ];
                 $children_subnav = get_subnav( $ancestor, $post->post_type );
                 if( $children_subnav )
                   $item_classes[] = 'dropdown';
-                $parents .= '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '">' . get_the_title($ancestor) . '</a>' . $children_subnav . '</div></li>';
-                $parents .= '<li class="separator separator-' . $ancestor . '"> ' . $separator . ' </li>';
+
+                //$parents .=
+                $parents[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '">' . get_the_title($ancestor) . '</a>' . $children_subnav . '</div></li>';
+                //$parents .=
+                $parents[] = '<li class="separator separator-' . $ancestor . '"> ' . $separator . ' </li>';
               }
 
               // Display parent pages
-              $html[] = $parents;
+              //$html[] = $parents;
+              $html = array_merge( $html, $parents );
 
               // Get children
               $children_subnav = get_subnav( $post->ID, $post->post_type );
@@ -186,7 +190,14 @@ function custom_breadcrumbs( $atts ) {
               $item_classes = [ 'item-current', 'item-' . $post->ID ];
               if( $children_subnav )
                 $item_classes[] = 'dropdown';
-              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="dropbtn"> ' . get_the_title() . '</span>' . $children_subnav . '</div></li>';
+
+              // Only add the current page if it has child pages
+              if( in_array( 'dropdown', $item_classes ) ){
+                $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="dropbtn"> ' . get_the_title() . '</span>' . $children_subnav . '</div></li>';
+              } else {
+                // If our current page doens't have child pages, remove the trailing seperator
+                array_pop( $html );
+              }
 
             } else {
               $item_classes = [ 'item-current', 'item-' . $post->ID ];
