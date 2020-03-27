@@ -70,20 +70,28 @@ function custom_breadcrumbs( $atts ) {
           $post_type = get_post_type();
 
           // If it is a custom post type display name and link
-          if($post_type != 'post') {
+          if( $post_type != 'post' ) {
 
             $post_type_object = get_post_type_object( $post_type );
             $post_type_archive = get_post_type_archive_link( $post_type );
+            $item_classes = [ 'item-cat', 'item-custom-post-type-' . $post_type ];
 
             if( 'Carriers' == $post_type_object->labels->name || 'Products' == $post_type_object->labels->name ){
               $link_text = 'Carriers &amp; Products';
               $post_type_archive = site_url( 'plans' );
+              /**
+               * 03/27/2020 - Uncomment the folloiwng lines to add a drop down of Carriers to the "Carriers & Products"
+               * breadcrumb. To really make this work, I need to code something to appropriately handle the list of
+               * products and carriers such that we don't have too large of a dropdown.
+               */
+              //$children_subnav = get_subnav( 0, 'carrier' );
+              //$item_classes[] = 'dropdown';
             } else {
               $link_text = $post_type_object->labels->name;
             }
 
-            $html[] = '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '">' . $link_text . '</a></li>';
-            $html[] = '<li class="separator"> ' . $separator . ' </li>';
+            $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $link_text . '</a>' . $children_subnav . '</div></li>';
+            //$html[] = '<li class="separator"> ' . $separator . ' </li>';
 
           }
 
@@ -134,8 +142,8 @@ function custom_breadcrumbs( $atts ) {
 
           } else {
 
-            $link_text = ( $carrierproduct || $productcarrier )? '<a href="' . get_the_permalink( $post->ID ) . '">' . get_the_title() . '</a>' : '<span class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</span>' ;
-            $html[] = '<li class="item-current item-' . $post->ID . '">' . $link_text . '</li>';
+            //$link_text = ( $carrierproduct || $productcarrier )? '<a href="' . get_the_permalink( $post->ID ) . '">' . get_the_title() . '</a>' : '<span class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</span>' ;
+            //$html[] = '<li class="item-current item-' . $post->ID . '">' . $link_text . '</li>';
 
           }
 
