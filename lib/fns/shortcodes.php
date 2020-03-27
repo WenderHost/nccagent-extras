@@ -31,7 +31,7 @@ function acf_get_carrier_products( $atts ){
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
       $states = ( is_array( $product['product_details']['states'] ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product['product_details']['states'] ) . '</span>' : $product['product_details']['states'] ;
       $html.= '<h4 class="product-title">' . $product_title . '</h4><p>' . $states . '</p>';
-      $html.= '<div class="product-content">' . apply_filters( 'the_content', $product['product_details']['description'] ) . '<p>Permalink: <a href="'. get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ) . '">' . $product_title . '</a></p></div>';
+      $html.= '<div class="product-content">' . apply_filters( 'the_content', $product['product_details']['description'] ) . '<p>Permalink: <a href="'. get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ) . '">' . get_the_title( $args['post_id'] ) . ' ' . $product_title . '</a></p></div>';
     }
   } else {
     $accordion_js = file_get_contents( plugin_dir_path( __FILE__ ) . '../js/accordion.js' );
@@ -43,7 +43,7 @@ function acf_get_carrier_products( $atts ){
       $html.= '<a href="#' . $product['product']->post_name . '-' . $x . '" class="accordion-toggle">' . $product_title . '</a>';
       $product_description = apply_filters( 'the_content', $product['product_details']['description'] );
       $states = ( is_array( $product['product_details']['states'] ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product['product_details']['states'] ) . '</span>' : $product['product_details']['states'] ;
-      $html.= '<div class="accordion-content" id="' . $product['product']->post_name . '-' . $x . '"><p>' . $states . '</p>' . $product_description . '<p>Permalink: <a href="'. get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ) . '">' . $product_title . '</a></p></div>';
+      $html.= '<div class="accordion-content" id="' . $product['product']->post_name . '-' . $x . '"><p>' . $states . '</p>' . $product_description . '<p>Permalink: <a href="'. get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ) . '">' . get_the_title( $args['post_id'] ) . ' ' . $product_title . '</a></p></div>';
       $x++;
     }
   }
