@@ -22,6 +22,7 @@ require_once( 'lib/fns/breadcrumbs.php' );
 require_once( 'lib/fns/csg.php' );
 require_once( 'lib/fns/dir-lister.php' );
 require_once( 'lib/fns/enqueues.php' );
+require_once( 'lib/fns/gettext.php' );
 require_once( 'lib/fns/gravityforms.php' );
 require_once( 'lib/fns/hubspot.php' );
 require_once( 'lib/fns/marketers.php' );
