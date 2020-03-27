@@ -241,7 +241,7 @@ function product_finder( $atts ){
     wp_localize_script( 'product-finder', 'wpvars', [
       'table_id'        => $args['table_id'],
       'table_class'     => $args['table_class'],
-      'planFinderApi'   => rest_url( 'nccagent/v1/products' ),
+      'productFinderApi'   => rest_url( 'nccagent/v1/products' ),
       'helpGraphic'     => $help_graphic,
       'stateOptions'    => $state_options['options'],
       'stateOptionData' => $state_options['data'],
