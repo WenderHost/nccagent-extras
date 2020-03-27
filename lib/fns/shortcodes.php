@@ -221,7 +221,7 @@ add_shortcode( 'carrierproduct', __NAMESPACE__ . '\\carrierproduct' );
  *
  * @return     string  ( description_of_the_return_value )
  */
-function plan_finder( $atts ){
+function product_finder( $atts ){
 
   static $called = false;
 
@@ -232,13 +232,13 @@ function plan_finder( $atts ){
 
   global $post;
   $help_graphic;
-  if( get_field( 'plan_finder_help_graphic', $post->ID ) )
-    $help_graphic = get_field( 'plan_finder_help_graphic', $post->ID );
+  if( get_field( 'product_finder_help_graphic', $post->ID ) )
+    $help_graphic = get_field( 'product_finder_help_graphic', $post->ID );
 
-  wp_enqueue_script( 'plan-finder' );
+  wp_enqueue_script( 'product-finder' );
   if( ! $called ){
     $state_options = ncc_get_state_options();
-    wp_localize_script( 'plan-finder', 'wpvars', [
+    wp_localize_script( 'product-finder', 'wpvars', [
       'table_id'        => $args['table_id'],
       'table_class'     => $args['table_class'],
       'planFinderApi'   => rest_url( 'nccagent/v1/products' ),
@@ -250,9 +250,9 @@ function plan_finder( $atts ){
     $called = true;
   }
 
-  return '<h5>Plan Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th class="label" style="width: 40px; font-size: 12px; padding: 4px;">Make your selection(s):</th><th style="width: 40%">States</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th id="selectors">&nbsp;</th></tr><tr><th id="ncc-staff" colspan="5"></th></tr></thead><tbody></tbody></table>';
+  return '<h5>Product Finder</h5><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th class="label" style="width: 40px; font-size: 12px; padding: 4px;">Make your selection(s):</th><th style="width: 40%">States</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th id="selectors">&nbsp;</th></tr><tr><th id="ncc-staff" colspan="5"></th></tr></thead><tbody></tbody></table>';
 }
-add_shortcode( 'productsbystate', __NAMESPACE__ . '\\plan_finder' );
+add_shortcode( 'productsbystate', __NAMESPACE__ . '\\product_finder' );
 
 /**
  * Displays post content while adding a "Read more..." link after a `/more` tag

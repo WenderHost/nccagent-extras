@@ -106,7 +106,7 @@ function register_team_member_fields(){
 add_action( 'rest_api_init', __NAMESPACE__ . '\\register_team_member_fields' );
 
 /**
- * Provides a `Products` endpoint for use in the Plan Finder.
+ * Provides a `Products` endpoint for use in the Product Finder.
  */
 function products_rest_api(){
   register_rest_route( 'nccagent/v1', 'products', [
