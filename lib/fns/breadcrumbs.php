@@ -90,7 +90,16 @@ function custom_breadcrumbs( $atts ) {
               $link_text = $post_type_object->labels->name;
             }
 
-            $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $link_text . '</a>' . $children_subnav . '</div></li>';
+            if( 'team_member' == $post_type ){
+              $about_page = get_page_by_path( 'about' );
+              $children_subnav = get_subnav( $about_page->ID );
+              $html[] = '<li class="item-parent item-parent-' . $about_page->ID . ' dropdown"><div><a href="' . get_permalink( $about_page->ID ) . '">About</a>' . $children_subnav . '</div></li>';
+              $html[] = '<li class="separator"> ' . $separator . ' </li>';
+              $staff_page = get_page_by_path( 'about/staff' );
+              $html[] = '<li class="item-parent"><div><a href="' . get_permalink( $staff_page->ID ) . '">Staff</a></div></li>';
+            } else {
+              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $link_text . '</a>' . $children_subnav . '</div></li>';
+            }
             //$html[] = '<li class="separator"> ' . $separator . ' </li>';
 
           }
@@ -182,7 +191,9 @@ function custom_breadcrumbs( $atts ) {
                   $item_classes[] = 'dropdown';
 
                 //$parents .=
-                $parents[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '">' . get_the_title($ancestor) . '</a>' . $children_subnav . '</div></li>';
+                $title = get_the_title($ancestor);
+                $link_text = ( 'About National Contracting Center' == $title )? 'About' : get_the_title($ancestor) ;
+                $parents[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-parent bread-parent-' . $ancestor . '" href="' . get_permalink($ancestor) . '">' . $link_text . '</a>' . $children_subnav . '</div></li>';
                 //$parents .=
                 $parents[] = '<li class="separator separator-' . $ancestor . '"> ' . $separator . ' </li>';
               }
@@ -201,7 +212,9 @@ function custom_breadcrumbs( $atts ) {
 
               // Only add the current page if it has child pages
               if( in_array( 'dropdown', $item_classes ) ){
-                $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="dropbtn"> ' . get_the_title() . '</span>' . $children_subnav . '</div></li>';
+                $title = get_the_title();
+                $link_text = ( 'About National Contracting Center' == $title )? 'About' : $title;
+                $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="dropbtn"> ' . $link_text . '</span>' . $children_subnav . '</div></li>';
               } else {
                 // If our current page doens't have child pages, remove the trailing seperator
                 array_pop( $html );
@@ -217,7 +230,9 @@ function custom_breadcrumbs( $atts ) {
               }
 
               // Just display current page if not parents
-              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="' . implode( ' ', $anchor_classes ) . '"> ' . get_the_title() . '</span>' . $children_subnav . '</div></li>';
+              $title = get_the_title();
+              $link_text = ( 'About National Contracting Center' == $title )? 'About' : $title;
+              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="' . implode( ' ', $anchor_classes ) . '"> ' . $link_text . '</span>' . $children_subnav . '</div></li>';
 
             }
 
