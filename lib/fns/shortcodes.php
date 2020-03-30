@@ -279,6 +279,21 @@ function readmore_content(){
 add_shortcode( 'readmore_content', __NAMESPACE__ . '\\readmore_content' );
 
 /**
+ * Returns the WP logout URL, redirect defauts to `site_url()`.
+ *
+ * @param      array  $atts   The shortcode atts
+ *
+ * @return     string  The logout url.
+ */
+function logout_url( $atts ){
+  $args = shortcode_atts([
+    'redirect' => site_url(),
+  ], $atts );
+  return wp_logout_url( $args['redirect'] );
+}
+add_shortcode( 'logouturl', __NAMESPACE__ . '\\logout_url' );
+
+/**
  * Returns a list of team members
  *
  * @param      array  $atts {
