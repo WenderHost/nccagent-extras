@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.3.2
-Stable tag: 1.8.6
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,16 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 1.9.0 =
+* Updating all trailing supercrumbs to turquoise.
+* Removing "Carrier", "Product", and "Carrier > Product" breadcrumb when we are on one of those pages.
+* Adding Carrier name to Product permalink text.
+* Translating "Lost your password?" to "Forgot password?"
+* Changing `/my-profile/` to `/dashboard/`.
+* Filtering Top Bar nav with `add_dashboard_link()` to provide "My Dashboard" link to logged in users.
+* Adding `[logouturl]` shortcode for use in Elementor buttons or anywhere else we need to add a logout link.
+* Updating supercrumbs on Team Member pages to display "About > Staff".
 
 = 1.8.6 =
 * BUGFIX: Correcting reference to Product Finder API.
