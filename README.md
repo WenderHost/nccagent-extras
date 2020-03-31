@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.3.2  
-**Stable tag:** 1.9.1  
+**Stable tag:** 1.9.2  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,11 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 1.9.2 ###
+* Adding `HS_AGENT_REGISTRATION_FORM_ID` to `wp-config.php`.
+* Adding `alternate_product_name` to `wp ncc carriers import`.
+* Testing for empty "date" fields inside `_map_row_values()` to prevent "Review Date" and "Source File Date" from being set as the current day's date when that field is empty in the CSV.
 
 ### 1.9.1 ###
 * Updating labels for Cigna in the "Contract Online" GravityForm.

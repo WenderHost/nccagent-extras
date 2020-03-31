@@ -167,8 +167,9 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
 
           $row_id = $mapped_data['row_id'] - 1;
           $row_updated = false;
-          $selectors = ['states','review_date','source_file_name','source_file_date','lower_issue_age','upper_issue_age'];
+          $selectors = ['Alternate_Product_Name','Lower_Issue_Age','Upper_Issue_Age','Review_Date','Source_File_Name','Source_File_Date','States'];
           foreach( $selectors as $selector ){
+            $selector = strtolower( $selector );
             $field_name = 'products_' . $row_id . '_product_details_' . $selector;
             $field_updated = update_field( $field_name, $mapped_data[$selector], $mapped_data['id'] );
             if( $field_updated )
@@ -294,8 +295,12 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
       switch( $name ){
         case 'review_date':
         case 'source_file_date':
-          $date = date_create( $data[$key] );
-          $row_values[$name] = date_format( $date, 'm/d/Y' );
+          if( ! empty( $data['key'] ) ){
+            $date = date_create( $data[$key] );
+            $row_values[$name] = date_format( $date, 'm/d/Y' );
+          } else {
+            $row_values[$name] = '';
+          }
           break;
 
         case 'states':
