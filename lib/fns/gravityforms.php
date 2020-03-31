@@ -54,11 +54,11 @@ add_filter( 'gform_confirmation', __NAMESPACE__ . '\\custom_confirmation', 10, 3
 /**
  * Modifies the Online Contracting form notification.
  *
- * @param      <type>  $notification  The notification
- * @param      <type>  $form          The form
- * @param      <type>  $entry         The entry
+ * @param      array   $notification  The notification
+ * @param      array   $form          The form
+ * @param      array   $entry         The entry
  *
- * @return     <type>  ( description_of_the_return_value )
+ * @return     array  The notification.
  */
 function modify_notification( $notification, $form, $entry ){
   $form_title = $form['title'];
@@ -98,7 +98,7 @@ function modify_notification( $notification, $form, $entry ){
 add_action( 'gform_notification', __NAMESPACE__ . '\\modify_notification', 10, 3 );
 
 /**
- * Populates the checkbox field of our Online Contracting form
+ * Populates the `Select Carrier(s)` checkbox field of our Online Contracting form
  *
  * In order for this form to work, define the following
  * constants in wp-config.php:
@@ -110,7 +110,7 @@ add_action( 'gform_notification', __NAMESPACE__ . '\\modify_notification', 10, 3
  *
  * @return     object  Form object
  */
-function populate_checkbox( $form ) {
+function populate_select_carriers_checkbox( $form ) {
   if( ! defined( 'GF_CARRIER_CHECKLIST_FIELD_ID' ) )
     return $form;
 
@@ -168,8 +168,8 @@ function populate_checkbox( $form ) {
   return $form;
 }
 if( defined( 'GF_ONLINE_CONTRACTING_FORM_ID' ) ){
-  add_filter( 'gform_pre_render_' . GF_ONLINE_CONTRACTING_FORM_ID, __NAMESPACE__ . '\\populate_checkbox' );
-  add_filter( 'gform_pre_validation_' . GF_ONLINE_CONTRACTING_FORM_ID, __NAMESPACE__ . '\\populate_checkbox' );
-  add_filter( 'gform_pre_submission_filter_' . GF_ONLINE_CONTRACTING_FORM_ID, __NAMESPACE__ . '\\populate_checkbox' );
-  add_filter( 'gform_admin_pre_render_' . GF_ONLINE_CONTRACTING_FORM_ID, __NAMESPACE__ . '\\populate_checkbox' );
+  add_filter( 'gform_pre_render_' . GF_ONLINE_CONTRACTING_FORM_ID, __NAMESPACE__ . '\\populate_select_carriers_checkbox' );
+  add_filter( 'gform_pre_validation_' . GF_ONLINE_CONTRACTING_FORM_ID, __NAMESPACE__ . '\\populate_select_carriers_checkbox' );
+  add_filter( 'gform_pre_submission_filter_' . GF_ONLINE_CONTRACTING_FORM_ID, __NAMESPACE__ . '\\populate_select_carriers_checkbox' );
+  add_filter( 'gform_admin_pre_render_' . GF_ONLINE_CONTRACTING_FORM_ID, __NAMESPACE__ . '\\populate_select_carriers_checkbox' );
 }
