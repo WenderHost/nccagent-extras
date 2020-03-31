@@ -21,7 +21,11 @@ add_action( 'wp_footer', __NAMESPACE__ . '\\hs_tracking', 9999 );
  */
 function register_user_and_send_lead_to_hubspot( $record, $handler ){
   if( ! defined( 'HS_PORTAL_ID' ) ){
-    ncc_error_log('🔔 `HS_PORTAL_ID` not defined. Please add your Hubspot Portal ID to `wp-config.php`.');
+    ncc_error_log('🚨 `HS_PORTAL_ID` not defined. Please add your Hubspot Portal ID to `wp-config.php`.');
+    return false;
+  }
+  if( ! defined( 'HS_AGENT_REGISTRATION_FORM_ID' ) || empty( HS_AGENT_REGISTRATION_FORM_ID ) ){
+    ncc_error_log('🚨 `HS_AGENT_REGISTRATION_FORM_ID` not defined. Please add the corresponding HubSpot `Agent Registration` form ID to `wp-config.php`.');
     return false;
   }
 
@@ -66,16 +70,13 @@ function register_user_and_send_lead_to_hubspot( $record, $handler ){
   /**
    * HubSpot Form ID
    *
-   * We find the HubSpot Form ID when we edit a form on HubSpot. In this case, we
-   * are submitting to the `Agent Registration` form. The Edit URL for that form is:
-   *
-   * https://app.hubspot.com/forms/2735322/editor/748288ad-0f33-4164-a46b-e394ef7ca982/edit/form
+   * 03/31/2020 (07:07) - moved the HubSpot Form ID to wp-config.php as a
+   * defined variable called `HS_AGENT_REGISTRATION_FORM_ID`.
    */
-  $hs_form_id = '748288ad-0f33-4164-a46b-e394ef7ca982';
 
   // Submit the form to HubSpot
   $response = wp_remote_post(
-    'https://forms.hubspot.com/uploads/form/v2/' . HS_PORTAL_ID . '/' . $hs_form_id,
+    'https://forms.hubspot.com/uploads/form/v2/' . HS_PORTAL_ID . '/' . HS_AGENT_REGISTRATION_FORM_ID,
     [ 'body' => $fields ]);
 
   // Add the user to WordPress
