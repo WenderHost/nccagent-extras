@@ -1,7 +1,7 @@
 === NCCAgent Extras ===
 Contributors: the_webist
 Requires at least: 4.5
-Tested up to: 5.3.2
+Tested up to: 5.4
 Stable tag: 1.9.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
