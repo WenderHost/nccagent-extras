@@ -33,7 +33,7 @@ function dirlister_rest_api(){
 
       $path_array = explode('/', trim( $path, '/' ) );
 
-      $fullpath = 'http://vpn.ncc-agent.com/docs/' . $path;
+      $fullpath = 'https://vpn.ncc-agent.com/docs/' . $path;
       $contents = @file_get_contents( $fullpath );
       if( ! $contents )
         return new \WP_Error( 'notfound', __( 'No listing found at `' . $fullpath . '`', 'nccagent')  );
@@ -44,7 +44,7 @@ function dirlister_rest_api(){
       if( 0 < count( $hrefs['link'] ) ){
         foreach( $hrefs['link'] as $key => $link ){
           $text = ( '[To Parent Directory]' != $hrefs['text'][$key] )? $hrefs['text'][$key] : '&larr; To Parent Directory' ;
-          $links[$key] = ['link' => 'http://vpn.ncc-agent.com' . $link, 'text' => $text ];
+          $links[$key] = ['link' => 'https://vpn.ncc-agent.com' . $link, 'text' => $text ];
           $filetype = wp_check_filetype( basename( $link ) );
           $links[$key]['type'] = ( ! empty( $filetype['ext'] ) )? 'file' : 'dir' ;
         }
