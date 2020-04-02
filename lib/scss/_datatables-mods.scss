@@ -44,6 +44,15 @@ table.dataTable{
         background-image: none;
       }
     }
+    tr#reset-row{
+      display: none;
+
+      th{
+        padding: 0;
+        text-align: center;
+        font-weight: normal;
+      }
+    }
   }
   td.dataTables_empty{
     height: 300px;
