@@ -1,4 +1,20 @@
 /* DataTables */
+.product-finder-header{
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  margin-bottom: 1.5em;
+
+  a,
+  h5{
+    line-height: 1;
+    margin: 0;
+  }
+  #reset-form{
+    display: none;
+    text-decoration: none;
+  }
+}
 .dataTables_wrapper{
   .dataTables_length,
   .dataTables_filter{
@@ -44,15 +60,6 @@ table.dataTable{
         background-image: none;
       }
     }
-    tr#reset-row{
-      display: none;
-
-      th{
-        padding: 0;
-        text-align: center;
-        font-weight: normal;
-      }
-    }
   }
   td.dataTables_empty{
     height: 300px;
@@ -96,13 +103,13 @@ table.dataTable{
     }
   }
   a.details-link{
-    &:before{
+    &:after{
       font-family: 'fontawesome';
-      content: '\f055';
+      content: '\f078';
     }
-    &.shown:before{
+    &.shown:after{
       font-family: 'fontawesome';
-      content: '\f057';
+      content: '\f077';
     }
 
     /* Positioning */
@@ -110,22 +117,26 @@ table.dataTable{
 
     /* Box-model */
     display: block;
-    /*
-    width: 80px;
-    height: 24px;
-    float: left;*/
 
     /* Typography */
-    font-size: 18px;
+    font-size: 16px;
     text-decoration: none !important;
+    text-align: center;
 
     /* Visual */
     cursor: pointer;
   }
 
+  tr.shown{
+    td{
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+    & + tr > td{
+      border-top: 0;
+    }
 
-  tr.shown td.details-control{
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cstyle%3E.st0%7Bdisplay:none%7D.st1%7Bdisplay:inline%7D.st2%7Bfill:%230063c6%7D.st3%7Bfill:%23fff%7D%3C/style%3E%3Cg id='Layer_1' class='st0'%3E%3Cg class='st1'%3E%3Ccircle class='st2' cx='32' cy='32' r='32'/%3E%3Cpath class='st3' d='M15.7 23.6L32 49l16.3-25.4z'/%3E%3C/g%3E%3C/g%3E%3Cg id='Layer_1_copy'%3E%3Ccircle class='st2' cx='32' cy='32' r='32'/%3E%3Cpath class='st3' d='M13 27h38v10H13z'/%3E%3C/g%3E%3C/svg%3E");
+
   }
 }
 
@@ -135,7 +146,7 @@ table.dataTable{
     background-color: transparent;
   }
   tbody>tr.odd[role="row"]>td{
-    background-color: #eee;
+    background-color: transparent;
   }
   tbody>tr:hover td{
     background-color: transparent;
@@ -197,12 +208,12 @@ table.dataTable{
   width: 1.8rem;
 
   /* Typography */
-  color: #fff;
+  color: #333;
   text-align: center;
   font-size: 13px;
 
   /* Visual */
-  background-color: darken(#91b9dc,5%);
+  background-color: #eee;
   border-radius: 3px;
 
   /* Misc */

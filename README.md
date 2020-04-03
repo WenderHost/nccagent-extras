@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 1.9.6  
+**Stable tag:** 2.0.0  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,21 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.0.0 ###
+* Product Finder design updates:
+  * Removed underline of product titles.
+  * Removed zebra striping of product results.
+  * Added Carrier &gt; Product permalink to "More information" child row.
+  * Increased cell padding for result rows.
+  * Updated state "chiclet" color scheme.
+  * Changed "Product Details" link text to "See more information right here".
+  * Removed parent product table cell's bottom border which child row is displayed.
+  * Repositioned "reset form" link next to "Product Finder" header.
+* Quick Links updates:
+  * Removed "Back to ${carrier}" link.
+  * Changed "Contacting Kit" link text to "Product Kit".
+  * Fixed "Online Contracting" link.
 
 ### 1.9.6 ###
 * Capitalizing Carrier Document Library breadcrumbs.

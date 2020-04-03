@@ -20,14 +20,6 @@
       margin-top: 0;
     }
 
-    a{
-      text-decoration: none !important;
-
-      &:hover{
-        text-decoration: underline !important;
-      }
-    }
-
     span{
       font-size: 16px;
       display: block;
@@ -84,6 +76,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    a{
+      text-decoration: none;
+    }
   }
   .team-member-read-more{
     font-weight: normal;
