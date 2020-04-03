@@ -47,7 +47,7 @@ function ncc_quick_links(){
       'text' => 'All Carriers &amp; Products'
   ];
 
-  $html[] = '<h3>Quick Links</h3>';
+  $html[] = '<h2 style="margin-top: 1em;">Quick Links</h2>';
   foreach( $links as $link ){
     if( isset( $link['post_type'] ) && ( $link['post_type'] != $post_type ) )
       continue;

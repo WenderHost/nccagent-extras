@@ -9,8 +9,6 @@ namespace NCCAgent\shortcodes\carrierdocs;
  */
 function carrierdocs(){
   $carrierproduct = get_query_var( 'carrierproduct' );
-  if( ! empty( $carrierproduct ) )
-    return;
 
   global $post;
   if( 'carrier' != get_post_type( $post ) )

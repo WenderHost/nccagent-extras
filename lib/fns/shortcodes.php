@@ -193,7 +193,7 @@ function carrierproduct(){
 
         $states = ( is_array( $product_states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product_states ) . '</span>' : $product_states ;
 
-        $headingEle = ( 1 < count( $products ) )? 'h2' : 'h1';
+        $headingEle = ( 1 < count( $products ) && empty( $carrierproduct ) )? 'h2' : 'h1';
 
         $html.= '<' . $headingEle . '>' . $carrier->post_title . ' ' . $product_name . '</' . $headingEle . '><p><code>' . $states . '</code></p>' . $product_description;
         return $html;
