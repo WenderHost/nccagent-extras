@@ -8,7 +8,7 @@
  * Author URI:        https://mwender.com
  * Text Domain:       nccagent-extras
  * Domain Path:       /languages
- * Version:           1.9.4
+ * Version:           1.9.5
  *
  * @package           Nccagent_Extras
  */
@@ -28,15 +28,16 @@ require_once( 'lib/fns/hubspot.php' );
 require_once( 'lib/fns/marketers.php' );
 require_once( 'lib/fns/query_vars.php' );
 require_once( 'lib/fns/quick_links.php' );
+require_once( 'lib/fns/rest-api.php' );
 require_once( 'lib/fns/shortcodes.php' );
 require_once( 'lib/fns/shortcodes.carrierdocs.php' );
 require_once( 'lib/fns/shortcodes.carrier_page.php' );
 require_once( 'lib/fns/shortcodes.product_page.php' );
+require_once( 'lib/fns/user-profiles.php' );
 require_once( 'lib/fns/utilities.php' );
+require_once( 'lib/fns/wp_head.php' );
 require_once( 'lib/fns/wp-login.php' );
 require_once( 'lib/fns/wp_nav_menus.php' );
-require_once( 'lib/fns/rest-api.php' );
-require_once( 'lib/fns/user-profiles.php' );
 
 function nccagent_cli_init() {
   require_once( 'lib/cli/ncc-carriers.php' );
