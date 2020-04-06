@@ -40,12 +40,13 @@ function acf_get_carrier_products( $atts ){
     $x = 1;
     foreach( $products as $product ){
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
-      $html.= '<a href="#' . $product['product']->post_name . '-' . $x . '" class="accordion-toggle">' . $product_title . '</a>';
+      $html.= '<div class="accordion-toggle" id="' . $product['product']->post_name . '-' . $x . '"><span>' . $product_title . ' </span> <i class="fas fa-plus"></i></div>';
       $product_description = apply_filters( 'the_content', $product['product_details']['description'] );
       $states = ( is_array( $product['product_details']['states'] ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product['product_details']['states'] ) . '</span>' : $product['product_details']['states'] ;
-      $html.= '<div class="accordion-content" id="' . $product['product']->post_name . '-' . $x . '"><p>' . $states . '</p>' . $product_description . '<p>Permalink: <a href="'. get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ) . '">' . get_the_title( $args['post_id'] ) . ' ' . $product_title . '</a></p></div>';
+      $html.= '<div class="accordion-content" id="' . $product['product']->post_name . '-' . $x . '-content"><p>' . $states . '</p>' . $product_description . '<p>Permalink: <a href="'. get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ) . '">' . get_the_title( $args['post_id'] ) . ' ' . $product_title . '</a></p></div>';
       $x++;
     }
+    $html = '<div class="accordion">' . $html . '</div>';
   }
 
   return $html;
