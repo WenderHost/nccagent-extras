@@ -103,14 +103,16 @@ table.dataTable{
     }
   }
   a.details-link{
+    /*
     &:after{
-      font-family: 'fontawesome';
-      content: '\f078';
+      font-family: $fontAwesome;
+      content: "\f078";
     }
     &.shown:after{
-      font-family: 'fontawesome';
-      content: '\f077';
+      font-family: $fontAwesome;
+      content: "\f077";
     }
+    */
 
     /* Positioning */
     margin: .5em 0 0 0;

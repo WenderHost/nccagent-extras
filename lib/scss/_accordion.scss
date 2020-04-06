@@ -1,5 +1,7 @@
-a.accordion-toggle {
-  display: block;
+.accordion-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: $nccNavy;
   color: #fff;
   font-family: $headingFont;
@@ -7,20 +9,27 @@ a.accordion-toggle {
   font-weight: 400;
   padding: .55rem 1rem;
   margin-bottom: 1px;
+  cursor: pointer;
+
+  a{
+    color: #fff;
+  }
 }
 .accordion-toggle.active{
   background-color: $nccBlue;
 }
+/*
 .accordion-toggle:after{
-  font-family: 'fontawesome';
+  font-family: $fontAwesome;
   content: '\f067';
   position: absolute;
   right: 1rem;
 }
 .accordion-toggle.active:after{
-  font-family: 'fontawesome';
+  font-family: $fontAwesome;
   content: '\f00d';
 }
+*/
 .accordion-toggle:hover{
   background-color: $nccBlue;
   color: #fff;
