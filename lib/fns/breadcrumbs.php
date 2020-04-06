@@ -100,8 +100,11 @@ function custom_breadcrumbs( $atts ) {
             } else {
               $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $link_text . '</a>' . $children_subnav . '</div></li>';
             }
-            //$html[] = '<li class="separator"> ' . $separator . ' </li>';
 
+            if( ( 'carrier' == $post_type || 'product' == $post_type ) && ( ! empty( $carrierproduct ) || ! empty( $productcarrier ) ) ){
+              $html[] = '<li class="separator"> ' . $separator . ' </li>';
+              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_permalink( $post ) . '">' . get_the_title( $post ) . '</a></div></li>';
+            }
           }
 
           // Get post category info
@@ -155,7 +158,7 @@ function custom_breadcrumbs( $atts ) {
             //$html[] = '<li class="item-current item-' . $post->ID . '">' . $link_text . '</li>';
 
           }
-
+          /*
           if( $carrierproduct || $productcarrier ){
             $html[] = '<li class="separator"> ' . $separator . ' </li>';
             $link_text = ( $carrierproduct )? $carrierproduct : $productcarrier ;
@@ -165,6 +168,7 @@ function custom_breadcrumbs( $atts ) {
             $link_text = str_replace( $search, $replace, $link_text );
             $html[] = '<li class="item-current"><span class="bread-current">' . $link_text . '</span></li>';
           }
+          /**/
 
         } else if ( is_category() ) {
 
