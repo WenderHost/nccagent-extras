@@ -195,7 +195,7 @@ function carrierproduct(){
 
         $headingEle = ( 1 < count( $products ) && empty( $carrierproduct ) )? 'h2' : 'h1';
 
-        $html.= '<' . $headingEle . '>' . $carrier->post_title . ' ' . $product_name . '</' . $headingEle . '><p><code>' . $states . '</code></p>' . $product_description;
+        $html.= '<' . $headingEle . '>' . $carrier->post_title . ' ' . $product_name . '</' . $headingEle . '><p>' . $states . '</p>' . $product_description;
         return $html;
       }
     endwhile;
