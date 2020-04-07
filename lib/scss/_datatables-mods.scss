@@ -13,6 +13,7 @@
   #reset-form{
     display: none;
     text-decoration: none;
+    font-family: $copyFont;
   }
 }
 .dataTables_wrapper{
@@ -124,9 +125,14 @@ table.dataTable{
     font-size: 16px;
     text-decoration: none !important;
     text-align: center;
+    font-family: $copyFont;
 
     /* Visual */
     cursor: pointer;
+
+    i.fas{
+      font-size: 14px;
+    }
   }
 
   tr.shown{

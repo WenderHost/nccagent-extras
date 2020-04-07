@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.0.6  
+**Stable tag:** 2.0.7  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.0.7 ###
+* Updating "Free Carrier Contracting Kit" to "Free Carrier Product Kit".
+* Styling for Product Finder: adjusting `font-family` for various elements.
 
 ### 2.0.6 ###
 * Square aspect ratio for Team Member photos.
