@@ -83,7 +83,11 @@ function ncc_get_template( $atts ){
   if( ! file_exists( $filename ) )
     return ncc_get_alert(['title' => 'Template not found!', 'description' => 'I could not find your template (<code>' . basename( $template ) . '</code>).']);
 
-  $template = file_get_contents( $filename );
+  $template_transient_key = 'ncc_get_template/' . $args['template'];
+  if( false === ( $template = get_transient( $template_transient_key ) ) ){
+    $template = file_get_contents( $filename );
+    set_transient( $template_transient_key, $template, HOUR_IN_SECONDS );
+  }
 
   $search = [
     '{{image_path}}',
