@@ -23,8 +23,8 @@ function acf_get_carrier_products( $atts ){
   if( empty( $products ) )
     return '';
 
-  $html = '<h3>' . get_the_title( $args['post_id'] ) . ' Policies and State Availability</h3>';
-  $html.= '<div class="product-content"><p>These are ' . get_the_title( $args['post_id'] ) . '\'s current policies and state availability for ' . date('Y') . ', as well as information on contracting and appointment.</p></div>';
+  $html = '<h3>' . get_the_title( $args['post_id'] ) . ' Products and State Availability</h3>';
+  $html.= '<div class="product-content"><p>These are ' . get_the_title( $args['post_id'] ) . '\'s current products and state availability for ' . date('Y') . ', as well as information on contracting and appointment.</p></div>';
 
   if( 3 > count( $products ) ){
     foreach( $products as $product ){
