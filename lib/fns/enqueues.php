@@ -26,6 +26,9 @@ function enqueue_scripts(){
   // Global JS
   wp_enqueue_script( 'globaljs', plugin_dir_url( __FILE__ ) . '../js/global.js', ['jquery'], filemtime( plugin_dir_path( __FILE__ ) ) . '../js/global.js', true );
 
+  // Accordion JS
+  wp_register_script( 'ncc-accordion', plugin_dir_url( __FILE__ ) . '../js/accordion.js', null, filemtime( plugin_dir_path( __FILE__ ) . '../js/accordion.js' ) );
+
   // We currently are locally hosting our Google Fonts, uncomment the following if we want to offload them to the Google CDN:
   //wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Fira+Sans:700,700i&Roboto&display=swap' ); 'google-fonts',
 
