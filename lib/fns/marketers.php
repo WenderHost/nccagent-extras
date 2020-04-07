@@ -57,11 +57,13 @@ function marketer_testimonials( $atts ){
   //return '<p>Testimonials coming soon. If you have a testimonials to share about ' . $name[0] . ', please share it with us at NCC.</p>';
 
   $html = '<h3>Testimonials</h3>';
-  $template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/testimonial.html' );
+  $template = ncc_get_template('testimonial');
   while( have_rows('testimonials') ): the_row();
     $testimonial = get_sub_field('testimonial');
-    $search = [ '{text}', '{name}', '{description}' ];
-    $replace = [ $testimonial['text'], $testimonial['name'], $testimonial['description'] ];
+    $photo = ( $testimonial['photo'] )? '<div class="elementor-testimonial-image">' . wp_get_attachment_image( $testimonial['photo']['ID'], 'thumbnail', $icon = false, $attr = '' ) . '</div>' : '' ;
+    $headline = ( $testimonial['headline'] )? '<h5 class="headline">' . $testimonial['headline'] . '</h5>' : '' ;
+    $search = [ '{{headline}}', '{{text}}', '{{name}}', '{{description}}', '{{photo}}' ];
+    $replace = [ $headline, $testimonial['text'], $testimonial['name'], $testimonial['description'], $photo ];
     $html.= str_replace( $search, $replace, $template );
   endwhile;
 
