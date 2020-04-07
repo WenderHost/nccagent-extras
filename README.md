@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.0.3  
+**Stable tag:** 2.0.4  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.0.4 ###
+* HOTFIX: Moving `preventDefault()` call in accordion click handler so that Carrier &gt; Product permalinks will work.
 
 ### 2.0.3 ###
 * Adding Carrier Docs link to Quick Links.
