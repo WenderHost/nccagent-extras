@@ -42,6 +42,12 @@ function ncc_quick_links(){
         'url'  => $ahip_certification_url,
         'text' => get_the_title( $post->ID ) . ' AHIP Certification',
       ];
+    $vpn_link = get_field( 'vpn_link');
+    if( $vpn_link )
+      $links[] = [
+        'url'   => site_url('carrier-documents/'). '?path=' . $vpn_link,
+        'text'  => get_the_title( $post->ID ) . ' Documents',
+      ];
   }
 
   $links[] = [
