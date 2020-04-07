@@ -34,16 +34,37 @@ function acf_get_carrier_products( $atts ){
       $html.= '<div class="product-content">' . apply_filters( 'the_content', $product['product_details']['description'] ) . '<p>Permalink: <a href="'. get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ) . '">' . get_the_title( $args['post_id'] ) . ' ' . $product_title . '</a></p></div>';
     }
   } else {
-    $accordion_js = file_get_contents( plugin_dir_path( __FILE__ ) . '../js/accordion.js' );
-    $html.= '<script type="text/javascript">' . $accordion_js . '</script>';
+    if( NCC_DEV_ENV ){
+      wp_enqueue_script('ncc-accordion' );
+    } else {
+      $accordion_js = file_get_contents( plugin_dir_path( __FILE__ ) . '../js/accordion.js' );
+      $html.= '<script type="text/javascript">' . $accordion_js . '</script>';
+    }
 
+    $accordion_html = ncc_get_template(['template' => 'accordion.html']);
     $x = 1;
     foreach( $products as $product ){
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
-      $html.= '<div class="accordion-toggle" id="' . $product['product']->post_name . '-' . $x . '"><span>' . $product_title . ' </span> <i class="fas fa-plus"></i></div>';
       $product_description = apply_filters( 'the_content', $product['product_details']['description'] );
       $states = ( is_array( $product['product_details']['states'] ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product['product_details']['states'] ) . '</span>' : $product['product_details']['states'] ;
-      $html.= '<div class="accordion-content" id="' . $product['product']->post_name . '-' . $x . '-content"><p>' . $states . '</p>' . $product_description . '<p>Permalink: <a href="'. get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ) . '">' . get_the_title( $args['post_id'] ) . ' ' . $product_title . '</a></p></div>';
+
+      $search = [
+        '{{toggle_id}}',
+        '{{toggle_title}}',
+        '{{states}}',
+        '{{description}}',
+        '{{permalink}}',
+        '{{link_text}}',
+      ];
+      $replace = [
+        $product['product']->post_name . '-' . $x,
+        $product_title,
+        $states,
+        $product_description,
+        get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ),
+        get_the_title( $args['post_id'] ) . ' ' . $product_title,
+      ];
+      $html.= str_replace( $search, $replace, $accordion_html );
       $x++;
     }
     $html = '<div class="accordion">' . $html . '</div>';
