@@ -3,6 +3,53 @@
 namespace NCCAgent\userprofiles;
 
 /**
+ * Sends a message to approved users.
+ *
+ * @param      int  $user_id  The user identifier
+ */
+function approve_user_message($user_id){
+  if ( get_user_meta( $user_id, 'wp-approve-user-new-registration', true ) ) {
+    wp_new_user_notification( $user_id, null, 'user' );
+    delete_user_meta( $user_id, 'wp-approve-user-new-registration' );
+  }
+
+  // Check user meta if mail has been sent already.
+  if ( ! get_user_meta( $user_id, 'wp-approve-user-mail-sent', true ) ) {
+    $user     = new \WP_User( $user_id );
+    $blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+
+  // Get the "Approve User Message Subject" from our ACF Options Page
+  $approve_user_message_subject = get_field( 'approve_user_message_subject', 'option' );
+  if( ! $approve_user_message_subject || empty( $approve_user_message_subject ) )
+    $approve_user_message_subject = 'Your Account Has Been Approved';
+
+  // Get the "Approve User Message" from our ACF Options Page
+  $approve_user_message = get_field( 'approve_user_message', 'option' );
+  if( ! $approve_user_message || empty( $approve_user_message ) )
+    $approve_user_message = "Your account at {site_name} has been approved.\n\nGet started by setting your password here: {site_url}/login\n\nBest Regards,\nThe NCC Team";
+
+  // Replace any tokens in the message
+  $search = ['{site_name}','{site_url}'];
+  $replace = [ get_bloginfo( 'name' ), site_url() ];
+  $approve_user_message = str_replace( $search, $replace, $approve_user_message );
+
+    // Send mail.
+  add_filter( 'wp_mail', '\\ncc_set_html_mail_content_type' );
+  $sent = wp_mail(
+    $user->user_email,
+    $approve_user_message_subject,
+    $approve_user_message
+  );
+  remove_filter( 'wp_mail', '\\ncc_set_html_mail_content_type' );
+
+    if ( $sent ) {
+      update_user_meta( $user_id, 'wp-approve-user-mail-sent', true );
+    }
+  }
+};
+add_action( 'wpau_approve', __NAMESPACE__ . '\\approve_user_message' );
+
+/**
  * Sends the user an email when they are deleted.
  *
  * @param      string  $user_id  The user ID
@@ -27,7 +74,9 @@ function delete_user_message( $user_id ){
   $delete_user_message = str_replace( $search, $replace, $delete_user_message );
 
   $headers = 'From: ' . get_bloginfo("name") . ' <' . get_bloginfo("admin_email") . '>' . "\r\n";
+  add_filter( 'wp_mail', '\\ncc_set_html_mail_content_type' );
   wp_mail($email, $delete_user_message_subject, $delete_user_message, $headers);
+  remove_filter( 'wp_mail', '\\ncc_set_html_mail_content_type' );
 }
 add_action( 'delete_user', __NAMESPACE__ . '\\delete_user_message' );
 
