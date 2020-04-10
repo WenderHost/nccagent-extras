@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.4
-Stable tag: 2.0.8
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,13 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 2.1.0 =
+* Adding an NCC Settings > Email page for defining the "Delete User Message" sent to a user whose account has been deleted/unapproved.
+* Implementing ACF JSON storage for keeping ACF settings in sync.
+* Have WordPress generate the user password when submitting the Elementor form named `wordpress_and_hubspot_registration`.
+* Updating link for "Register". Changing from `/login` to `/register`.
+* Alerting user when trying to register with an email that already exists.
 
 = 2.0.8 =
 * Updating `.details-link` and `#reset-form` links to match heading font.
