@@ -13,11 +13,11 @@ add_action( 'login_enqueue_scripts', __NAMESPACE__ . '\\login_scripts' );
 
 /**
  * Redirects visitors to `wp-login.php?action=register` to
- * `site.com/login`
+ * `site.com/register`
  */
 function catch_register()
 {
-    wp_redirect( site_url( '/login' ) );
+    wp_redirect( site_url( '/register' ) );
     exit(); // always call `exit()` after `wp_redirect`
 }
 add_action( 'login_form_register', __NAMESPACE__ . '\\catch_register' );
