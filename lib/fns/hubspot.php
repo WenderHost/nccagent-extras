@@ -55,6 +55,12 @@ function register_user_and_send_lead_to_hubspot( $record, $handler ){
     \ncc_error_log('🚨 `email` is not an email! Exiting...');
     return false;
   }
+  if( email_exists( $fields['email'] ) ){
+    $handler->messages = [
+      'error' => ['Registration not sent. A user with that email address already exists.'],
+    ];
+    return false;
+  }
 
   // Add HubSpot Context variables
   $hs_context = [];
