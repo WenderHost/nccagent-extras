@@ -26,7 +26,7 @@ function approve_user_message($user_id){
   // Get the "Approve User Message" from our ACF Options Page
   $approve_user_message = get_field( 'approve_user_message', 'option' );
   if( ! $approve_user_message || empty( $approve_user_message ) )
-    $approve_user_message = "Your account at {site_name} has been approved.\n\nGet started by setting your password here: {site_url}/login\n\nBest Regards,\nThe NCC Team";
+    $approve_user_message = nl2br( "Your account at {site_name} has been approved.\n\nGet started by setting your password here: {site_url}/login\n\nBest Regards,\nThe NCC Team");
 
   // Replace any tokens in the message
   $search = ['{site_name}','{site_url}'];
@@ -51,6 +51,39 @@ function approve_user_message($user_id){
 add_action( 'wpau_approve', __NAMESPACE__ . '\\approve_user_message' );
 
 /**
+ * Message sent to users after they submit the "Register" form.
+ *
+ * @param      int   $user_id  The user identifier
+ *
+ * @return     boolean  Returns FALSE if no user found by the provided ID.
+ */
+function create_user_message( $user_id ){
+  $user = get_userdata( $user_id );
+
+  if( ! $user )
+    return false;
+
+  // Get the "Create User Message Subject" from our ACF Options Page
+  $create_user_message_subject = get_field( 'create_user_message_subject', 'option' );
+  if( ! $create_user_message_subject || empty( $create_user_message_subject ) )
+    $create_user_message_subject = 'Thank You for Registering with ' . get_bloginfo( 'name' );
+
+  // Get the "Create User Message" from our ACF Options Page
+  $create_user_message = get_field( 'create_user_message', 'option' );
+  if( ! $create_user_message || empty( $create_user_message ) )
+    $create_user_message = nl2br( "Dear {firstname},\n\nThank you for registering with {site_name}. We will review the details you provided and notify you once your account has been approved/disapproved.\n\nBest Regards,\nThe NCC Team" );
+
+  // Replace any tokens in the message
+  $search = ['{site_name}','{firstname}'];
+  $replace = [ get_bloginfo( 'name' ), $user->first_name ];
+  $create_user_message = str_replace( $search, $replace, $create_user_message );
+
+  $headers[] = 'From: ' . get_bloginfo("name") . ' <' . get_bloginfo("admin_email") . '>' . "\r\n";
+  $headers[] = 'Content-Type: text/html; charset=UTF-8';
+  wp_mail($user->user_email, $create_user_message_subject, $create_user_message, $headers);
+}
+
+/**
  * Sends the user an email when they are deleted.
  *
  * @param      string  $user_id  The user ID
@@ -67,7 +100,7 @@ function delete_user_message( $user_id ){
   // Get the "Delete User Message" from our ACF Options Page
   $delete_user_message = get_field( 'delete_user_message', 'option' );
   if( ! $delete_user_message || empty( $delete_user_message ) )
-    $delete_user_message = "Your account at {site_name} was not approved. If you feel this decision was an error, please contact us to appeal.\n\nBest Regards,\nThe NCC Team";
+    $delete_user_message = nl2br("Your account at {site_name} was not approved. If you feel this decision was an error, please contact us to appeal.\n\nBest Regards,\nThe NCC Team");
 
   // Replace any tokens in the message
   $search = ['{site_name}'];

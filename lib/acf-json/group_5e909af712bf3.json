@@ -3,6 +3,44 @@
     "title": "Email Settings",
     "fields": [
         {
+            "key": "field_5e90b367db7f1",
+            "label": "Create User Message Subject",
+            "name": "create_user_message_subject",
+            "type": "text",
+            "instructions": "This is the subject of the email sent to the user after he\/she submits the registration form.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5e90b38edb7f2",
+            "label": "Create User Message",
+            "name": "create_user_message",
+            "type": "wysiwyg",
+            "instructions": "This is the message sent to the user after he\/she registers on the site. Allow tokens: <code>{site_name}<\/code>, <code>{firstname}<\/code>.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
             "key": "field_5e90a79a9384e",
             "label": "Approve User Message Subject",
             "name": "approve_user_message_subject",
@@ -96,5 +134,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1586538512
+    "modified": 1586541874
 }
