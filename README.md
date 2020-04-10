@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.1.0  
+**Stable tag:** 2.1.1  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.1.1 ###
+* Removing `ncc_set_html_mail_content_type()` and setting the content type directly in calls to `wp_mail()` with the proper email header.
 
 ### 2.1.0 ###
 * Adding an NCC Settings > Email page for defining the "Delete User Message" sent to a user whose account has been deleted/unapproved.

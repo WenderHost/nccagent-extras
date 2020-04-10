@@ -34,13 +34,14 @@ function approve_user_message($user_id){
   $approve_user_message = str_replace( $search, $replace, $approve_user_message );
 
     // Send mail.
-  add_filter( 'wp_mail', '\\ncc_set_html_mail_content_type' );
+  $headers[] = 'From: ' . get_bloginfo("name") . ' <' . get_bloginfo("admin_email") . '>' . "\r\n";
+  $headers[] = 'Content-Type: text/html; charset=UTF-8';
   $sent = wp_mail(
     $user->user_email,
     $approve_user_message_subject,
-    $approve_user_message
+    $approve_user_message,
+    $headers
   );
-  remove_filter( 'wp_mail', '\\ncc_set_html_mail_content_type' );
 
     if ( $sent ) {
       update_user_meta( $user_id, 'wp-approve-user-mail-sent', true );
@@ -73,10 +74,9 @@ function delete_user_message( $user_id ){
   $replace = [ get_bloginfo( 'name' ) ];
   $delete_user_message = str_replace( $search, $replace, $delete_user_message );
 
-  $headers = 'From: ' . get_bloginfo("name") . ' <' . get_bloginfo("admin_email") . '>' . "\r\n";
-  add_filter( 'wp_mail', '\\ncc_set_html_mail_content_type' );
+  $headers[] = 'From: ' . get_bloginfo("name") . ' <' . get_bloginfo("admin_email") . '>' . "\r\n";
+  $headers[] = 'Content-Type: text/html; charset=UTF-8';
   wp_mail($email, $delete_user_message_subject, $delete_user_message, $headers);
-  remove_filter( 'wp_mail', '\\ncc_set_html_mail_content_type' );
 }
 add_action( 'delete_user', __NAMESPACE__ . '\\delete_user_message' );
 

@@ -112,12 +112,3 @@ function ncc_get_template( $atts ){
   $template = str_replace( $search, $replace, $template );
   return $template;
 }
-
-/**
- * For use with wp_mail() to set the content type to `text/html`.
- *
- * @return     string  Returns the content type.
- */
-function ncc_set_html_mail_content_type(){
-  return 'text/html';
-}
