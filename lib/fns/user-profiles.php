@@ -3,6 +3,35 @@
 namespace NCCAgent\userprofiles;
 
 /**
+ * Sends the user an email when they are deleted.
+ *
+ * @param      string  $user_id  The user ID
+ */
+function delete_user_message( $user_id ){
+  global $wpdb;
+  $email = $wpdb->get_var("SELECT user_email FROM $wpdb->users WHERE ID = '" . $user_id . "' LIMIT 1");
+
+  // Get the "Delete User Message Subject" from our ACF Options Page
+  $delete_user_message_subject = get_field( 'delete_user_message_subject', 'option' );
+  if( ! $delete_user_message_subject || empty( $delete_user_message_subject ) )
+    $delete_user_message_subject = 'Account Not Approved';
+
+  // Get the "Delete User Message" from our ACF Options Page
+  $delete_user_message = get_field( 'delete_user_message', 'option' );
+  if( ! $delete_user_message || empty( $delete_user_message ) )
+    $delete_user_message = "Your account at {site_name} was not approved. If you feel this decision was an error, please contact us to appeal.\n\nBest Regards,\nThe NCC Team";
+
+  // Replace any tokens in the message
+  $search = ['{site_name}'];
+  $replace = [ get_bloginfo( 'name' ) ];
+  $delete_user_message = str_replace( $search, $replace, $delete_user_message );
+
+  $headers = 'From: ' . get_bloginfo("name") . ' <' . get_bloginfo("admin_email") . '>' . "\r\n";
+  wp_mail($email, $delete_user_message_subject, $delete_user_message, $headers);
+}
+add_action( 'delete_user', __NAMESPACE__ . '\\delete_user_message' );
+
+/**
  * Adds fields to user profiles.
  *
  * Fields added:

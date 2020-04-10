@@ -27,6 +27,7 @@ require_once( 'lib/fns/gettext.php' );
 require_once( 'lib/fns/gravityforms.php' );
 require_once( 'lib/fns/hubspot.php' );
 require_once( 'lib/fns/marketers.php' );
+require_once( 'lib/fns/options-page.php' );
 require_once( 'lib/fns/query_vars.php' );
 require_once( 'lib/fns/quick_links.php' );
 require_once( 'lib/fns/rest-api.php' );
