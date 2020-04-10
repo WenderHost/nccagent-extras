@@ -82,7 +82,7 @@ function register_user_and_send_lead_to_hubspot( $record, $handler ){
   // Add the user to WordPress
   if( ! email_exists( $fields['email'] ) ){
     $user_id = wp_insert_user([
-      'user_pass' => $password,
+      'user_pass' => wp_generate_password( 8, false ),
       'user_login' => $fields['email'],
       'user_email' => $fields['email'],
       'display_name' => $fields['firstname'],
