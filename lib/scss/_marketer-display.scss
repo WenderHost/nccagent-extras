@@ -53,14 +53,21 @@
     width: 100%;
     padding-bottom: 100%;
     position: relative;
-    margin-bottom: 1em;
+
+    &:after{
+      content: "";
+      display: table;
+      clear: both;
+    }
   }
 
   .team-member-photo{
+    flex-grow: .5;
     width: 74px;
     height: 74px;
     @media screen and (max-width: 600px){
       padding-left: 0;
+      flex-grow: 1;
     }
   }
   .photo{
