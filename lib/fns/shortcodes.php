@@ -267,6 +267,7 @@ function product_finder( $atts ){
       'helpGraphic'     => $help_graphic,
       'stateOptions'    => $state_options['options'],
       'stateOptionData' => $state_options['data'],
+      'stateLibrary'    => $state_options['library'],
       'marketerUrl'     => rest_url( 'wp/v2/team_member/' ),
     ]);
     $called = true;
