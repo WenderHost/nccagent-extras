@@ -6,13 +6,11 @@ function ncc_quick_links(){
 
   $html = [];
   $links = [
-    /*
     [
       'url'       => get_permalink( $post->ID ),
-      'text'      => 'Back to <strong>' . get_the_title( $post->ID ) . ' Contracting &amp; Appointment</strong>',
+      'text'      => 'All ' . get_the_title( $post->ID ) . ' Products</strong>',
       'post_type' => 'carrier',
     ],
-    */
     [
       'url'       => get_permalink( $post->ID ),
       'text'      => 'Back to <strong>' . get_the_title( $post->ID ) . ' Products and Carriers</strong>',
@@ -20,7 +18,7 @@ function ncc_quick_links(){
     ],
     [
       'url'       => 'contracting/contract-online',
-      'text'      => 'Online Contracting for Medicare Agents',
+      'text'      => 'Contract with ' . get_the_title( $post->ID ) . ' Online',
     ],
     [
       'url'       => 'contracting/kit-request',
