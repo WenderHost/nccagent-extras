@@ -148,7 +148,16 @@ function products_rest_api(){
               $states = $product['product_details']['states'];
               if( is_array( $states ) )
                 sort( $states );
-              $states = ( is_array( $states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $states ) . '</span>' : $states ;
+              //$states = ( is_array( $states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $states ) . '</span>' : $states ;
+              if( is_array( $states ) ){
+                $state_html = '';
+                foreach( $states as $state ){
+                  $state_html.= '<span class="chiclet chiclet-' . strtolower( $state ) . '">' . $state . '</span> ';
+                }
+                $states = $state_html;
+              } else {
+                $states = $states;
+              }
 
               // Set $product_title to not be empty so that this product always has an `alt_name`:
               $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
@@ -165,6 +174,7 @@ function products_rest_api(){
                 ],
                 'description' => $product['product_details']['description'],
                 'states'  => $states,
+                'contracting_url' => site_url( 'contracting/contract-online' ),
               ];
             }
           }
