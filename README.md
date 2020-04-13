@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.1.3  
+**Stable tag:** 2.1.4  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,12 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.1.4 ###
+* Updating Quick Links:
+  * Restoring link back to Carrier and setting link text to "All ${carrier_name} Products".
+  * Updating link text for online contracting to "Contract with ${carrier_name} Online".
+* Styling for Marketer Testimonials.
 
 ### 2.1.3 ###
 * Adding Marketer's state to the marketer title displayed in the Product Finder.
