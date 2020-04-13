@@ -83,12 +83,19 @@ function register_team_member_fields(){
   register_rest_field( 'team_member', 'team_member_details', [
     'get_callback' => function( ){
       global $post;
+      $state = get_query_var( 'state' );
       $name = $post->post_title;
       $title = get_field('title');
       $phone = get_field('phone');
       $email = get_field('email');
       $bio = get_field('bio');
-      $states = strip_tags( get_the_term_list( $post->ID, 'state', '', ', ', '' ) );
+      $state_terms = get_the_terms( $post, 'state' );
+      $states = [];
+      if( $state_terms ){
+        foreach( $state_terms as $state ) {
+          $states[$state->term_id] = $state->name;
+        }
+      }
       $photo = ( has_post_thumbnail( $post ) )? get_the_post_thumbnail_url( $post, 'large' ) : plugin_dir_url( __FILE__ ) . '../img/avatar.png' ;
       $permalink = get_the_permalink( $post->ID );
       $name_array = explode( ' ', $name );
@@ -98,8 +105,8 @@ function register_team_member_fields(){
       return $team_member_details;
     },
     'schema' => [
-      'description' => __( 'Team member phone number.' ),
-      'type' => 'string',
+      'description' => __( 'Team member details.' ),
+      'type' => 'array',
     ],
   ]);
 }
