@@ -37,14 +37,16 @@ function ncc_get_state_options(){
     'order'       => 'ASC',
   ]);
   $options = [];
+  $library = [];
   $options[] = '<option class="first-option" value="">Select a State...</option>';
   foreach( $terms as $term ){
     $options[] = '<option value="' . strtoupper( $term->slug ) . '-' . $term->term_id . '">' . $term->name . '</option>';
+    $library[strtoupper($term->slug)] = $term->name;
     $data[ strtoupper($term->slug) ] = $term->term_id;
   }
   $options = '<select class="dt-select" id="states" data-colId="1">' . implode( '', $options ) . '</select>';
 
-  $state_options = [ 'data' => $data, 'options' => $options ];
+  $state_options = [ 'data' => $data, 'options' => $options, 'library' => $library ];
   return $state_options;
 }
 
