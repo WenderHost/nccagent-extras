@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.1.7  
+**Stable tag:** 2.2.0  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.2.0 ###
+* Plan by State Selector which facilitates loading the Product Finder with the State and Product selected.
+* Updating Kit Request URL.
 
 ### 2.1.7 ###
 * Adding Product Kit CTA to Product Finder product descriptions.

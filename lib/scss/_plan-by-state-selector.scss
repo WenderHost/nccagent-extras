@@ -1,0 +1,33 @@
+/* Plan by State Selector */
+#plan-by-state-selector{
+  max-width: 400px;
+  margin: 0 0 2em 0;
+
+  div[class^="col-"]{
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .button{
+    padding: 6px 12px;
+    display: block;
+    border-radius: 0 4px 4px 0;
+  }
+  .select2-container--default .select2-selection--single{
+    height: 31px;
+    font-size: 14px;
+    font-weight: 700;
+    position: relative;
+    border-radius: 4px 0 0 4px;
+    border-width: 1px 0 1px 1px;
+    border-color: $nccNavy;
+
+    .select2-selection__arrow{
+      b{
+        border-color: $nccNavy transparent transparent transparent;
+      }
+    }
+    .select2-selection__rendered{
+
+    }
+  }
+}

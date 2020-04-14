@@ -4,7 +4,7 @@ namespace NCCAgent\optionspage;
 
 if( function_exists('acf_add_options_page') ) {
   \acf_add_options_page([
-    'page_title'  => 'NCC Settings',
+    'page_title'  => 'General',
     'menu_title'  => 'NCC Settings',
     'menu_slug'   => 'ncc-settings',
     'capability'  => 'edit_posts',
