@@ -174,7 +174,7 @@ function products_rest_api(){
                 ],
                 'description' => $product['product_details']['description'],
                 'states'  => $states,
-                'contracting_url' => site_url( 'contracting/contract-online' ),
+                'kit_request_url' => site_url( 'contracting/kit-request' ),
               ];
             }
           }
