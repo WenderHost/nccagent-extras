@@ -12,6 +12,13 @@
     display: block;
     border-radius: 0 4px 4px 0;
   }
+  .notification{
+    color: #666;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    padding-left: 8px;
+  }
   .select2-container--default .select2-selection--single{
     height: 31px;
     font-size: 14px;
@@ -31,3 +38,4 @@
     }
   }
 }
+
