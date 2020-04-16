@@ -17,4 +17,9 @@ if( function_exists('acf_add_options_page') ) {
     'menu_title'  => 'Email',
     'parent_slug' => 'ncc-settings',
   ]);
+  \acf_add_options_sub_page([
+    'page_title'  => 'Online Contracting Settings',
+    'menu_title'  => 'Online Contracting',
+    'parent_slug' => 'ncc-settings',
+  ]);
 }

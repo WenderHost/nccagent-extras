@@ -1,0 +1,78 @@
+{
+    "key": "group_5e982c9948150",
+    "title": "Online Contracting Settings",
+    "fields": [
+        {
+            "key": "field_5e982cb2023d7",
+            "label": "SureLC Instructions",
+            "name": "surelc_instructions",
+            "type": "wysiwyg",
+            "instructions": "Users who sign up for online contracting through SureLC Carriers will see this text. Available tokens: <code>{carrier_list}<\/code> (list of SureLC Carriers the user has chosen), <code>{walkthru_video}<\/code> (URL of the SureLC Walk-Thru Video - this video will show as an embed when viewing this confirmation from the web or as a link when viewing from email).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_5e98306d7401d",
+            "label": "SureLC Walk-Thru Video",
+            "name": "surelc_walkthru_video",
+            "type": "url",
+            "instructions": "Provide a URL to the SureLC Walk-Thru Video.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_5e9837206a078",
+            "label": "Standard Instructions",
+            "name": "standard_instructions",
+            "type": "wysiwyg",
+            "instructions": "Users who sign up for contracting through Standard Carriers will see these instructions. Available tokens: <code>{carrier_list}<\/code> (list of Standard Carriers the user has chosen).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-online-contracting"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1587033972
+}

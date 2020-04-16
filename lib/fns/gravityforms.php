@@ -15,32 +15,11 @@ function custom_confirmation( $confirmation, $form, $entry ){
   $form_title = $form['title'];
   switch( $form_title ){
     case 'Online Contracting':
-      $showSureLC = false;
-      $sureLCCarriers = [];
-      $showStandard = false;
-      $standardCarriers = [];
+      $confirmation = get_online_contracting_message( $confirmation, $form, $entry );
 
-      $confirmation = '<h2>Submission Complete</h2><p>Thank you for signing up for online contracting. Please follow these instructions below:</p>';
-
-      foreach ($entry as $key => $value) {
-        if( GF_CARRIER_CHECKLIST_FIELD_ID == substr( $key, 0, 1 ) && ! empty( $value ) ){
-          $data = explode( '|', $value );
-          if( 'SureLC' == $data[1] ){
-            $sureLCCarriers[] = $data[0];
-            $showSureLC = true;
-          }
-          if( 'Standard' == $data[1] ){
-            $standardCarriers[] = $data[0];
-            $showStandard = true;
-          }
-        }
-      }
-      if( $showSureLC )
-        $confirmation.= '<h3>SureLC Instructions</h3><p>The following carriers have streamlined their signup process via our online signup portal: ' . implode( ', ', $sureLCCarriers ) . '</p><p>SureLC sign up instructions go here.</p><hr>';
-      if( $showStandard )
-        $confirmation.= '<h3>Standard Instructions</h3><p>We will be contacting you to help with the sign up for these carriers: ' . implode( ', ', $standardCarriers ) . '</p><p>Standard sign up instructions go here.</p>';
-
-      $confirmation = '<div class="alert alert-info">' . $confirmation . '</div>';
+      // I've added #gf_2 to the below alert b/c when viewing the browser console
+      // I found that GravityForms was adding some JS to scroll to the top of #gf_2.
+      $confirmation = '<div class="alert alert-info" id="gf_2">' . $confirmation . '</div>';
       break;
 
     default:
@@ -50,6 +29,63 @@ function custom_confirmation( $confirmation, $form, $entry ){
   return $confirmation;
 }
 add_filter( 'gform_confirmation', __NAMESPACE__ . '\\custom_confirmation', 10, 3 );
+
+/**
+ * Gets the online contracting message.
+ *
+ * @param      string   $message  The message
+ * @param      array    $form     The form
+ * @param      entry    $entry    The entry
+ * @param      boolean  $oembed   TRUE to oembed the video walk-thru
+ *
+ * @return     string   The online contracting message.
+ */
+function get_online_contracting_message( $message, $form, $entry, $oembed = true ){
+  $showSureLC = false;
+  $sureLCCarriers = [];
+  $showStandard = false;
+  $standardCarriers = [];
+
+  $message = strip_tags( $message, '<h2><p><h3><h4><h5><h6><ol><ul><li>');
+
+  foreach ($entry as $key => $value) {
+    if( GF_CARRIER_CHECKLIST_FIELD_ID == substr( $key, 0, 1 ) && ! empty( $value ) ){
+      $data = explode( '|', $value );
+      if( 'SureLC' == $data[1] ){
+        $sureLCCarriers[] = $data[0];
+        $showSureLC = true;
+      }
+      if( 'Standard' == $data[1] ){
+        $standardCarriers[] = $data[0];
+        $showStandard = true;
+      }
+    }
+  }
+  if( $showSureLC ){
+    // Get our ACF "Online Contracting Settings" options
+    $surelc_instructions = get_field('surelc_instructions','option');
+    $surelc_walkthru_video = get_field('surelc_walkthru_video','option');
+    $video_embed = wp_oembed_get( $surelc_walkthru_video, ['height' => 330] );
+    if( ! $video_embed || ! $oembed )
+      $video_embed = '<a href="' . $surelc_walkthru_video . '" target="_blank">SureLC Walk-Thru Video</a>';
+
+    // Build our SureLC Carrier list
+    $surelc_carrier_list = '<ul><li>' . implode( '</li><li>', $sureLCCarriers ) . '</li></ul>';
+
+    $message.= str_replace(['{carrier_list}','{walkthru_video}'], [$surelc_carrier_list,$video_embed], $surelc_instructions);
+  }
+  if( $showStandard ){
+    // Get our ACF "Online Contracting Settings" options
+    $standard_instructions = get_field('standard_instructions','option');
+
+    // Build our Standard Carrier list
+    $standard_carrier_list = '<ul><li>' . implode( '</li><li>', $standardCarriers ) . '</li></ul>';
+
+    $message.= str_replace(['{carrier_list}'], [$standard_carrier_list], $standard_instructions);
+  }
+
+  return $message;
+}
 
 /**
  * Modifies the Online Contracting form notification.
@@ -64,29 +100,38 @@ function modify_notification( $notification, $form, $entry ){
   $form_title = $form['title'];
   switch( $form_title ){
     case 'Online Contracting':
-      if( 'Online Contracting Request' == $notification['name'] ){
-        $total_choices = count( $form['fields'][GF_CARRIER_CHECKLIST_FIELD_ID]['choices'] );
-        $carriers = [];
-        for( $x = 1; $x <= $total_choices; $x++ ){
-          $entry_key = GF_CARRIER_CHECKLIST_FIELD_ID . '.' . $x;
-          if( array_key_exists( $entry_key, $entry ) && ! empty( $entry[$entry_key] ) ){
-            $carriers[] = explode('|', $entry[$entry_key] );
-          }
-        }
-        if( 0 < count( $carriers ) ){
-          $html = '<h3><font style="font-family: sans-serif; font-size: 16px; font-weight: bold;">Selected Carrier(s):</font></h3><table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA"><tbody><tr><td><table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#ffffff">';
-          $html.= '<tbody><tr bgcolor="#EAF2FA"><td><font style="font-family: sans-serif; font-size: 12px; font-weight: bold;">Carrier</font></td><td><font style="font-family: sans-serif; font-size: 12px; font-weight: bold;">Type</font></td></tr>';
-          $x = 1;
-          foreach( $carriers as $carrier ){
-            $bgcolor = ( $x % 2 )? '#fff' : '#ededed';
-            $html.= '<tr bgcolor="' . $bgcolor . '"><td><font style="font-family: sans-serif; font-size: 12px">' . $carrier[0] . '</font></td><td><font style="font-family: sans-serif; font-size: 12px">' . $carrier[1] . '</font></td></tr>';
-            $x++;
-          }
-          $html.= '</tbody></table></td></tr></table>';
-          $notification['message'].= $html;
-        }
-      }
+      switch( $notification['name'] ){
+        case 'Online Contracting Confirmation':
+          $notification['message'] = get_online_contracting_message( $notification['message'], $form, $entry, false );
+          $notification['message'] = '<style type="text/css">.message-body, .message-body *{font-family: Arial, sans-serif;}</style><div class="message-body">' . $notification['message'] . '</div>';
+          break;
 
+        case 'Online Contracting Request':
+          $total_choices = count( $form['fields'][GF_CARRIER_CHECKLIST_FIELD_ID]['choices'] );
+          $carriers = [];
+          for( $x = 1; $x <= $total_choices; $x++ ){
+            $entry_key = GF_CARRIER_CHECKLIST_FIELD_ID . '.' . $x;
+            if( array_key_exists( $entry_key, $entry ) && ! empty( $entry[$entry_key] ) ){
+              $carriers[] = explode('|', $entry[$entry_key] );
+            }
+          }
+          if( 0 < count( $carriers ) ){
+            $html = '<h3><font style="font-family: sans-serif; font-size: 16px; font-weight: bold;">Selected Carrier(s):</font></h3><table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA"><tbody><tr><td><table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#ffffff">';
+            $html.= '<tbody><tr bgcolor="#EAF2FA"><td><font style="font-family: sans-serif; font-size: 12px; font-weight: bold;">Carrier</font></td><td><font style="font-family: sans-serif; font-size: 12px; font-weight: bold;">Type</font></td></tr>';
+            $x = 1;
+            foreach( $carriers as $carrier ){
+              $bgcolor = ( $x % 2 )? '#fff' : '#ededed';
+              $html.= '<tr bgcolor="' . $bgcolor . '"><td><font style="font-family: sans-serif; font-size: 12px">' . $carrier[0] . '</font></td><td><font style="font-family: sans-serif; font-size: 12px">' . $carrier[1] . '</font></td></tr>';
+              $x++;
+            }
+            $html.= '</tbody></table></td></tr></table>';
+            $notification['message'].= $html;
+          }
+          break;
+
+        default:
+          $notification['message'] = '<p><font style="font-family: sans-serif; font-size: 12px">No notification defined for "' . $notification['name'] . '".</font></p>';
+      }
       break;
 
     default:
