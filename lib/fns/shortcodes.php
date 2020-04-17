@@ -28,6 +28,9 @@ function acf_get_carrier_products( $atts ){
 
   if( 3 > count( $products ) ){
     foreach( $products as $product ){
+      if( 'publish' != $product['product']->post_status )
+        continue;
+
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
       $states = ( is_array( $product['product_details']['states'] ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product['product_details']['states'] ) . '</span>' : $product['product_details']['states'] ;
       $html.= '<h4 class="product-title">' . $product_title . '</h4><p>' . $states . '</p>';
@@ -44,6 +47,9 @@ function acf_get_carrier_products( $atts ){
     $accordion_html = ncc_get_template(['template' => 'accordion.html']);
     $x = 1;
     foreach( $products as $product ){
+      if( 'publish' != $product['product']->post_status )
+        continue;
+
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
       $product_description = apply_filters( 'the_content', $product['product_details']['description'] );
       $states = ( is_array( $product['product_details']['states'] ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product['product_details']['states'] ) . '</span>' : $product['product_details']['states'] ;
