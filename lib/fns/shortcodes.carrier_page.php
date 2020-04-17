@@ -22,6 +22,12 @@ function carrier_page(){
   $html = [];
   if( ! empty( $carrierproduct ) ){
     $html[] = \NCCAgent\shortcodes\carrierproduct();
+
+    // Product Kit Request CTA:
+    $html[] = '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2547"]') . '</div>';
+    // Online Contracting CTA:
+    $html[] = '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2542"]') . '</div>';
+
     $html[] = ncc_quick_links();
   } else {
     $html[] = '<h1>' . get_the_title( $carrier->ID ) . ' Contracting &amp; Appointment</h1>';
@@ -29,7 +35,12 @@ function carrier_page(){
     $html[] = '<div style="margin-bottom: 2em;">' . str_replace( '{{contract_online_url}}', site_url( 'contracting/contract-online' ), $template ) . '</div>';
     $html[] = '<div style="margin-bottom: 2em;">' . \NCCAgent\shortcodes\readmore_content() . '</div>';
     $html[] = '<div style="margin-bottom: 2em;">' . \NCCAgent\shortcodes\acf_get_carrier_products([ 'post_id' => $carrier->ID ]) . '</div>';
-    $html[] = '<div style="margin-bottom: 2em;">' . ncc_get_template('free-carrier-contracting-kit') . '</div>';
+
+    // Product Kit Request CTA:
+    $html[] = '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2547"]') . '</div>';
+    // Online Contracting CTA:
+    $html[] = '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2542"]') . '</div>';
+
     $html[] = \NCCAgent\shortcodes\carrierdocs\carrierdocs();
   }
   return implode( '', $html );
