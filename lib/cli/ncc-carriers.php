@@ -57,12 +57,17 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
 
     $items = [];
     $counter = 0;
+    $skipped_rows = 0;
     foreach( $carriers as $carrier ){
       $carrier_columns = [ 'ID' => $carrier->ID, 'Carrier' => $carrier->post_title ];
       if( \have_rows( 'products', $carrier->ID ) ){
         while( \have_rows( 'products', $carrier->ID ) ): the_row();
           $row_id = get_row_index();
           $product = get_sub_field( 'product' );
+          if( 'publish' != $product->post_status ){
+            $skipped_rows++;
+            continue;
+          }
           $product_details = get_sub_field( 'product_details' );
 
           $states = ( ! empty($product_details['states']) )? implode(',', $product_details['states'] ) : '';
@@ -96,6 +101,8 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
     $handle = fopen( $csv_filename, 'w' );
     \WP_CLI\Utils\write_csv( $handle, $items, $headers );
     fclose( $handle );
+    if( 0 < $skipped_rows )
+      \WP_CLI::line('🔔 ' . $skipped_rows . ' rows skipped due to the parent Product not being `Published`.');
     \WP_CLI::success('Created ' . $csv_filename );
   }
 
