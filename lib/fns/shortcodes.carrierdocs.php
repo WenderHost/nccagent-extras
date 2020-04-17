@@ -14,9 +14,6 @@ function carrierdocs(){
   if( 'carrier' != get_post_type( $post ) )
     return ncc_get_alert(['title' => 'Not a Carrier CPT', 'description' => 'This shortcode only works with the Carrier custom post type.']);
 
-  $args = shortcode_atts([
-    'foo' => 'bar'], $atts );
-
   $template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/carrierdocs.html' );
   $search = [ '{{carrier}}', '{{carrierdocslink}}' ];
   if( is_user_logged_in() ){

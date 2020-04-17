@@ -98,7 +98,7 @@ function custom_breadcrumbs( $atts ) {
               $staff_page = get_page_by_path( 'about/staff' );
               $html[] = '<li class="item-parent"><div><a href="' . get_permalink( $staff_page->ID ) . '">Staff</a></div></li>';
             } else {
-              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $link_text . '</a>' . $children_subnav . '</div></li>';
+              $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '">' . $link_text . '</a></div></li>';
             }
 
             if( ( 'carrier' == $post_type || 'product' == $post_type ) && ( ! empty( $carrierproduct ) || ! empty( $productcarrier ) ) ){
