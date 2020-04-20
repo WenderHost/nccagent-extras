@@ -68,7 +68,7 @@ function acf_get_carrier_products( $atts ){
         $states,
         $product_description,
         get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ),
-        get_the_title( $args['post_id'] ) . ' ' . $product_title,
+        'View this information as a web page.',
       ];
       $html.= str_replace( $search, $replace, $accordion_html );
       $x++;
