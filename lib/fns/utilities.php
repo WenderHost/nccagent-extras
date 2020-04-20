@@ -27,7 +27,13 @@ function ncc_get_alert( $atts ){
 /**
  * Builds a <select/> of `State` options from the States Taxonomy.
  *
- * @return     string  The state options.
+ * Returns an array with the following key => value pairs:
+ *
+ * @type  array   data     Key => value pairs of `slug` => `term_id` (e.g. AL => 33).
+ * @type  string  options  HTML <select> with `slug-term_id` option values (e.g. <option value="AL-33">Alabama</option>).
+ * @type  array   library  `slug` => `name` pairs (e.g. AL => Alabama).
+ *
+ * @return     array  State options as a `data` array, HTML select, and `library` for easy lookup.
  */
 function ncc_get_state_options(){
   $terms = get_terms([
