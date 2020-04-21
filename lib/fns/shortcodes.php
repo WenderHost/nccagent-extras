@@ -336,32 +336,37 @@ function team_member_list( $atts ){
     'type' => null
   ], $atts );
 
-  $query_args = [
-    'numberposts' => -1,
-    'post_type'   => 'team_member',
-    'orderby'     => 'menu_order',
-    'order'       => 'ASC',
-  ];
-  if( ! is_null( $args['type'] ) ){
-    $type = get_term_by( 'slug', strtolower( $args['type'] ), 'staff_type' );
-    if( ! $type )
-      return '<p><strong>No `' . $args['type'] . '` Staff Type</strong><br>We could not locate the Staff Type you entered. Please check your spelling, and make sure the <code>type</code> you entered matches one of the Staff Types in the admin.</p>';
-
-    $query_args['tax_query'] = [
-      [
-        'taxonomy'  => 'staff_type',
-        'field'     => 'slug',
-        'terms'     => $args['type'],
-      ]
+  if( false === ( $team_members = get_transient( 'team_members' ) ) ){
+    $query_args = [
+      'numberposts' => -1,
+      'post_type'   => 'team_member',
+      'orderby'     => 'menu_order',
+      'order'       => 'ASC',
     ];
+    if( ! is_null( $args['type'] ) ){
+      $type = get_term_by( 'slug', strtolower( $args['type'] ), 'staff_type' );
+      if( ! $type )
+        return '<p><strong>No `' . $args['type'] . '` Staff Type</strong><br>We could not locate the Staff Type you entered. Please check your spelling, and make sure the <code>type</code> you entered matches one of the Staff Types in the admin.</p>';
+
+      $query_args['tax_query'] = [
+        [
+          'taxonomy'  => 'staff_type',
+          'field'     => 'slug',
+          'terms'     => $args['type'],
+        ]
+      ];
+    }
+
+    $team_members = get_posts( $query_args );
+    set_transient( 'team_members', $team_members, HOUR_IN_SECONDS );
   }
 
-  $team_members = get_posts( $query_args );
   if( ! $team_members )
     return '<p><strong>No Team Members Found</strong><br/>No Team Members found. Please check your shortcode parameters.</p>';
 
   $html = '';
-  $template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/team_member.html' );
+  //$template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/team_member.html' );
+  $template = ncc_get_template('team_member');
   foreach( $team_members as $team_member ){
     $photo = get_the_post_thumbnail_url( $team_member->ID, 'large' );
     $name = $team_member->post_title;
