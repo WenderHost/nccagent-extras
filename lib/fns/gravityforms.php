@@ -188,12 +188,12 @@ function populate_select_carriers_checkbox( $form ) {
           $choices[] = [ 'text' => 'Aetna Supplemental', 'value' => 'Aetna Supplemental|SureLC' ];
           $inputs[] = [ 'label' => 'Aetna Supplemental', 'id' => "{$field_id}.{$input_id}" ];
         } else if( 'cigna' == strtolower( $carrier->post_title ) ){
-          $choices[] = [ 'text' => 'Cigna Medicare &ndash; Medicare Advantage Only', 'value' => 'Cigna Medicare &ndash; Medicare Advantage Only|SureLC' ];
+          $choices[] = [ 'text' => 'Cigna Medicare &ndash; Medicare Advantage Only', 'value' => 'Cigna Medicare &ndash; Medicare Advantage Only|Standard' ];
           $inputs[] = [ 'label' => 'Cigna Medicare &ndash; Medicare Advantage Only', 'id' => "{$field_id}.{$input_id}" ];
           //skipping index that are multiples of 10 (multiples of 10 create problems as the input IDs)
           if ( $input_id % 10 == 0 )
               $input_id++;
-          $choices[] = [ 'text' => 'Cigna &ndash; All but Medicare Advantage', 'value' => 'Cigna &ndash; All but Medicare Advantage|Standard' ];
+          $choices[] = [ 'text' => 'Cigna &ndash; All but Medicare Advantage', 'value' => 'Cigna &ndash; All but Medicare Advantage|SureLC' ];
           $inputs[] = [ 'label' => 'Cigna &ndash; All but Medicare Advantage', 'id' => "{$field_id}.{$input_id}" ];
         } else {
           $online_contracting = get_post_meta( $carrier->ID, 'online_contracting_link', true );
