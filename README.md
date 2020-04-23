@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.3.7  
+**Stable tag:** 2.3.8  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.3.8 ###
+* Added CSS to prevent background/<body> scroll while JetMenu mega menu is open.
+* Added CSS utility classes for showing/hiding mobile mega menu items based on user's logged-in status.
 
 ### 2.3.7 ###
 * Setting ul > li bullets to "chevron-circle-right".
