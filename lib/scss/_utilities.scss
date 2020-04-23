@@ -1,16 +1,36 @@
 /* Utilities */
-.hide-desktop{
-  @media (min-width: 1200px){
-    display: none !important;
+.jet-menu{
+  .hide-desktop,
+  .jet-hide-desktop.jet-menu-item{
+    @media (min-width: 1200px){
+      display: none;
+    }
+  }
+  .hide-tablet,
+  .jet-hide-tablet.jet-menu-item{
+    @media (min-width: 768px){
+      display: none;
+    }
+  }
+  .hide-mobile,
+  .jet-hide-mobile.jet-menu-item{
+    @media (min-width: 320px){
+      display: none;
+    }
   }
 }
-.hide-tablet{
-  @media (min-width: 768px){
-    display: none !important;
+
+body{
+  .elementor-nav-menu .logged-in{
+    display: none;
   }
 }
-.hide-mobile{
-  @media (min-width: 320px){
-    display: none !important;
+
+body.logged-in{
+  .elementor-nav-menu .logged-in{
+    display: block;
+  }
+  .logged-out{
+    display: none;
   }
 }
