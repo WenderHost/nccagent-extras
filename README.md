@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.3.8  
+**Stable tag:** 2.3.9  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,11 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.3.9 ###
+* Setting "Cigna - Medicare Advantage Only" to "Standard Contracting" and "Cigna - All but Medicare Advantage" to "SureLC".
+* Product Finder: Moving "State Availability" inside "Plan Details".
+* Adding navigation note for Document Library users.
 
 ### 2.3.8 ###
 * Added CSS to prevent background/<body> scroll while JetMenu mega menu is open.
