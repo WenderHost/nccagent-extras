@@ -2,7 +2,12 @@
 
 namespace NCCAgent\dirlister;
 
-function dirlister( $atts ){
+/**
+ * Displays the Carrier Document Library.
+ *
+ * @return     string  HTML for the Carrier Document Library.
+ */
+function dirlister(){
   wp_enqueue_script( 'dirlister' );
   global $post;
 
@@ -25,6 +30,11 @@ function dirlister( $atts ){
 }
 add_shortcode( 'dirlister', __NAMESPACE__ . '\\dirlister' );
 
+/**
+ * Displays the button used to open a Carrier's Document Library.
+ *
+ * @return     string  HTML for displaying a Carrier Document Library button.
+ */
 function dirlister_button(){
   global $post;
   $vpn_link = get_field( 'vpn_link', $post->ID );
