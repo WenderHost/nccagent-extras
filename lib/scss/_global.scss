@@ -44,20 +44,23 @@ body.jet-mobile-menu-visible{
     padding-left: .5em;
 
     li{
-      display: flex;
+      position: relative;
+      margin-left: 1.25em;
+      margin-bottom: .75em;
 
+      $bulletSize: 1em;
       &:before{
         content: '';
-        display: inline-block;
-        height: 1em;
-        width: 1em;
+        display: block;
+        float: left;
+        height: ($bulletSize + .1em);
+        width: ($bulletSize + .1em);
+        margin-top: 3px;
+        margin-left: (-$bulletSize - .55em);
 
-        background-size: contain;
+        background-size: $bulletSize;
         background-repeat: no-repeat;
-        margin-top: 4px;
         background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='chevron-circle-right' class='svg-inline--fa fa-chevron-circle-right fa-w-16' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23002d72' d='M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z'%3E%3C/path%3E%3C/svg%3E");
-        margin-right: .5em;
-        line-height: 2.25em;
       }
     }
 
