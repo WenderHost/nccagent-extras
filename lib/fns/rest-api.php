@@ -12,7 +12,7 @@ function dirlister_rest_api(){
     'methods' => 'GET',
     'permission_callback' => function(){
       if( ! current_user_can('read') ){
-        return new \WP_Error('forbidden', __('Only <a href="' . site_url( 'register' ) . '">registered users</a> can access the carrier document library.','nccagent') );
+        return new \WP_Error('forbidden', __('Only <a href="' . site_url( 'login' ) . '">registered users</a> can access the carrier document library.','nccagent') );
       } else {
         return true;
       }
