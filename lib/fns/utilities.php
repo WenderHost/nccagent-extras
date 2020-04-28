@@ -4,7 +4,7 @@
  * Returns an HTML alert message
  *
  * @param      array  $atts {
- *   @type  string  $type         The alert type (defaults to `warning`).
+ *   @type  string  $type         The alert type can info, warning, success, or danger (defaults to `warning`).
  *   @type  string  $title        The title of the alert.
  *   @type  string  $description  The content of the alert.
  * }
