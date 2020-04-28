@@ -62,6 +62,10 @@ table.dataTable{
       }
     }
   }
+
+  tbody td{
+    padding: 16px;
+  }
   td.dataTables_empty{
     height: 300px;
     vertical-align: middle;
@@ -93,7 +97,7 @@ table.dataTable{
   }
 
   h4.row-title{
-    margin: 0 0 .35em 0;
+    margin: 0;
     font-size: 22px;
 
     @media screen and (max-width : 520px){
@@ -103,8 +107,8 @@ table.dataTable{
     a{
     }
   }
+  /*
   a.details-link{
-    /*
     &:after{
       font-family: $fontAwesome;
       content: "\f078";
@@ -113,27 +117,23 @@ table.dataTable{
       font-family: $fontAwesome;
       content: "\f077";
     }
-    */
 
-    /* Positioning */
     margin: .5em 0 0 0;
 
-    /* Box-model */
     display: block;
 
-    /* Typography */
     font-size: 16px;
     text-decoration: none !important;
     text-align: center;
     font-family: $headingFont;
 
-    /* Visual */
     cursor: pointer;
 
     i.fas{
       font-size: 14px;
     }
   }
+  */
 
   tr.shown{
     td{
