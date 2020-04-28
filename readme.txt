@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.4
-Stable tag: 2.4.5
+Stable tag: 2.4.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 2.4.6 =
+* Adding "Select a state..." default option for Plan by State selector when user is not logged in.
+* Adjusting blog breadcrumbs to include a link to the "blog" and not show the title of the post when viewing a post single.
 
 = 2.4.5 =
 * Removing Contract Online CTA from the top of Carrier pages.
