@@ -245,9 +245,12 @@ add_shortcode( 'carrierproduct', __NAMESPACE__ . '\\carrierproduct' );
 /**
  * Displays Products by State DataTable
  *
- * @param      <type>  $atts   The atts
+ * @param      array  $atts {
+ *   @type  string  $table_id    Used for the HTML id attribute of the DataTable.
+ *   @type  string  $table_class Uses for the class(es) to be output in the DataTable's HTML class attribute.
+ * }
  *
- * @return     string  ( description_of_the_return_value )
+ * @return     string  The DataTable HTML.
  */
 function product_finder( $atts ){
 
