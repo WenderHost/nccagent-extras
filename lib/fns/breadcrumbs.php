@@ -105,6 +105,10 @@ function custom_breadcrumbs( $atts ) {
               $html[] = '<li class="separator"> ' . $separator . ' </li>';
               $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . get_permalink( $post ) . '">' . get_the_title( $post ) . '</a></div></li>';
             }
+          } else {
+            // Add a link to the "Blog" when we're on a post single.
+            $html[] = '<li><a href="' . site_url( 'blog/' ) .'">Blog</a></li>';
+            $html[] = '<li class="separator"> ' . $separator . ' </li>';
           }
 
           // Get post category info
@@ -120,10 +124,10 @@ function custom_breadcrumbs( $atts ) {
             $cat_parents = explode(',',$get_cat_parents);
 
             // Loop through parent categories and store in variable $cat_display
-            $cat_display = '';
+            $cat_display = [];
             foreach($cat_parents as $parents) {
-              $cat_display .= '<li class="item-cat">'.$parents.'</li>';
-              $cat_display .= '<li class="separator"> ' . $separator . ' </li>';
+              $cat_display[] = '<li class="item-cat">'.$parents.'</li>';
+              $cat_display[] = '<li class="separator"> ' . $separator . ' </li>';
             }
 
           }
@@ -142,8 +146,10 @@ function custom_breadcrumbs( $atts ) {
 
           // Check if the post is in a category
           if( ! empty( $last_category ) ) {
-            $html[] = $cat_display;
-            $html[] = '<li class="item-current item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
+            array_pop( $cat_display );
+            $html[] = implode( '', $cat_display );
+
+            //$html[] = '<li class="item-current item-' . $post->ID . '"><span class="bread-current bread-' . $post->ID . '" title="' . get_the_title() . '">' . get_the_title() . '</span></li>';
 
           // Else if post is in a custom taxonomy
           } else if( ! empty( $cat_id ) ) {
@@ -237,7 +243,6 @@ function custom_breadcrumbs( $atts ) {
               $title = get_the_title();
               $link_text = ( 'About National Contracting Center' == $title )? 'About' : $title;
               $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="' . implode( ' ', $anchor_classes ) . '"> ' . $link_text . '</span>' . $children_subnav . '</div></li>';
-
             }
 
         } else if ( is_tag() ) {
