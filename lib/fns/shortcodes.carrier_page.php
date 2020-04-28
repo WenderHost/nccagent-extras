@@ -38,8 +38,10 @@ function carrier_page(){
     $html[] = '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2547"]') . '</div>';
     // Online Contracting CTA:
     $html[] = '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2542"]') . '</div>';
-
+    // Carrier Docs:
     $html[] = \NCCAgent\shortcodes\carrierdocs\carrierdocs();
+    // Quick Links:
+    $html[] = ncc_quick_links();
   }
   return implode( '', $html );
 }
