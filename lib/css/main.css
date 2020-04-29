@@ -904,7 +904,7 @@ body.jet-mobile-menu-visible {
   .elementor-text-widget ul:not(.breadcrumbs):not(.carriers):not(.directory-listing):not(.gform_fields):not(.gfield_checkbox):not(.elementor-icon-list-items) li {
     position: relative;
     margin-left: 1.25em;
-    margin-bottom: .75em; }
+    margin-bottom: .25em; }
     .elementor-shortcode ul:not(.breadcrumbs):not(.carriers):not(.directory-listing):not(.gform_fields):not(.gfield_checkbox):not(.elementor-icon-list-items) li:before,
     .elementor-text-widget ul:not(.breadcrumbs):not(.carriers):not(.directory-listing):not(.gform_fields):not(.gfield_checkbox):not(.elementor-icon-list-items) li:before {
       content: '';
