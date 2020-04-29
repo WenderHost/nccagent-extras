@@ -1,0 +1,389 @@
+{
+    "key": "group_5d60468fc616b",
+    "title": "Carrier Options",
+    "fields": [
+        {
+            "key": "field_5d6589cbe5ec6",
+            "label": "VPN Link",
+            "name": "vpn_link",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_5dcb195c035a3",
+            "label": "Online Contracting Link",
+            "name": "online_contracting_link",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Standard": "Standard",
+                "SureLC": "SureLC",
+                "None": "None"
+            },
+            "allow_null": 1,
+            "other_choice": 0,
+            "default_value": "None",
+            "layout": "vertical",
+            "return_format": "value",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_5e6b959f649f8",
+            "label": "Agent Black Book",
+            "name": "agent_black_book",
+            "type": "page_link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "post_type": "",
+            "taxonomy": "",
+            "allow_null": 0,
+            "allow_archives": 1,
+            "multiple": 0
+        },
+        {
+            "key": "field_5e6b9bb254f4a",
+            "label": "AHIP Certification",
+            "name": "ahip_certification",
+            "type": "page_link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "post_type": "",
+            "taxonomy": "",
+            "allow_null": 0,
+            "allow_archives": 1,
+            "multiple": 0
+        },
+        {
+            "key": "field_5d60469883e10",
+            "label": "Products",
+            "name": "products",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_5d682b3ac28db",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_5d682b3ac28db",
+                    "label": "Product",
+                    "name": "product",
+                    "type": "post_object",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "product"
+                    ],
+                    "taxonomy": "",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "return_format": "object",
+                    "ui": 1
+                },
+                {
+                    "key": "field_5d682cacffa29",
+                    "label": "Product Details",
+                    "name": "product_details",
+                    "type": "group",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_5d8a08accf789",
+                            "label": "Alternate Product Name",
+                            "name": "alternate_product_name",
+                            "type": "text",
+                            "instructions": "Replace the name of this product with one specific to this carrier. For example, many carriers offer multiple annuities under their own product brand names. Use this field to relabel the heading for this product with the carrier's brand specific wordmark.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "100",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_5e664b6f2d67a",
+                            "label": "Lower Issue Age",
+                            "name": "lower_issue_age",
+                            "type": "number",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "15",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "min": "",
+                            "max": "",
+                            "step": ""
+                        },
+                        {
+                            "key": "field_5e664b852d67b",
+                            "label": "Upper Issue Age",
+                            "name": "upper_issue_age",
+                            "type": "number",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "15",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "min": "",
+                            "max": "",
+                            "step": ""
+                        },
+                        {
+                            "key": "field_5e4e687458e41",
+                            "label": "Source File Name",
+                            "name": "source_file_name",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_5e4e688858e42",
+                            "label": "Source File Date",
+                            "name": "source_file_date",
+                            "type": "date_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "m\/d\/Y",
+                            "return_format": "m\/d\/Y",
+                            "first_day": 0
+                        },
+                        {
+                            "key": "field_5d682b6fc28dc",
+                            "label": "Description",
+                            "name": "description",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_5e4e685e58e40",
+                            "label": "Description Review Date",
+                            "name": "desc_review_date",
+                            "type": "date_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "m\/d\/Y",
+                            "return_format": "m\/d\/Y",
+                            "first_day": 0
+                        },
+                        {
+                            "key": "field_5d682b94c28dd",
+                            "label": "States",
+                            "name": "states",
+                            "type": "select",
+                            "instructions": "Select the states where this insurer provides this product.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "100",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "AK": "AK",
+                                "AL": "AL",
+                                "AZ": "AZ",
+                                "AR": "AR",
+                                "CA": "CA",
+                                "CO": "CO",
+                                "CT": "CT",
+                                "DC": "DC",
+                                "DE": "DE",
+                                "FL": "FL",
+                                "GA": "GA",
+                                "HI": "HI",
+                                "ID": "ID",
+                                "IL": "IL",
+                                "IN": "IN",
+                                "IA": "IA",
+                                "KS": "KS",
+                                "KY": "KY",
+                                "LA": "LA",
+                                "ME": "ME",
+                                "MD": "MD",
+                                "MA": "MA",
+                                "MI": "MI",
+                                "MN": "MN",
+                                "MS": "MS",
+                                "MO": "MO",
+                                "MT": "MT",
+                                "NE": "NE",
+                                "NV": "NV",
+                                "NH": "NH",
+                                "NJ": "NJ",
+                                "NM": "NM",
+                                "NY": "NY",
+                                "NC": "NC",
+                                "ND": "ND",
+                                "OH": "OH",
+                                "OK": "OK",
+                                "OR": "OR",
+                                "PA": "PA",
+                                "RI": "RI",
+                                "SC": "SC",
+                                "SD": "SD",
+                                "TN": "TN",
+                                "TX": "TX",
+                                "UT": "UT",
+                                "VT": "VT",
+                                "VA": "VA",
+                                "WA": "WA",
+                                "WV": "WV",
+                                "WI": "WI",
+                                "WY": "WY"
+                            },
+                            "default_value": [
+                                "Select states..."
+                            ],
+                            "allow_null": 0,
+                            "multiple": 1,
+                            "ui": 1,
+                            "ajax": 0,
+                            "return_format": "value",
+                            "placeholder": ""
+                        },
+                        {
+                            "key": "field_5ea9c25a1704a",
+                            "label": "States Review Date",
+                            "name": "states_review_date",
+                            "type": "date_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "display_format": "m\/d\/Y",
+                            "return_format": "m\/d\/Y",
+                            "first_day": 0
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "carrier"
+            }
+        ]
+    ],
+    "menu_order": 1,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1588183763
+}
