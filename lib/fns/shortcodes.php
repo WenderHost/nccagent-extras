@@ -122,6 +122,32 @@ function acf_get_product_carriers( $atts ){
 add_shortcode( 'acf_product_carriers', __NAMESPACE__ . '\\acf_get_product_carriers' );
 
 /**
+ * Sets the excerpt length at 25 words.
+ *
+ * Used with `excerpt_length` filter.
+ *
+ * @return     integer  Returns the length of the excerpt.
+ */
+function custom_excerpt_length(){
+  return 25;
+}
+
+/**
+ * Returns the post excerpt.
+ *
+ * For use inside an Ele Custom Skin loop.
+ *
+ * @return     string  The excerpt.
+ */
+function custom_loop_post_excerpt(){
+  add_filter( 'excerpt_length', __NAMESPACE__ . '\\custom_excerpt_length', 999 );
+  $excerpt = get_the_excerpt();
+  remove_filter( 'excerpt_length', __NAMESPACE__ . '\\custom_excerpt_length', 999 );
+  return $excerpt;
+}
+add_shortcode( 'custom_loop_post_excerpt', __NAMESPACE__ . '\\custom_loop_post_excerpt' );
+
+/**
  * Displays the Beamer embed HTML
  *
  * @return     string  The Beamer embed HTML

@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.4
-Stable tag: 2.4.7
+Stable tag: 2.4.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 2.4.8 =
+* Adding `[custom_loop_post_excerpt]` for use inside an Ele Custom Skin.
 
 = 2.4.7 =
 * Updating bottom margin for `ul > li` elements.
