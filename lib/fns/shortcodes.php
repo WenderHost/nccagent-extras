@@ -98,6 +98,13 @@ function acf_get_product_carriers( $atts ){
   $post_id = ( is_null( $args['post_id'] ) )? $post->ID : $args['post_id'] ;
 
   $carriers = get_field( 'carriers' );
+
+  // Remove unpublished carriers
+  foreach ($carriers as $key => $carrier) {
+    if( 'publish' != $carrier->post_status )
+      unset( $carriers[$key] );
+  }
+
   usort( $carriers, function( $a, $b ){
     return strcmp( $a->post_title, $b->post_title );
   });
