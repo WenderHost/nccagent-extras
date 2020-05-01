@@ -3,6 +3,23 @@
 namespace NCCAgent\enqueues;
 
 /**
+ * Dequeues styles loaded by Elementor.
+ *
+ * In particular, we are using this function to clean up:
+ *
+ *   - Extra calls to Font Awesome assets
+ */
+function enqueue_cleanup(){
+  foreach( [ 'solid', 'regular', 'brands' ] as $style ) {
+    wp_deregister_style( 'elementor-icons-fa-' . $style );
+  }
+  wp_dequeue_style( 'font-awesome-all' );
+  wp_dequeue_style( 'font-awesome-v4-shims' );
+  wp_dequeue_style( 'jet-menu-public' );
+}
+add_action( 'elementor/frontend/after_register_styles', __NAMESPACE__ . '\\enqueue_cleanup', 999 );
+
+/**
  * Enqueues our scripts and styles.
  */
 function enqueue_scripts(){
