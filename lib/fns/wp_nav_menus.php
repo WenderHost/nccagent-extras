@@ -17,7 +17,7 @@ function add_dashboard_link( $items, $args ){
     if( is_user_logged_in() ){
       $items .= '<li class="' . $item_classes . '"><a class="elementor-item" href="' . site_url( 'dashboard' ) . '">My Dashboard</a></li>';
     } else {
-      $items .= '<li class="' . $item_classes . '"><a class="elementor-item" href="' . site_url( 'login' ) . '">Log In or Register</a></li>';
+      $items .= '<li class="' . $item_classes . '"><a class="elementor-item" href="' . site_url( 'login-register' ) . '">Log In or Register</a></li>';
     }
   }
   return $items;
