@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.5.2  
+**Stable tag:** 2.5.3  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.5.3 ###
+* Adding HTML id attribute to `mobile-mega-menu-extra-links` menu items.
 
 ### 2.5.2 ###
 * Adding `Alt_Product_Name_2` option to `wp ncc carriers import/export`.
