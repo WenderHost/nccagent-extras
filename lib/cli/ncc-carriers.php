@@ -17,6 +17,7 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
    * - Row_ID
    * - Product
    * - Alternate_Product_Name
+   * - Alt_Product_Name_2 (will always be blank, only used on import)
    * - Lower_Issue_Age
    * - Upper_Issue_Age
    * - Source_File_Name
@@ -78,6 +79,7 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
             'Row_ID'                  => $row_id,
             'Product'                 => $product_name,
             'Alternate_Product_Name'  => $product_details['alternate_product_name'],
+            'Alt_Product_Name_2'      => '',
             'Lower_Issue_Age'         => $product_details['lower_issue_age'],
             'Upper_Issue_Age'         => $product_details['upper_issue_age'],
             'Source_File_Name'        => $product_details['source_file_name'],
@@ -89,10 +91,10 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
           $items[] = array_merge( $carrier_columns, $product_columns );
         endwhile;
       } else {
-        $items[] = array_merge( $carrier_columns, ['Row_ID' => '', 'Product' => '', 'Alternate_Product_Name' => '', 'Lower_Issue_Age' => '' , 'Upper_Issue_Age' => '', 'Source_File_Name' => '', 'Source_File_Date' => '', 'Desc_Review_Date' => '', 'States' => '', 'States_Review_Date' => '' ] );
+        $items[] = array_merge( $carrier_columns, ['Row_ID' => '', 'Product' => '', 'Alternate_Product_Name' => '', 'Alt_Product_Name_2' => '', 'Lower_Issue_Age' => '' , 'Upper_Issue_Age' => '', 'Source_File_Name' => '', 'Source_File_Date' => '', 'Desc_Review_Date' => '', 'States' => '', 'States_Review_Date' => '' ] );
       }
     }
-    $headers = ['ID','Carrier', 'Row_ID','Product','Alternate_Product_Name','Lower_Issue_Age','Upper_Issue_Age','Source_File_Name','Source_File_Date','Desc_Review_Date','States','States_Review_Date'];
+    $headers = ['ID','Carrier', 'Row_ID','Product','Alternate_Product_Name','Alt_Product_Name_2','Lower_Issue_Age','Upper_Issue_Age','Source_File_Name','Source_File_Date','Desc_Review_Date','States','States_Review_Date'];
 
     // Display the data
     \WP_CLI\Utils\format_items( 'table', $items, $headers );
@@ -141,11 +143,10 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
             \WP_CLI::error('Strange...are you sure your file is formatted as a CSV?');
 
           if( 'ID' != $data[0] )
-            \WP_CLI::error('Your CSV needs the following header rows:' . "\n" . 'ID,Carrier,Row_ID,Product,Alternate_Product_Name,Lower_Issue_Age,Upper_Issue_Age,Review_Date,Source_File_Name,Source_File_Date,Desc_Review_Date,States,States_Review_Date');
+            \WP_CLI::error('Your CSV needs the following header rows:' . "\n" . 'ID,Carrier,Row_ID,Product,Alternate_Product_Name,Alt_Product_Name_2,Lower_Issue_Age,Upper_Issue_Age,Review_Date,Source_File_Name,Source_File_Date,Desc_Review_Date,States,States_Review_Date');
 
           $headers = $data;
           // Get the keys for each column
-          //$data_keys = [];
           foreach( $headers as $key => $column ){
             $column_name = $this->_format_column_name( $column );
             $this->data_keys[$column_name] = $key;
@@ -303,6 +304,13 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
     $data_keys = $this->data_keys;
     foreach ( $data_keys as $name => $key ) {
       switch( $name ){
+        case 'alternate_product_name':
+        case 'alt_product_name_2':
+          $alternate_product_name_key = $this->data_keys['alternate_product_name'];
+          $alt_product_name_2_key = $this->data_keys['alt_product_name_2'];
+          $row_values['alternate_product_name'] = ( ! empty( $data[$alt_product_name_2_key] ) )? $data[$alt_product_name_2_key] : $data[$alternate_product_name_key] ;
+          break;
+
         case 'desc_review_date':
         case 'review_date':
         case 'source_file_date':
