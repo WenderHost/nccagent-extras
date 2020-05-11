@@ -114,6 +114,40 @@ function delete_user_message( $user_id ){
 add_action( 'delete_user', __NAMESPACE__ . '\\delete_user_message' );
 
 /**
+ * Adds extra columns to the Users' table in the WP Admin.
+ *
+ * @param      array  $columns  The columns
+ *
+ * @return     array  The filtered array of columns.
+ */
+function extra_user_table_columns( $columns ) {
+    $columns['marketer_id'] = 'Marketer';
+    return $columns;
+}
+add_filter( 'manage_users_columns', __NAMESPACE__ . '\\extra_user_table_columns' );
+
+/**
+ * Adds content to our additional WP User Table columns.
+ *
+ * @param      string  $val          The value
+ * @param      string  $column_name  The column name
+ * @param      int     $user_id      The user identifier
+ *
+ * @return     string  Our column content.
+ */
+function marketer_column_content( $val, $column_name, $user_id ){
+  switch ($column_name) {
+    case 'marketer_id':
+      $marketer_id = get_the_author_meta( 'marketer_id', $user_id );
+      $marketer_name = get_the_title( $marketer_id );
+      $val = $marketer_name;
+      break;
+  }
+  return $val;
+}
+add_filter( 'manage_users_custom_column', __NAMESPACE__ . '\\marketer_column_content', 10, 3 );
+
+/**
  * Adds fields to user profiles.
  *
  * Fields added:
@@ -135,7 +169,7 @@ function extra_user_profile_fields( $user ) {
         </td>
     </tr>
     <?php
-    $current_marketer = get_the_author_meta( 'marketer', $user->ID );
+    $current_marketer = get_the_author_meta( 'marketer_id', $user->ID );
     $marketers = get_posts([
       'post_type'   => 'team_member',
       'orderby'     => 'title',
@@ -158,10 +192,10 @@ function extra_user_profile_fields( $user ) {
     } else {
       $options[] = '<option value="" selected="selected">No Marketers found.</option>';
     }
-    $marketer_select = '<select name="marketer" id="marketer">' . implode( '', $options ) . '</select>';
+    $marketer_select = '<select name="marketer_id" id="marketer_id">' . implode( '', $options ) . '</select>';
     ?>
     <tr>
-        <th><label for="marketer"><?php _e("Marketer"); ?></label></th>
+        <th><label for="marketer_id"><?php _e("Marketer"); ?></label></th>
         <td>
             <?php echo $marketer_select; ?>
             <br /><span class="description"><?php _e("Select this agent's marketer."); ?></span>
@@ -185,7 +219,7 @@ function save_extra_user_profile_fields( $user_id ) {
       return false;
   }
   update_user_meta( $user_id, 'npn', $_POST['npn'] );
-  update_user_meta( $user_id, 'marketer', $_POST['marketer'] );
+  update_user_meta( $user_id, 'marketer_id', $_POST['marketer_id'] );
 }
 add_action( 'personal_options_update', __NAMESPACE__ . '\\save_extra_user_profile_fields' );
 add_action( 'edit_user_profile_update', __NAMESPACE__ . '\\save_extra_user_profile_fields' );
