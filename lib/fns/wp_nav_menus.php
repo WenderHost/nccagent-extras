@@ -35,11 +35,10 @@ add_filter( 'wp_nav_menu_items', __NAMESPACE__ . '\\add_dashboard_link', 10, 2 )
  */
 function custom_id_attribute ( $atts, $item, $args ) {
   $menus = ['top-bar','mobile-mega-menu-extra-links'];
-  ncc_error_log('🔔 $args->menu = ' . $args->menu );
   if( isset( $args->menu ) && in_array( $args->menu, $menus ) )
       $atts['id'] = $item->post_name;
 
-  if( 'whats-new-2' == $atts['id'] )
+  if( array_key_exists('id', $atts ) && 'whats-new-2' == $atts['id'] )
     $atts['id'] = 'whats-new';
 
   return $atts;
