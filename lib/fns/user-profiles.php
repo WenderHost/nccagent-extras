@@ -89,6 +89,10 @@ function create_user_message( $user_id ){
  * @param      string  $user_id  The user ID
  */
 function delete_user_message( $user_id ){
+  $disable_delete_user_message = get_field('disable_delete_user_message', 'option' );
+  if( is_array( $disable_delete_user_message ) && ( 0 < count( $disable_delete_user_message ) ) && $disable_delete_user_message[0]['value'] )
+    return;
+
   global $wpdb;
   $email = $wpdb->get_var("SELECT user_email FROM $wpdb->users WHERE ID = '" . $user_id . "' LIMIT 1");
 

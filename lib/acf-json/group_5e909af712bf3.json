@@ -79,6 +79,29 @@
             "delay": 0
         },
         {
+            "key": "field_5ebaa278da9ee",
+            "label": "Disable Delete User Message",
+            "name": "disable_delete_user_message",
+            "type": "checkbox",
+            "instructions": "When checked, WordPress will not send the following message when the user's account is deleted.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "true": "Disable"
+            },
+            "allow_custom": 0,
+            "default_value": [],
+            "layout": "vertical",
+            "toggle": 0,
+            "return_format": "array",
+            "save_custom": 0
+        },
+        {
             "key": "field_5e909b592b520",
             "label": "Delete User Message Subject",
             "name": "delete_user_message_subject",
@@ -134,5 +157,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1586541874
+    "modified": 1589290662
 }
