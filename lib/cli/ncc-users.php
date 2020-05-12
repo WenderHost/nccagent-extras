@@ -142,7 +142,8 @@ class NCC_Users_CLI  extends WP_CLI_Command{
                 break;
 
               default:
-                add_user_meta( $user_id, $key, $mapped_data[$key] );
+                if( array_key_exists( $key, $mapped_data ) )
+                  add_user_meta( $user_id, $key, $mapped_data[$key] );
             }
           }
 
