@@ -42,6 +42,12 @@ class NCC_Users_CLI  extends WP_CLI_Command{
     $emails = [];
     $created_users = 0;
     $existing_users = 0;
+
+    // Turn off the "email change" email.
+    add_filter( 'send_email_change_email', function( $user, $userdata ){
+      return false;
+    }, 10, 2 );
+
     if( ( $handle = fopen( $filename, 'r' ) ) !== false ){
       $progress = \WP_CLI\Utils\make_progress_bar( '🔔 Importing Users', $total_lines );
       while( ( $data = fgetcsv( $handle, 2048 ) ) !== false ){
