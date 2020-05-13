@@ -14,6 +14,9 @@ I've built the NCC website using Elementor and the Hello Elementor theme. This i
 
 ## Changelog ##
 
+### 2.5.9 ###
+* Adding Company field to user registration and displaying Company field on user profile.
+
 ### 2.5.8 ###
 * Adjusting Carrier > Products code to remove unpublished product prior to building the HTML output.
 

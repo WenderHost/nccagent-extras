@@ -172,6 +172,13 @@ function extra_user_profile_fields( $user ) {
             <span class="description"><?php _e("Please enter your NPN."); ?></span>
         </td>
     </tr>
+    <tr>
+        <th><label for="company"><?php _e("Company"); ?></label></th>
+        <td>
+            <input type="text" name="company" id="company" value="<?php echo esc_attr( get_the_author_meta( 'company', $user->ID ) ); ?>" class="regular-text" /><br />
+            <span class="description"><?php _e("Please enter your Company."); ?></span>
+        </td>
+    </tr>
     <?php
     $current_marketer = get_the_author_meta( 'marketer_id', $user->ID );
     $marketers = get_posts([
@@ -223,6 +230,7 @@ function save_extra_user_profile_fields( $user_id ) {
       return false;
   }
   update_user_meta( $user_id, 'npn', $_POST['npn'] );
+  update_user_meta( $user_id, 'company', $_POST['company'] );
   update_user_meta( $user_id, 'marketer_id', $_POST['marketer_id'] );
 }
 add_action( 'personal_options_update', __NAMESPACE__ . '\\save_extra_user_profile_fields' );

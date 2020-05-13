@@ -96,6 +96,7 @@ function register_user_and_send_lead_to_hubspot( $record, $handler ){
       'last_name' => $fields['lastname'],
     ]);
     add_user_meta( $user_id, 'npn', $fields['npn'], true );
+    add_user_meta( $user_id, 'company', $fields['company'], true );
     \NCCAgent\userprofiles\create_user_message( $user_id );
     return true;
   } else {
