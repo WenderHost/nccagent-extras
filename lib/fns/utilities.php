@@ -18,8 +18,10 @@ function ncc_get_alert( $atts ){
    'description'  => 'Alert description goes here.',
   ], $atts );
 
+  $title = ( ! empty( $args['title'] ) )? '<span class="elementor-alert-title">' . $args['title'] . '</span>' : '' ;
+
   $search = ['{type}', '{title}', '{description}' ];
-  $replace = [ esc_attr( $args['type'] ), $args['title'], $args['description'] ];
+  $replace = [ esc_attr( $args['type'] ), $title, $args['description'] ];
   $html = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/alert.html' );
   return str_replace( $search, $replace, $html );
 }
