@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.6.0  
+**Stable tag:** 2.6.1  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,11 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.6.1 ###
+* Moving Standard Carriers above SureLC Carriers message on thank you page for signing up for Online Contracting.
+* Updating the navigation note above the Carrier Documents Library.
+* Updating `lib/fns/utilities.php::ncc_get_alert()` to support an empty `title`.
 
 ### 2.6.0 ###
 * Updating Carrier Documents Library to "smooth scroll" to the top of the page every time we load a new directory listing.
