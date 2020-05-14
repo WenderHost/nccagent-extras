@@ -26,7 +26,8 @@ function dirlister(){
     'endpoint' => rest_url('nccagent/v1/dirlister'),
     'nonce' => wp_create_nonce( 'wp_rest' ) ]
   );
-  return '<div id="dirlister"><h1>Carrier Document Library</h1><p>Using your browser\'s Back button will exit the document library. Use the links to navigate.</p><h5>...</h5><ul class="directory-listing"><li class="message">Loading directory...</li></ul></div>';
+  $alert = ncc_get_alert(['type' => 'info', 'title' => null, 'description' => '<strong>Note:</strong> Do not use your browser\'s Back button. That will take you back to the previous page you visited. Instead, use the links and the Parent Directory button.']);
+  return '<div id="dirlister"><h1>Carrier Document Library</h1>' . $alert . '<h5>...</h5><ul class="directory-listing"><li class="message">Loading directory...</li></ul></div>';
 }
 add_shortcode( 'dirlister', __NAMESPACE__ . '\\dirlister' );
 
