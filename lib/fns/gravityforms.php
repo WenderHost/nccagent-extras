@@ -61,6 +61,15 @@ function get_online_contracting_message( $message, $form, $entry, $oembed = true
       }
     }
   }
+  if( $showStandard ){
+    // Get our ACF "Online Contracting Settings" options
+    $standard_instructions = get_field('standard_instructions','option');
+
+    // Build our Standard Carrier list
+    $standard_carrier_list = '<ul><li>' . implode( '</li><li>', $standardCarriers ) . '</li></ul>';
+
+    $message.= str_replace(['{carrier_list}'], [$standard_carrier_list], $standard_instructions);
+  }
   if( $showSureLC ){
     // Get our ACF "Online Contracting Settings" options
     $surelc_instructions = get_field('surelc_instructions','option');
@@ -73,15 +82,6 @@ function get_online_contracting_message( $message, $form, $entry, $oembed = true
     $surelc_carrier_list = '<ul><li>' . implode( '</li><li>', $sureLCCarriers ) . '</li></ul>';
 
     $message.= str_replace(['{carrier_list}','{walkthru_video}'], [$surelc_carrier_list,$video_embed], $surelc_instructions);
-  }
-  if( $showStandard ){
-    // Get our ACF "Online Contracting Settings" options
-    $standard_instructions = get_field('standard_instructions','option');
-
-    // Build our Standard Carrier list
-    $standard_carrier_list = '<ul><li>' . implode( '</li><li>', $standardCarriers ) . '</li></ul>';
-
-    $message.= str_replace(['{carrier_list}'], [$standard_carrier_list], $standard_instructions);
   }
 
   return $message;
