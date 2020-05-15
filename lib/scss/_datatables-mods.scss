@@ -92,8 +92,22 @@ table.dataTable{
   }
 
   td.child-details{
-    padding: 20px 20px 10px 20px;
+    padding: 4px 20px 10px 16px;
     font-size: 16px;
+  }
+
+  .kit-request{
+    text-align: center;
+    p{
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .review-date{
+    font-size: .85em;
+    margin-top: -14px
   }
 
   h4.row-title{
