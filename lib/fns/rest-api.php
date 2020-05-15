@@ -172,8 +172,12 @@ function products_rest_api(){
                   'name'  => get_the_title( $carrier->ID ),
                   'url'   => get_the_permalink( $carrier->ID )
                 ],
+                'lower_issue_age' => $product['product_details']['lower_issue_age'],
+                'upper_issue_age' => $product['product_details']['upper_issue_age'],
                 'description' => $product['product_details']['description'],
+                'desc_review_date' => $product['product_details']['desc_review_date'],
                 'states'  => $states,
+                'states_review_date' => $product['product_details']['states_review_date'],
                 'kit_request_url' => site_url( 'contracting/kit-request' ),
               ];
             }
