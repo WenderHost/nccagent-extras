@@ -1,6 +1,28 @@
 <?php
 
 /**
+ * Formats an array of state names as HTML chiclets.
+ *
+ * @param      array|string  $states  The states
+ *
+ * @return     string  HTML for State chiclets.
+ */
+function ncc_build_state_chiclets( $states = array() ){
+  if( is_array( $states ) )
+    sort( $states );
+
+  if( is_array( $states ) ){
+    $state_html = '';
+    foreach( $states as $state ){
+      $state_html.= '<span class="chiclet chiclet-' . strtolower( $state ) . '">' . $state . '</span> ';
+    }
+    $states = $state_html;
+  }
+
+  return $states;
+}
+
+/**
  * Returns an HTML alert message
  *
  * @param      array  $atts {

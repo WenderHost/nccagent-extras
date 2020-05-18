@@ -2,6 +2,15 @@
 
 namespace NCCAgent\marketer;
 
+/**
+ * Displays the contact details for a marketer
+ *
+ * @param      array  $atts {
+ *   @type  int  $id The Marketer CPT post ID.
+ * }
+ *
+ * @return     string  HTML for the Marketer's contact details.
+ */
 function marketer_contact_details( $atts ){
   global $post;
 
@@ -16,7 +25,7 @@ function marketer_contact_details( $atts ){
 
   $html = '';
   $marketerFields = get_fields( $marketer_id, false );
-  $marketerFields['hubspot'] = get_field( 'hubspot', $marketer->ID );
+  $marketerFields['hubspot'] = get_field( 'hubspot', $marketer_id );
   $template = ncc_get_template([
     'template'  => 'marketer_contact_details',
     'search'    => ['{{first_name}}'],
@@ -30,6 +39,43 @@ function marketer_contact_details( $atts ){
   return $html;
 }
 add_shortcode( 'marketer_contact_details', __NAMESPACE__ . '\\marketer_contact_details' );
+
+/**
+ * Shows a listing of a marketer's states served.
+ *
+ * @param      array  $atts {
+ *   @type  int  $id The Marketer CPT ID.
+ * }
+ *
+ * @return     string  HTML for displaying the Marketer's states served.
+ */
+function marketer_states( $atts ){
+  global $post;
+
+  $args = shortcode_atts( [
+    'id' => null,
+  ], $atts );
+
+  $marketer_id = ( ! is_null( $args['id'] ) && is_numeric( $args['id'] ) )? $args['id'] : $post->ID ;
+
+  $terms = wp_get_post_terms( $marketer_id, 'state' );
+  if( ! $terms ){
+    $alert = ncc_get_alert(['title' => 'No states assigned!', 'description' => 'No states have been assigned to this marketer. Please add some <a href="' . get_edit_post_link( $marketer_id ) . '">here</a>.']);
+    $html = ( is_user_logged_in() && current_user_can( 'activate_plugins' ) )? $alert : '' ;
+    return $html;
+  } else {
+    $states = [];
+    foreach ( $terms as $key => $term ) {
+      $states[] = strtoupper( $term->slug );
+    }
+    $state_chiclets = ncc_build_state_chiclets( $states );
+  }
+
+  $html = '<h3 style="margin-bottom: 10px;">States served</h3>';
+  $html.= '<p>' . $state_chiclets . '</p>';
+  return $html;
+}
+add_shortcode( 'marketer_states', __NAMESPACE__ . '\\marketer_states' );
 
 /**
  * Displays a Marketer's testimonials.
