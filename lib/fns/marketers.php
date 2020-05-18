@@ -102,7 +102,7 @@ function marketer_testimonials( $atts ){
     return null;
   //return '<p>Testimonials coming soon. If you have a testimonials to share about ' . $name[0] . ', please share it with us at NCC.</p>';
 
-  $html = '<h3>Testimonials</h3>';
+  $html = '<h3>Testimonials from Agents</h3>';
   $template = ncc_get_template('testimonial');
   while( have_rows('testimonials') ): the_row();
     $testimonial = get_sub_field('testimonial');
