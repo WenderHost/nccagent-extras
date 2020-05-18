@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.7.1  
+**Stable tag:** 2.7.2  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.7.2 ###
+* Updating marketer testimonials heading from "Testimonials" to "Testimonials from Agents".
+* Adding "See {team_member's} testimonials and states served." link to marketers listing.
 
 ### 2.7.1 ###
 * Only show Carrier Docs Directory alert to logged in users.
