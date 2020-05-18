@@ -146,6 +146,7 @@ function products_rest_api(){
 
               // Get our array of `states`, sort them alphabetically, and format them as a string of HTML `chiclets`:
               $states = $product['product_details']['states'];
+              /*
               if( is_array( $states ) )
                 sort( $states );
               //$states = ( is_array( $states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $states ) . '</span>' : $states ;
@@ -158,6 +159,8 @@ function products_rest_api(){
               } else {
                 $states = $states;
               }
+              */
+              $states = ncc_build_state_chiclets( $product['product_details']['states'] );
 
               // Set $product_title to not be empty so that this product always has an `alt_name`:
               $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
