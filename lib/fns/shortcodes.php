@@ -410,15 +410,19 @@ function team_member_list( $atts ){
   foreach( $team_members as $team_member ){
     $photo = get_the_post_thumbnail_url( $team_member->ID, 'large' );
     $name = $team_member->post_title;
+    $name_array = explode( ' ', $name );
+    $lastname = array_pop( $name_array );
+    $firstname = implode( ' ', $name_array );
+    $permalink = get_permalink( $team_member->ID );
 
     if( 'marketing' == strtolower( $args['type'] ) )
-      $name = '<a href="' . get_permalink( $team_member->ID ) . '">' . $name . '</a>';
+      $name = '<a href="' . $permalink . '">' . $name . '</a>';
 
     $teamMemberFields = get_fields( $team_member->ID, false );
-    $search = [ '{photo}', '{name}', '{title}', '{bio}', '{tel}', '{phone}', '{email}' ];
+    $search = [ '{photo}', '{name}', '{firstname}', '{title}', '{bio}', '{tel}', '{phone}', '{email}', '{permalink}' ];
     $phone = ( ! empty( $teamMemberFields['extension'] ) )? $teamMemberFields['phone'] . ' ext. ' . $teamMemberFields['extension'] : $teamMemberFields['phone'] ;
     $tel = ( ! empty( $teamMemberFields['extension'] ) )? $teamMemberFields['phone'] . ';ext=' . $teamMemberFields['extension'] : $teamMemberFields['phone'] ;
-    $replace = [ $photo, $name, $teamMemberFields['title'], apply_filters( 'the_content', $teamMemberFields['bio'] ), $tel, $phone, $teamMemberFields['email'] ];
+    $replace = [ $photo, $name, $firstname, $teamMemberFields['title'], apply_filters( 'the_content', $teamMemberFields['bio'] ), $tel, $phone, $teamMemberFields['email'], $permalink ];
     $html.= str_replace( $search, $replace, $template );
   }
 
