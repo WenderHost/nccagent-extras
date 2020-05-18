@@ -17,6 +17,7 @@ function custom_breadcrumbs( $atts ) {
 
     // Settings
     $separator          = $args['separator'];
+    $separator_html     = '<li class="separator separator-home"> ' . $separator . ' </li>';
     $breadcrumbs_id     = $args['breadcrumbs_id'];
     $breadcrumbs_class  = $args['breadcrumbs_class'];
     $home_title         = $args['home_title'];
@@ -39,7 +40,7 @@ function custom_breadcrumbs( $atts ) {
 
         // Home page
         $html[] = '<li class="item-home"><a class="bread-link bread-home" href="' . get_home_url() . '" title="' . $home_title . '"><i class="fas fa-home"></i></a></li>';
-        $html[] = '<li class="separator separator-home"> ' . $separator . ' </li>';
+        $html[] = $separator_html;
 
         if ( is_archive() && !is_tax() && !is_category() && !is_tag() ) {
 
@@ -179,6 +180,8 @@ function custom_breadcrumbs( $atts ) {
         } else if ( is_category() ) {
 
             // Category page
+            $html[] = '<li><a href="' . site_url( 'blog/' ) . '">Blog</a></li>';
+            $html[] = $separator_html;
             $html[] = '<li class="item-current item-cat"><span class="bread-current bread-cat">' . single_cat_title('', false) . '</span></li>';
 
         } else if ( is_page() ) {
@@ -306,7 +309,9 @@ function custom_breadcrumbs( $atts ) {
         } else if ( get_query_var('paged') ) {
 
             // Paginated archives
-            $html[] = '<li class="item-current item-current-' . get_query_var('paged') . '"><span class="bread-current bread-current-' . get_query_var('paged') . '" title="Page ' . get_query_var('paged') . '">'.__('Page') . ' ' . get_query_var('paged') . '</span></li>';
+            $html[] = '<li><a href="' . site_url('blog/') . '">Blog</a></li>';
+            $html[] = $separator_html;
+            $html[] = '<li class="item-current-' . get_query_var('paged') . '"><span class="bread-current bread-current-' . get_query_var('paged') . '" title="Page ' . get_query_var('paged') . '">'.__('Page') . ' ' . get_query_var('paged') . '</span></li>';
 
         } else if ( is_search() ) {
 
