@@ -15,7 +15,7 @@ function add_dashboard_link( $items, $args ){
 
   if( 'top-bar' == $args->menu ){
     if( is_user_logged_in() ){
-      $items .= '<li class="' . $item_classes . '"><a class="elementor-item" href="' . site_url( 'dashboard' ) . '">My Dashboard</a></li>';
+      $items .= '<li class="' . $item_classes . '"><a class="elementor-item" href="' . site_url( 'dashboard' ) . '">My Dashboard/Log Out</a></li>';
     } else {
       $items .= '<li class="' . $item_classes . '"><a class="elementor-item" href="' . site_url( 'login-register' ) . '">Log In or Register</a></li>';
     }
