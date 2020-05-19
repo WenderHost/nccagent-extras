@@ -181,6 +181,7 @@ function products_rest_api(){
                 'desc_review_date' => $product['product_details']['desc_review_date'],
                 'states'  => $states,
                 'states_review_date' => $product['product_details']['states_review_date'],
+                'online_contracting_url' => site_url( 'contracting/contract-online/' ),
                 'kit_request_url' => site_url( 'contracting/kit-request' ),
               ];
             }
