@@ -23,7 +23,7 @@ function acf_get_carrier_products( $atts ){
   if( empty( $products ) )
     return '';
 
-  $html = '<h3>' . get_the_title( $args['post_id'] ) . ' Products and State Availability</h3>';
+  $html = '<h2>' . get_the_title( $args['post_id'] ) . ' Products and State Availability</h2>';
   $html.= '<div class="product-content"><p>These are ' . get_the_title( $args['post_id'] ) . '\'s current products and state availability for ' . date('Y') . ', as well as information on contracting and appointment.</p></div>';
 
   // Remove "unpublished" products from $products:
@@ -34,9 +34,20 @@ function acf_get_carrier_products( $atts ){
 
   if( 3 > count( $products ) ){
     foreach( $products as $product ){
+
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
-      $states = ( is_array( $product['product_details']['states'] ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product['product_details']['states'] ) . '</span>' : $product['product_details']['states'] ;
-      $html.= '<h4 class="product-title">' . $product_title . '</h4><p>' . $states . '</p>';
+      $html.= '<h2 class="product-title">' . $product_title . '</h2>';
+      $html.= '<p><a href="' . get_permalink( $product->ID ) . sanitize_title_with_dashes( $product_title ) . '">View this plan information as a web page.</a></p>';
+
+      $states = ncc_build_state_chiclets( $product['product_details']['states'] );
+      $html.= '<h3>State Availability</h3>';
+      if( ! empty( $product['product_details']['states_review_date'] ) )
+        $html.= '<p class="review-date"> Current as of ' . $product['product_details']['states_review_date'] . '</p><p>' . $states . '</p>';
+
+      $html.= '<h3>Plan Information</h3>';
+      if( ! empty( $product['product_details']['desc_review_date'] ) )
+        $html.= '<p class="review-date">Current as of ' . $product['product_details']['desc_review_date'] . '</p>';
+
       $html.= '<div class="product-content">' . apply_filters( 'the_content', $product['product_details']['description'] ) . '<p>Permalink: <a href="'. get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ) . '">' . get_the_title( $args['post_id'] ) . ' ' . $product_title . '</a></p></div>';
     }
   } else {
@@ -52,7 +63,31 @@ function acf_get_carrier_products( $atts ){
     foreach( $products as $product ){
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
       $product_description = apply_filters( 'the_content', $product['product_details']['description'] );
-      $states = ( is_array( $product['product_details']['states'] ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product['product_details']['states'] ) . '</span>' : $product['product_details']['states'] ;
+      if( ! empty( $product['product_details']['desc_review_date'] ) ){
+        $product_description = '<h3>Plan Information</h3><p class="review-date">Current as of ' . $product['product_details']['desc_review_date'] . '</p>' . $product_description;
+      } else {
+        $product_description = '<h3>Plan Information</h3>' . $product_description;
+      }
+      $medicare_products = ['Medicare','Prescription Drug Plan','PDP'];
+      if( stristr( $product_title, $medicare_products ) )
+        $product_description = '<p><em>Some information may vary by state. <a href="' . site_url( 'tools/medicare-quote-engine/' ) . '">See state-specific information and rates</a>.</em></p>';
+
+      $states = ncc_build_state_chiclets( $product['product_details']['states'] );
+      if( ! empty( $product['product_details']['states_review_date'] ) ){
+        $states = '<h3>State Availability</h3><p class="review-date">Current as of ' . $product['product_details']['states_review_date'] . '</p>' . $states;
+      } else {
+        $states = '<h3>State Availability</h3>' . $states;
+      }
+
+      $kit_request_html = ncc_get_template([
+        'template' => 'kit-request',
+        'search' => ['{{carriername}}','{{productname}}','{{button}}'],
+        'replace' => [
+          get_the_title( $args['post_id'] ),
+          $product_title,
+          '<p><a class="elementor-button" href="' . site_url('contracting/kit-request') . '">Request a Kit</a></p>'
+        ]
+      ]);
 
       $search = [
         '{{toggle_id}}',
@@ -61,7 +96,9 @@ function acf_get_carrier_products( $atts ){
         '{{description}}',
         '{{permalink}}',
         '{{link_text}}',
+        '{{kit_request}}',
       ];
+
       $replace = [
         $product['product']->post_name . '-' . $x,
         $product_title,
@@ -69,6 +106,7 @@ function acf_get_carrier_products( $atts ){
         $product_description,
         get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ),
         'View this information as a web page.',
+        $kit_request_html,
       ];
       $html.= str_replace( $search, $replace, $accordion_html );
       $x++;
@@ -249,14 +287,21 @@ function carrierproduct(){
       $product_details = get_sub_field( 'product_details' );
       $product_name = ( ! empty( $product_details['alternate_product_name'] ) )? $product_details['alternate_product_name'] : $product->post_title ;
       if( strtolower( sanitize_title_with_dashes( $product_name ) ) == strtolower( $carrierproduct ) ){
-        $product_description = $product_details['description'];
-        $product_states = $product_details['states'];
-
-        $states = ( is_array( $product_states ) )? '<span class="chiclet">' . implode('</span> <span class="chiclet">', $product_states ) . '</span>' : $product_states ;
-
         $headingEle = ( 1 < count( $products ) && empty( $carrierproduct ) )? 'h2' : 'h1';
+        $html.= '<' . $headingEle . '>' . $carrier->post_title . ' ' . $product_name . '</' . $headingEle . '>';
 
-        $html.= '<' . $headingEle . '>' . $carrier->post_title . ' ' . $product_name . '</' . $headingEle . '><p>' . $states . '</p>' . $product_description;
+        $chiclets = ncc_build_state_chiclets( $product_details['states'] );
+        $html.= '<h2>State Availability</h2>';
+        if( ! empty( $product_details['states_review_date'] ) )
+          $html.= '<p class="review-date">Current as of ' . $product_details['states_review_date'] . '</p>';
+        $html.= $chiclets;
+
+        $html.= '<h2>Plan Information</h2>';
+        if( ! empty( $product_details['desc_review_date'] ) )
+          $html.= '<p class="review-date">Current as of ' . $product_details['desc_review_date'] . '</p>';
+
+        $html.= $product_details['description'];
+        $html.= ncc_quick_links();
         return $html;
       }
     endwhile;
