@@ -1,7 +1,7 @@
 <div class="team_member">
   <div class="row">
     <div class="col-md-3">
-      <div class="stretchy-wrapper"><div class="photo" style="background-image: url('{photo}')"></div></div>
+      <div class="stretchy-wrapper">{photo}</div>
     </div>
     <div class="col-md-9">
         <h3>
@@ -10,11 +10,7 @@
         </h3>
         {bio}
         <ul class="elementor-icon-list-items elementor">
-          <li class="elementor-icon-list-item">
-            <a href="{permalink}" style="text-decoration: none;">
-              <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-chevron-circle-right"></i></span><span class="elementor-icon-list-text">See the states {firstname} serves and testimonials from agents.</span>
-            </a>
-          </li>
+          {marketer_link}
           <li class="elementor-icon-list-item">
             <a href="tel:{tel}" style="text-decoration: none;">
               <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-phone-square-alt"></i></span><span class="elementor-icon-list-text">{phone}</span>

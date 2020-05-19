@@ -450,24 +450,33 @@ function team_member_list( $atts ){
     return '<p><strong>No Team Members Found</strong><br/>No Team Members found. Please check your shortcode parameters.</p>';
 
   $html = '';
-  //$template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/team_member.html' );
   $template = ncc_get_template('team_member');
   foreach( $team_members as $team_member ){
-    $photo = get_the_post_thumbnail_url( $team_member->ID, 'large' );
+    $photo = '<div class="photo" style="background-image: url(' . get_the_post_thumbnail_url( $team_member->ID, 'large' ) . ')"></div>';
+
     $name = $team_member->post_title;
     $name_array = explode( ' ', $name );
     $lastname = array_pop( $name_array );
     $firstname = implode( ' ', $name_array );
     $permalink = get_permalink( $team_member->ID );
 
-    if( 'marketing' == strtolower( $args['type'] ) )
+    if( 'marketing' == strtolower( $args['type'] ) ){
       $name = '<a href="' . $permalink . '">' . $name . '</a>';
+      $photo = '<a href="' . $permalink . '">' . $photo . '</a>';
+      $marketer_link = ncc_get_template([
+        'template'  => 'team_member.marketer_link',
+        'search'    => ['{permalink}','{firstname}'],
+        'replace'   => [ $permalink, $firstname],
+      ]);
+    } else {
+      $marketer_link = '';
+    }
 
     $teamMemberFields = get_fields( $team_member->ID, false );
-    $search = [ '{photo}', '{name}', '{firstname}', '{title}', '{bio}', '{tel}', '{phone}', '{email}', '{permalink}' ];
+    $search = [ '{photo}', '{name}', '{title}', '{bio}', '{tel}', '{phone}', '{email}', '{marketer_link}' ];
     $phone = ( ! empty( $teamMemberFields['extension'] ) )? $teamMemberFields['phone'] . ' ext. ' . $teamMemberFields['extension'] : $teamMemberFields['phone'] ;
     $tel = ( ! empty( $teamMemberFields['extension'] ) )? $teamMemberFields['phone'] . ';ext=' . $teamMemberFields['extension'] : $teamMemberFields['phone'] ;
-    $replace = [ $photo, $name, $firstname, $teamMemberFields['title'], apply_filters( 'the_content', $teamMemberFields['bio'] ), $tel, $phone, $teamMemberFields['email'], $permalink ];
+    $replace = [ $photo, $name, $teamMemberFields['title'], apply_filters( 'the_content', $teamMemberFields['bio'] ), $tel, $phone, $teamMemberFields['email'], $marketer_link ];
     $html.= str_replace( $search, $replace, $template );
   }
 
