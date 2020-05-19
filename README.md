@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.7.2  
+**Stable tag:** 2.7.3  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.7.3 ###
+* Updating `li` background-image to apply to `ul > li` inside `.elementor-widget-container`.
 
 ### 2.7.2 ###
 * Updating marketer testimonials heading from "Testimonials" to "Testimonials from Agents".
