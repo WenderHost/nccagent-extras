@@ -135,7 +135,8 @@ function my_marketer( $atts ){
   if( ! $user )
     return '<p><strong>No User Found!</strong> You don\'t appear to be logged in.</p>';
 
-  $marketer_id = get_user_meta( $user->ID, 'marketer', true );
+  $marketer_id = get_user_meta( $user->ID, 'marketer_id', true );
+  ncc_error_log('$marketer_id = ' . $marketer_id );
   if( ! $marketer_id ){
     //return ncc_get_alert(['title' => 'No Team Member Assigned', 'description' => 'No Team Member has been assigned to your user profile. Please contact NCC to have our staff assign a Team Member to you.']);
     return null;
@@ -149,15 +150,30 @@ function my_marketer( $atts ){
   $photo = get_the_post_thumbnail_url( $marketer->ID, 'medium' );
   $marketerFields = get_fields( $marketer->ID, false );
   $marketerFields['hubspot'] = get_field( 'hubspot', $marketer->ID );
-  $template = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/marketer.html' );
 
-  $search = [ '{photo}', '{name}', '{title}', '{phone}', '{email}', '{marketer_page}', '{calendar_link}', '{extension}' ];
+  /*
+  $name_array = explode(' ', $marketer->post_title );
+  $lastname = array_pop( $name_array );
+  $firstname = implode( ' ', $name_array );
+  $marketer_link = ncc_get_template([
+    'template'  => 'team_member.marketer_link',
+    'search'    => ['{permalink}','{firstname}'],
+    'replace'   => [ $permalink, $firstname],
+  ]);
+  */
+  $marketer_link = '';
 
+  $search = [ '{photo}', '{name}', '{title}', '{phone}', '{email}', '{marketer_page}', '{calendar_link}', '{extension}', '{marketer_link}' ];
   $calendarLink = ( ! empty( $marketerFields['hubspot']['calendar_link'] ) )? $marketerFields['hubspot']['calendar_link'] : '';
   $extension = ( ! empty( $marketerFields['extension'] ) )? ' ext. ' . $marketerFields['extension'] : '' ;
-  $replace = [ $photo, $marketer->post_title, $marketerFields['title'], $marketerFields['phone'], $marketerFields['email'], get_permalink( $marketer_id ), $calendarLink, $extension ];
+  $replace = [ $photo, $marketer->post_title, $marketerFields['title'], $marketerFields['phone'], $marketerFields['email'], get_permalink( $marketer_id ), $calendarLink, $extension, $marketer_link ];
 
-  $html = str_replace( $search, $replace, $template );
+  $html = ncc_get_template([
+    'template'  => 'marketer',
+    'search'    => $search,
+    'replace'   => $replace,
+  ]);
+  //$html = str_replace( $search, $replace, $template );
 
   return $html;
 }
