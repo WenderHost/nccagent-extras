@@ -22,13 +22,6 @@ function carrier_page(){
   $html = [];
   if( ! empty( $carrierproduct ) ){
     $html[] = \NCCAgent\shortcodes\carrierproduct();
-
-    // Product Kit Request CTA:
-    //$html[] = '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2547"]') . '</div>';
-    // Online Contracting CTA:
-    //$html[] = '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2542"]') . '</div>';
-
-    //$html[] = ncc_quick_links();
   } else {
     $html[] = '<h1>' . get_the_title( $carrier->ID ) . ' Contracting &amp; Appointment</h1>';
     $html[] = '<div style="margin-bottom: 2em;">' . \NCCAgent\shortcodes\readmore_content() . '</div>';

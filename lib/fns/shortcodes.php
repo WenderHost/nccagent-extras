@@ -301,6 +301,10 @@ function carrierproduct(){
           $html.= '<p class="review-date">Current as of ' . $product_details['desc_review_date'] . '</p>';
 
         $html.= $product_details['description'];
+        // Product Kit Request CTA:
+        $html.= '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2547"]') . '</div>';
+        // Online Contracting CTA:
+        $html.= '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2542"]') . '</div>';
         $html.= ncc_quick_links();
         return $html;
       }
