@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.4
-Stable tag: 2.8.0
+Stable tag: 2.8.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,11 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 2.8.1 =
+* Updating link text for "${carrier} Agent Support Black Book" and "${carrier} Document Library" in Quick Links.
+* Restoring "Big CTAs" to Carrier > Product pages.
+* Setting headings to h3 in Product Finder.
 
 = 2.8.0 =
 * Adding a special cases switch to breadcrumbs which handles the Products and Carriers pages.
