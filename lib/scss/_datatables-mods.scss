@@ -69,9 +69,29 @@ table.dataTable{
     }
   }
 
-  tbody td{
-    padding: 16px;
+  tbody tr{
+    &.shown{
+      td .row-title a{
+        color: $nccNavy !important;
+      }
+    }
+    td{
+      padding: 0;
+
+      .row-title a{
+        display: block;
+        padding: 16px;
+        position: relative;
+
+        i{
+          position: absolute;
+          right: 16px;
+          top: 32%;
+        }
+      }
+    }
   }
+
   td.dataTables_empty{
     height: 300px;
     vertical-align: middle;
@@ -116,7 +136,7 @@ table.dataTable{
     margin-top: -14px
   }
 
-  h4.row-title{
+  .row-title{
     margin: 0;
     font-size: 22px;
 
