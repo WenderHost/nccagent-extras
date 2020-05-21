@@ -250,6 +250,7 @@ function custom_breadcrumbs( $atts ) {
                * On some pages we want to replace what would normally
                * appear as the last item in the breadcrumb:
                */
+              $link_text = $title;
               switch( $title ){
                 case 'About National Contracting Center':
                   $link_text = 'About';
@@ -260,8 +261,14 @@ function custom_breadcrumbs( $atts ) {
                   $link_text = '<a href="' . site_url( 'plans/' ) . '">Carriers &amp; Products</a>';
                   break;
 
+                case 'Carriers &#038; Products':
+                case 'Carriers & Products':
+                case 'Carriers &amp; Products':
+                  //ncc_error_log('🔔 $children_subnav = ' . $children_subnav );
+                  break;
+
                 default:
-                  $link_text = $title;
+                  // nothing
               }
               $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="' . implode( ' ', $anchor_classes ) . '"> ' . $link_text . '</span>' . $children_subnav . '</div></li>';
             }
@@ -359,21 +366,40 @@ add_shortcode( 'supercrumbs', __NAMESPACE__ . '\\custom_breadcrumbs' );
  */
 function get_subnav( $post_parent_id, $post_type = 'page' ){
   $children_subnav = false;
+  $parent = get_post( $post_parent_id );
+  $parent_slug = $parent->post_name;
 
   // Get children
-  $children = get_children([
+  $args = [
       'post_parent'   => $post_parent_id,
       'order'         => 'ASC',
       'orderby'       => 'title',
       'post_type'     => $post_type,
-  ]);
+  ];
+
+  $children = get_children( $args );
   if( $children ){
 
-    foreach( $children as $child ){
+    if( 'plans' == $parent_slug ){
       $item_classes = ['subnav-item'];
-      if( is_page( $child->ID ) )
-        $item_classes[] = 'item-current';
-      $childrens[] = '<a class="' . implode( ' ', $item_classes ) . '" href="' . get_permalink( $child ) . '">' . get_the_title( $child ) . '</a>';
+      $plans_children = [
+        'Product Finder'          => site_url( 'plans/' ),
+        'All Carriers'            => site_url( 'carriers/' ),
+        'Medicare Advantage'      => site_url( 'product/medicare-advantage/' ),
+        'Medicare Supplement'     => site_url( 'product/medicare-supplement/' ),
+        'Prescription Drug Plan'  => site_url( 'product/medicare-pdp/' ),
+        'Anncillaries'            => site_url( 'product/ancillaries' ),
+      ];
+      foreach( $plans_children as $title => $permalink ){
+        $childrens[] = '<a class="' . implode( ' ', $item_classes ) . '" href="' . $permalink . '">' . $title . '</a>';
+      }
+    } else {
+      foreach( $children as $child ){
+        $item_classes = ['subnav-item'];
+        if( is_page( $child->ID ) )
+          $item_classes[] = 'item-current';
+        $childrens[] = '<a class="' . implode( ' ', $item_classes ) . '" href="' . get_permalink( $child ) . '">' . get_the_title( $child ) . '</a>';
+      }
     }
     $children_subnav = '<div class="down-arrow"></div><div class="child-subnav dropdown-content">' . implode( '', $childrens ) . '</div>';
   }
