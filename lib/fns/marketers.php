@@ -136,7 +136,6 @@ function my_marketer( $atts ){
     return '<p><strong>No User Found!</strong> You don\'t appear to be logged in.</p>';
 
   $marketer_id = get_user_meta( $user->ID, 'marketer_id', true );
-  ncc_error_log('$marketer_id = ' . $marketer_id );
   if( ! $marketer_id ){
     //return ncc_get_alert(['title' => 'No Team Member Assigned', 'description' => 'No Team Member has been assigned to your user profile. Please contact NCC to have our staff assign a Team Member to you.']);
     return null;
