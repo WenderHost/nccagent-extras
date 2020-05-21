@@ -244,7 +244,25 @@ function custom_breadcrumbs( $atts ) {
 
               // Just display current page if not parents
               $title = get_the_title();
-              $link_text = ( 'About National Contracting Center' == $title )? 'About' : $title;
+              /**
+               * SPECIAL CASES
+               *
+               * On some pages we want to replace what would normally
+               * appear as the last item in the breadcrumb:
+               */
+              switch( $title ){
+                case 'About National Contracting Center':
+                  $link_text = 'About';
+                  break;
+
+                case 'Products':
+                case 'Carriers':
+                  $link_text = '<a href="' . site_url( 'plans/' ) . '">Carriers &amp; Products</a>';
+                  break;
+
+                default:
+                  $link_text = $title;
+              }
               $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="' . implode( ' ', $anchor_classes ) . '"> ' . $link_text . '</span>' . $children_subnav . '</div></li>';
             }
 
