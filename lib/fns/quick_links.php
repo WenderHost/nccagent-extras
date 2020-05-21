@@ -35,7 +35,7 @@ function ncc_quick_links(){
     if( $agent_black_book_url )
       $links[] = [
         'url'  => $agent_black_book_url,
-        'text' => get_the_title( $post->ID ) . ' Agent Black Book',
+        'text' => get_the_title( $post->ID ) . ' Agent Support Black Book',
       ];
 
     $ahip_certification_url = get_field('ahip_certification');
@@ -48,7 +48,7 @@ function ncc_quick_links(){
     if( $vpn_link )
       $links[] = [
         'url'   => site_url('carrier-documents/'). '?path=' . $vpn_link,
-        'text'  => get_the_title( $post->ID ) . ' Documents',
+        'text'  => get_the_title( $post->ID ) . ' Document Library',
       ];
   }
 
