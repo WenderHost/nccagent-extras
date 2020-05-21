@@ -24,7 +24,7 @@ function acf_get_carrier_products( $atts ){
     return '';
 
   $html = '<h2>' . get_the_title( $args['post_id'] ) . ' Products and State Availability</h2>';
-  $html.= '<div class="product-content"><p>These are ' . get_the_title( $args['post_id'] ) . '\'s current products and state availability for ' . date('Y') . ', as well as information on contracting and appointment.</p></div>';
+  $html.= '<p>These are ' . get_the_title( $args['post_id'] ) . '\'s current products and state availability for ' . date('Y') . ', as well as information on contracting and appointment.</p>';
 
   // Remove "unpublished" products from $products:
   foreach( $products as $key => $product ){
