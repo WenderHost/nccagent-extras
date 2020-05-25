@@ -241,3 +241,26 @@ table.dataTable{
   /* Misc */
 
 }
+
+/**
+ * IE 10 & 11 Media Query
+ *
+ * See: https://www.mediacurrent.com/blog/pro-tip-how-write-conditional-css-ie10-and-11/
+ */
+.internet-explorer,
+.internet-explorer-10,
+.ie10,
+.internet-explorer-11,
+.ie11{
+  display: none;
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  // IE10+ CSS here
+  .internet-explorer,
+  .internet-explorer-10,
+  .ie10,
+  .internet-explorer-11,
+  .ie11{
+    display: block;
+  }
+}
