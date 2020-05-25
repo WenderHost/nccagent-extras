@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.8.7  
+**Stable tag:** 2.8.8  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,12 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.8.8 ###
+* Adding a note in Product Finder which targets IE as follows:
+  * We use a media query to target IE 10 and 11 ([link](https://www.mediacurrent.com/blog/pro-tip-how-write-conditional-css-ie10-and-11/)).
+  * For <= IE 9.X.X, we use IE Conditional tags.
+* Adding `css_classes` attribute to `ncc_get_alert()`.
 
 ### 2.8.7 ###
 * Setting Product Finder page length to 40.
