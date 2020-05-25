@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.8.8  
+**Stable tag:** 2.8.9  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.8.9 ###
+* Updating Product Finder Marketer Display to work on wide screen layout.
+* Fixing warnings related to unset variables.
 
 ### 2.8.8 ###
 * Adding a note in Product Finder which targets IE as follows:
