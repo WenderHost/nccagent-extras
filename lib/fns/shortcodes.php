@@ -367,9 +367,21 @@ function product_finder( $atts ){
   $ie_alert = ncc_get_alert([
     'type'        => 'danger',
     'title'       => 'Your Browser is not Supported',
-    'description' => 'Unfortunately, your browser is not supported. In order to use the Product Finder, please use one of these web browsers: <strong><a href="https://www.google.com/chrome/" target="_blank">Google Chrome</a></strong>, <strong><a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Mozilla Firefox</a></strong>, or <strong><a href="https://www.microsoft.com/en-us/edge" target="_blank">Microsoft Edge</a></strong>.'
+    'description' => 'Unfortunately, your browser is not supported. In order to use the Product Finder, please use one of these web browsers: <strong><a href="https://www.google.com/chrome/" target="_blank">Google Chrome</a></strong>, <strong><a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Mozilla Firefox</a></strong>, or <strong><a href="https://www.microsoft.com/en-us/edge" target="_blank">Microsoft Edge</a></strong>.',
+    'css_classes' => 'internet-explorer',
   ]);
-  $ie_alert = '<!--[if lte IE 11 ]>' . $ie_alert . '<![endif]-->';
+
+  /**
+   * We're including the IE note twice because we need to use 2 methods
+   * to display an IE conditional since conditional tags were dropped
+   * in IE 10:
+   *
+   * - First method uses a media query found in lib/scss/_datatables_mods.scss
+   * - Second uses standard IE conditional tags available in IE <= 9.X.X.
+   *
+   * Reference: https://www.mediacurrent.com/blog/pro-tip-how-write-conditional-css-ie10-and-11/
+   */
+  $ie_alert = $ie_alert . '<!--[if lte IE 9 ]>' . $ie_alert . '<![endif]-->';
 
   return $ie_alert . '<div class="product-finder-header"><h2>Product Finder</h2><a href="#" id="reset-form">reset form</a></div><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th class="label" style="width: 40px; font-size: 12px; padding: 4px;">Make your selection(s):</th><th style="width: 40%">States</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th id="selectors">&nbsp;</th></tr><tr><th id="ncc-staff" colspan="5"></th></tr></thead><tbody></tbody></table>';
 }
