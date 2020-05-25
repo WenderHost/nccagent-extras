@@ -229,7 +229,7 @@ function custom_breadcrumbs( $atts ) {
                 $link_text = ( 'About National Contracting Center' == $title )? 'About' : $title;
                 $html[] = '<li class="' . implode( ' ', $item_classes ) . '"><div><span class="dropbtn"> ' . $link_text . '</span>' . $children_subnav . '</div></li>';
               } else {
-                // If our current page doens't have child pages, remove the trailing seperator
+                // If our current page doesn't have child pages, remove the trailing seperator
                 array_pop( $html );
               }
 
@@ -365,6 +365,10 @@ add_shortcode( 'supercrumbs', __NAMESPACE__ . '\\custom_breadcrumbs' );
  * @return     bool/string  The subnav.
  */
 function get_subnav( $post_parent_id, $post_type = 'page' ){
+  global $post;
+  $current_slug = $post->post_name;
+
+
   $children_subnav = false;
   $parent = get_post( $post_parent_id );
   $parent_slug = $parent->post_name;
@@ -378,9 +382,9 @@ function get_subnav( $post_parent_id, $post_type = 'page' ){
   ];
 
   $children = get_children( $args );
-  if( $children ){
-
-    if( 'plans' == $parent_slug ){
+  $carriers_and_products_parents = ['plans','carriers','products'];
+  if( $children || in_array( $current_slug, $carriers_and_products_parents ) ){
+    if( in_array( $parent_slug, $carriers_and_products_parents ) || in_array( $current_slug, $carriers_and_products_parents ) ){
       $item_classes = ['subnav-item'];
       $plans_children = [
         'Product Finder'          => site_url( 'plans/' ),
