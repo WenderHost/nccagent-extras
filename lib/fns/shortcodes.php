@@ -28,16 +28,15 @@ function acf_get_carrier_products( $atts ){
 
   // Remove "unpublished" products from $products:
   foreach( $products as $key => $product ){
-    if( 'publish' != $product['product']->post_status )
+    if( is_object( $product['product'] ) && 'publish' != $product['product']->post_status )
       unset( $products[$key] );
   }
 
   if( 3 > count( $products ) ){
     foreach( $products as $product ){
-
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
       $html.= '<h2 class="product-title">' . $product_title . '</h2>';
-      $html.= '<p><a href="' . get_permalink( $product->ID ) . sanitize_title_with_dashes( $product_title ) . '">View this plan information as a web page.</a></p>';
+      $html.= '<p><a href="' . get_permalink( $product['product']->ID ) . sanitize_title_with_dashes( $product_title ) . '/">View this plan information as a web page.</a></p>';
 
       $states = ncc_build_state_chiclets( $product['product_details']['states'] );
       $html.= '<h3>State Availability</h3>';
