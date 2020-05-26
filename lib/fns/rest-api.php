@@ -32,18 +32,43 @@ function dirlister_rest_api(){
         $path = ltrim( $path, '/' );
 
       $path_array = explode('/', trim( $path, '/' ) );
+      $path_array = array_map( function( $item ){
+        $words = explode( '%20', $item );
+        foreach( $words as $key => $word ){
+          if( 3 <= strlen( $word ) ){
+            $words[$key] = ucfirst( strtolower( $word ) );
+          } else if( in_array( strtolower( $word ), ['of'] ) ){
+            $words[$key] = $word;
+          } else {
+            $words[$key] = strtoupper( $word );
+          }
+        }
+        return implode( '%20', $words );
+      }, $path_array );
+
 
       $fullpath = 'https://vpn.ncc-agent.com/docs/' . $path;
       $contents = @file_get_contents( $fullpath );
       if( ! $contents )
         return new \WP_Error( 'notfound', __( 'No listing found at `' . $fullpath . '`', 'nccagent')  );
 
+      /**
+       * Find all hrefs in the directory listing from the VPN,
+       * and split them into the `link` and the `text`:
+       */
       preg_match_all( "/href=[\"'](?<link>.*?)[\"']>(?<text>.*?)<\/a>/i", $contents, $hrefs );
 
       $links = [];
       if( 0 < count( $hrefs['link'] ) ){
         foreach( $hrefs['link'] as $key => $link ){
-          $text = ( '[To Parent Directory]' != $hrefs['text'][$key] )? $hrefs['text'][$key] : '&larr; To Parent Directory' ;
+          $link_text = $hrefs['text'][$key];
+
+          // Correct captilization:
+          $search = ['AETNA','CIGNA','EON','HUMANA'];
+          $replace = ['Aetna','Cigna','Eon Health','Humana'];
+          $link_text = str_replace( $search, $replace, $link_text );
+
+          $text = ( '[To Parent Directory]' != $hrefs['text'][$key] )? $link_text : '&larr; Back' ;
           $links[$key] = ['link' => 'https://vpn.ncc-agent.com' . $link, 'text' => $text ];
           $filetype = wp_check_filetype( basename( $link ) );
           $links[$key]['type'] = ( ! empty( $filetype['ext'] ) )? 'file' : 'dir' ;
@@ -54,7 +79,20 @@ function dirlister_rest_api(){
       $response->path = $path;
       $response->path_array = $path_array;
       $response->fullpath = $fullpath;
-      $response->carrier = str_replace('%20', ' ', ucwords( $path_array[0] ) );
+      $carrier = str_replace('%20', ' ', $path_array[0] );
+      $carrier_words = explode(' ', $carrier );
+      foreach ($carrier_words as $key => $word ) {
+        if( 3 <= strlen( $word ) ){
+          $carrier_words[$key] = ucfirst( strtolower( $word ) );
+        } else if( in_array( strtolower( $word ), ['of'] ) ){
+          $carrier_words[$key] = $word;
+        } else {
+          $carrier_words[$key] = strtoupper( $word );
+        }
+      }
+      //$carrier = ucwords( strtolower( $carrier ) );
+      $carrier = implode( ' ', $carrier_words );
+      $response->carrier = $carrier;
       $response->data = $links;
 
       wp_send_json( $response, 200 );
