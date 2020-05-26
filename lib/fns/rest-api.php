@@ -195,7 +195,7 @@ function products_rest_api(){
                 'product' => [
                   'alt_name' => $product_title,
                   'name'     => $product['product']->post_title,
-                  'url'      => get_the_permalink( $carrier->ID ) . sanitize_title_with_dashes( $product_title ),
+                  'url'      => get_the_permalink( $carrier->ID ) . sanitize_title_with_dashes( $product_title ) . '/',
                 ],
                 'carrier' => [
                   'name'  => get_the_title( $carrier->ID ),
@@ -208,7 +208,7 @@ function products_rest_api(){
                 'states'  => $states,
                 'states_review_date' => $product['product_details']['states_review_date'],
                 'online_contracting_url' => site_url( 'contracting/contract-online/' ),
-                'kit_request_url' => site_url( 'contracting/kit-request' ),
+                'kit_request_url' => site_url( 'contracting/kit-request/' ),
               ];
             }
           }

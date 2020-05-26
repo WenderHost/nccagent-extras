@@ -22,11 +22,11 @@ function ncc_quick_links(){
       'post_type' => 'product',
     ];
   $links[] = [
-      'url'       => 'contracting/contract-online',
+      'url'       => 'contracting/contract-online/',
       'text'      => 'Contract with ' . get_the_title( $post->ID ) . ' Online',
     ];
   $links[] = [
-      'url'       => 'contracting/kit-request',
+      'url'       => 'contracting/kit-request/',
       'text'      => 'Request a Product Kit',
     ];
 
