@@ -37,7 +37,7 @@ function dirlister_rest_api(){
         foreach( $words as $key => $word ){
           if( 3 <= strlen( $word ) ){
             $words[$key] = ucfirst( strtolower( $word ) );
-          } else if( in_array( strtolower( $word ), ['of'] ) ){
+          } else if( in_array( strtolower( $word ), ['of','by'] ) ){
             $words[$key] = $word;
           } else {
             $words[$key] = strtoupper( $word );
