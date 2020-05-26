@@ -47,7 +47,7 @@ function acf_get_carrier_products( $atts ){
       if( ! empty( $product['product_details']['desc_review_date'] ) )
         $html.= '<p class="review-date">Current as of ' . $product['product_details']['desc_review_date'] . '</p>';
 
-      $html.= '<div class="product-content">' . apply_filters( 'the_content', $product['product_details']['description'] ) . '<p>Permalink: <a href="'. get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ) . '">' . get_the_title( $args['post_id'] ) . ' ' . $product_title . '</a></p></div>';
+      $html.= '<div class="product-content">' . apply_filters( 'the_content', $product['product_details']['description'] ) . '</div>';
     }
   } else {
     if( NCC_DEV_ENV ){
