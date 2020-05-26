@@ -41,10 +41,40 @@ span.read-more a{
     outline: 1px solid slategrey;
   }
 
+  a#back-button{
+    display: inline-block;
+    background: $nccNavy;
+    color: #fff;
+    text-decoration: none;
+    border: 2px solid $nccNavy;
+    border-radius: 3px;
+    margin-bottom: 6px;
+    padding: 3px 6px;
+    font-size: 14px;
+
+    &.disabled{
+      background-color: #999;
+      border-color: lighten(#999,15%);
+      color: darken(#fff,15%);
+      cursor: default;
+
+      &:hover{
+        background-color: #999;
+        color: darken(#fff,15%);
+      }
+    }
+
+    &:hover{
+      background-color: #fff;
+      color: $nccNavy;
+    }
+  }
+
   h5,
   h5 a{
-    font-size: 16px;
+    font-size: 18px;
     text-transform: capitalize;
+    font-weight: normal;
   }
 
   ul{
@@ -99,6 +129,31 @@ span.read-more a{
     &.message a{
       display: inline;
       padding: 0;
+    }
+
+    &.state-link{
+      min-height: 500px;
+      background-image: url(../img/all-fifty-states_1920x1062.jpg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      font-size: 48px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+      font-weight: bold;
+
+      a{
+        text-align: center;
+        display: flex;
+        align-content: center;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 500px;
+      }
+
+      a:hover{
+        color: #fff;
+        background-color: rgba(red($nccBlue),green($nccBlue),blue($nccBlue),0.5);
+      }
     }
   }
   /*
