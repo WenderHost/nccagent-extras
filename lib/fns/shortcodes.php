@@ -67,8 +67,15 @@ function acf_get_carrier_products( $atts ){
       } else {
         $product_description = '<h3>Plan Information</h3>' . $product_description;
       }
+
+      // Is this a Medicare Product? If "yes", add a note.
+      $medicare_product = false;
       $medicare_products = ['Medicare','Prescription Drug Plan','PDP'];
-      if( stristr( $product_title, $medicare_products ) )
+      foreach ($medicare_products as $value ) {
+        if( stristr( $product_title, $value ) )
+          $medicare_product = true;
+      }
+      if( $medicare_product )
         $product_description = '<p><em>Some information may vary by state. <a href="' . site_url( 'tools/medicare-quote-engine/' ) . '">See state-specific information and rates</a>.</em></p>';
 
       $states = ncc_build_state_chiclets( $product['product_details']['states'] );
