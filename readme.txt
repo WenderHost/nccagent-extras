@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.4
-Stable tag: 2.9.4
+Stable tag: 2.9.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 2.9.5 =
+* Disabling shortlinks.
+* Restricting Marketer Thumbnail size limit to Product Finder (this fixes the small marketer photos on the Staff and Marketer pages).
 
 = 2.9.4 =
 * Bugfix: Checking for an object in `acf_get_carrier_products()` as deleted Products remove the object reference from the ACF field.
