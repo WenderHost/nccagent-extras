@@ -28,7 +28,7 @@ function acf_get_carrier_products( $atts ){
 
   // Remove "unpublished" products from $products:
   foreach( $products as $key => $product ){
-    if( is_object( $product['product'] ) && 'publish' != $product['product']->post_status )
+    if( ! is_object( $product['product'] ) || 'publish' != $product['product']->post_status )
       unset( $products[$key] );
   }
 
