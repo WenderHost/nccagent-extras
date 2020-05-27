@@ -79,8 +79,6 @@
     right: 0;
 
     /* Box-model */
-    max-width: 74px;
-    max-height: 74px;
 
     /* Typography */
 
@@ -125,6 +123,12 @@
     }
   }
 
+}
+.dataTable{
+  .team-member-photo .photo{
+    max-width: 74px;
+    max-height: 74px;
+  }
 }
 
 .team_member{
