@@ -146,3 +146,21 @@ function ncc_get_template( $atts ){
   $template = str_replace( $search, $replace, $template );
   return $template;
 }
+
+/**
+ * Given a product title, returns `true` if it matches
+ * any of the medicare related strings we check against.
+ *
+ * @param      string   $product_title  The product title
+ *
+ * @return     boolean  True if a medicare product.
+ */
+function ncc_is_medicare_product( $product_title = '' ){
+  $medicare_product = false;
+  $medicare_products = ['Medicare','Prescription Drug Plan','PDP'];
+  foreach ( $medicare_products as $value ) {
+    if( stristr( $product_title, $value ) )
+      $medicare_product = true;
+  }
+  return $medicare_product;
+}
