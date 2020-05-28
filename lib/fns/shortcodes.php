@@ -47,7 +47,11 @@ function acf_get_carrier_products( $atts ){
       if( ! empty( $product['product_details']['desc_review_date'] ) )
         $html.= '<p class="review-date">Current as of ' . $product['product_details']['desc_review_date'] . '</p>';
 
-      $html.= '<div class="product-content">' . apply_filters( 'the_content', $product['product_details']['description'] ) . '</div>';
+      $product_description = apply_filters( 'the_content', $product['product_details']['description'] );
+      // Is this a Medicare Product? If "yes", add a note.
+      if( ncc_is_medicare_product( $product_title ) )
+        $product_description.= '<p><em>Some information may vary by state. <a href="' . site_url( 'tools/medicare-quote-engine/' ) . '">See state-specific information and rates</a>.</em></p>';
+      $html.= '<div class="product-content">' . $product_description . '</div>';
     }
   } else {
     if( NCC_DEV_ENV ){
