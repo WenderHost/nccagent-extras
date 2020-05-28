@@ -36,7 +36,8 @@ function acf_get_carrier_products( $atts ){
     foreach( $products as $product ){
       $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
       $html.= '<h2 class="product-title">' . $product_title . '</h2>';
-      $html.= '<p><a href="' . get_permalink( $product['product']->ID ) . sanitize_title_with_dashes( $product_title ) . '/">View this plan information as a web page.</a></p>';
+
+      $html.= '<p><a href="' . get_the_permalink( $args['post_id'] ) . sanitize_title_with_dashes( $product_title ) . '/">View this plan information as a web page.</a></p>';
 
       $states = ncc_build_state_chiclets( $product['product_details']['states'] );
       $html.= '<h3>State Availability</h3>';
@@ -108,7 +109,7 @@ function acf_get_carrier_products( $atts ){
         $product_title,
         $states,
         $product_description,
-        get_the_permalink( $args['post_id']) . sanitize_title_with_dashes( $product_title ) . '/',
+        get_the_permalink( $args['post_id'] ) . sanitize_title_with_dashes( $product_title ) . '/',
         'View this information as a web page.',
         $kit_request_html,
       ];
