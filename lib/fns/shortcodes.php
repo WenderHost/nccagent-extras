@@ -77,6 +77,8 @@ function acf_get_carrier_products( $atts ){
       }
       if( $medicare_product )
         $product_description = '<p><em>Some information may vary by state. <a href="' . site_url( 'tools/medicare-quote-engine/' ) . '">See state-specific information and rates</a>.</em></p>';
+      if( ncc_is_medicare_product( $product_title ) )
+        $product_description.= '<p><em>Some information may vary by state. <a href="' . site_url( 'tools/medicare-quote-engine/' ) . '">See state-specific information and rates</a>.</em></p>';
 
       $states = ncc_build_state_chiclets( $product['product_details']['states'] );
       if( ! empty( $product['product_details']['states_review_date'] ) ){
