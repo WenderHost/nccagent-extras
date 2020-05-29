@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 2.9.7  
+**Stable tag:** 2.9.8  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,12 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 2.9.8 ###
+* Product page edits:
+  * Trailing slashes for Product + Carrier links in `acf_get_product_carriers()`.
+  * Responsive CSS for Carrier listing in `acf_get_product_carriers()`.
+  * Updated error message + admin email for invalid Product + Carrier URLs.
 
 ### 2.9.7 ###
 * BUGFIX: Correcting the URL generated for "View this plan information as a web page." on non-accordion Carrier > Product listings.
