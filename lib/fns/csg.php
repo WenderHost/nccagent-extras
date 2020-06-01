@@ -22,7 +22,11 @@ function csg_api(){
     'args'      => [
       'email'     => [
         'validate_callback' => function( $param, $request, $key ){
-          return is_email( $param );
+          if( is_numeric( $param ) ){
+            return true;
+          } else {
+            return is_email( $param );
+          }
         }
       ],
       'password'  => [
@@ -36,13 +40,14 @@ function csg_api(){
       $password = $request->get_param('password');
 
       if( empty( $login ) ){
-        return new \WP_Error('noemail', 'You did not provide an email.', ['status' => 400]);
+        return new \WP_Error('noemail', 'You did not provide an email or NPN.', ['status' => 400]);
       }
 
       $user = get_user_by( 'login', $login );
+      $user = ( is_email( $login ) )? get_user_by( 'email', $login ) : get_user_by( 'login', $login ) ;
 
       if( ! $user )
-        return new \WP_Error( 'invalid_email', 'We could not locate a user with the login/email you provided (`' . $login . '`).', [
+        return new \WP_Error( 'invalid_email', 'We could not locate a user with the NPN/email you provided (`' . $login . '`).', [
           'status' => 400,
         ]);
 
