@@ -36,7 +36,16 @@ function dirlister_rest_api(){
         $words = explode( '%20', $item );
         foreach( $words as $key => $word ){
           if( 3 <= strlen( $word ) ){
-            $words[$key] = ucfirst( strtolower( $word ) );
+            switch( strtolower( $word ) ){
+              case 'csi':
+              case 'cso':
+                $words[$key] = $word;
+                break;
+
+              default:
+                $words[$key] = ucfirst( strtolower( $word ) );
+            }
+
           } else if( in_array( strtolower( $word ), ['of','by'] ) ){
             $words[$key] = $word;
           } else {
