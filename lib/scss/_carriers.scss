@@ -109,6 +109,10 @@ span.read-more a{
       display: block;
       padding: 6px 12px;
 
+      i.fas{
+        margin-right: 8px;
+      }
+
       &.loading{
         display: flex;
         min-height: 600px;
