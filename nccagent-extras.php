@@ -8,7 +8,7 @@
  * Author URI:        https://mwender.com
  * Text Domain:       nccagent-extras
  * Domain Path:       /languages
- * Version:           2.9.9
+ * Version:           3.0.0
  *
  * @package           Nccagent_Extras
  */

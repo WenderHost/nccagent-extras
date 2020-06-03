@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.4
-Stable tag: 2.9.9
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 3.0.0 =
+* Correct capitlization for "CSO" and "CSI" in Carrier Documents Library breadcrumbs.
+* Adding directory and file icons to the Carrier Documents Library.
 
 = 2.9.9 =
 * Updating the CSG API route to authenticate users via an all numeric value for "Email" which means we are authenticating against the user's NPN or by an email address which means we are authenticating against the user's `user_email` field in their profile.
