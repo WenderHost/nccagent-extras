@@ -27,7 +27,7 @@ function dirlister(){
     'nonce' => wp_create_nonce( 'wp_rest' ) ]
   );
   if( is_user_logged_in() )
-    $alert = ncc_get_alert(['type' => 'info', 'title' => null, 'description' => '<strong>Note:</strong> Do not use your browser\'s Back button. That will take you back to the previous page you visited. Instead, use the links and the Parent Directory button.']);
+    $alert = ncc_get_alert(['type' => 'info', 'title' => null, 'description' => '<strong>Note:</strong> Do not use your browser\'s Back button. That will take you back to the previous page you visited. Instead, use the links and the Back button.']);
   return '<div id="dirlister"><h1>Carrier Document Library</h1>' . $alert . '<a class="doc-link button" id="back-button" aira-type="dir" href="">&larr; Back</a><h5>...</h5><ul class="directory-listing"><li class="message">Loading directory...</li></ul></div>';
 }
 add_shortcode( 'dirlister', __NAMESPACE__ . '\\dirlister' );
