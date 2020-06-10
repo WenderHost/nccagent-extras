@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.4
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 3.0.2 =
+* Moving "Prescription Drug Plan" up with the Medicare products in the Product Finder drop down.
 
 = 3.0.1 =
 * Updating Carrier Document Library alert to reference the "Back" button.
