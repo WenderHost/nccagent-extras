@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4  
-**Stable tag:** 3.0.2  
+**Stable tag:** 3.0.3  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 3.0.3 ###
+* Removing "Black Book: Agent Resources" from drop down links in the "Black Book" section.
 
 ### 3.0.2 ###
 * Moving "Prescription Drug Plan" up with the Medicare products in the Product Finder drop down.

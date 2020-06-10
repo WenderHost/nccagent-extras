@@ -402,7 +402,10 @@ function get_subnav( $post_parent_id, $post_type = 'page' ){
         $item_classes = ['subnav-item'];
         if( is_page( $child->ID ) )
           $item_classes[] = 'item-current';
-        $childrens[] = '<a class="' . implode( ' ', $item_classes ) . '" href="' . get_permalink( $child ) . '">' . get_the_title( $child ) . '</a>';
+        $title = get_the_title( $child );
+        $search = ['Black Book: Agent Resources'];
+        $title = str_replace( $search, '', $title );
+        $childrens[] = '<a class="' . implode( ' ', $item_classes ) . '" href="' . get_permalink( $child ) . '">' . $title . '</a>';
       }
     }
     $children_subnav = '<div class="down-arrow"></div><div class="child-subnav dropdown-content">' . implode( '', $childrens ) . '</div>';
