@@ -2,6 +2,16 @@
 
 namespace NCCAgent\wplogin;
 
+function disable_password_strength_meter(){
+  wp_dequeue_script('password-strength-meter');
+  wp_dequeue_script('user-profile');
+  wp_deregister_script('user-profile');
+
+  $suffix = SCRIPT_DEBUG ? '' : '.min';
+  wp_enqueue_script( 'user-profile', "/wp-admin/js/user-profile$suffix.js", ['jquery', 'wp-util'], false, 1 );
+}
+add_action('login_enqueue_scripts', __NAMESPACE__ . '\\disable_password_strength_meter' );
+
 /**
  * Adds our custom CSS with the NCC logo to the WP Login screen.
  */
