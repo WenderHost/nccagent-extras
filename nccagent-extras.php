@@ -16,6 +16,9 @@ $css_dir = ( stristr( site_url(), '.local' ) || SCRIPT_DEBUG )? 'css' : 'dist' ;
 define( 'NCC_CSS_DIR', $css_dir );
 define( 'NCC_DEV_ENV', stristr( site_url(), '.local' ) );
 
+// Use composer autoloader
+require_once('vendor/autoload.php');
+
 // Include required files
 require_once( 'lib/fns/acf-json-save-point.php' );
 require_once( 'lib/fns/admin-bar.php' );
@@ -26,6 +29,7 @@ require_once( 'lib/fns/dir-lister.php' );
 require_once( 'lib/fns/enqueues.php' );
 require_once( 'lib/fns/gettext.php' );
 require_once( 'lib/fns/gravityforms.php' );
+require_once( 'lib/fns/handlebars.php' );
 require_once( 'lib/fns/hubspot.php' );
 require_once( 'lib/fns/marketers.php' );
 require_once( 'lib/fns/misc.php' );

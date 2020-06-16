@@ -1,0 +1,15 @@
+{
+    "name": "mwender/nccagent-extras",
+    "description": "A WordPress Plugin for the NCC website.",
+    "type": "project",
+    "require": {
+        "zordius/lightncandy": "^1.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Wender",
+            "email": "michael@michaelwender.com"
+        }
+    ]
+}
