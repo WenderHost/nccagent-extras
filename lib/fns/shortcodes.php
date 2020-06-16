@@ -16,6 +16,8 @@ function acf_get_carrier_products( $atts ){
     'post_id' => null,
   ], $atts );
 
+  $data = []; // Initialize the array we will pass to our handlebars templates.
+
   global $post;
   $post_id = ( is_null( $args['post_id'] ) )? $post->ID : $args['post_id'] ;
 
@@ -23,8 +25,9 @@ function acf_get_carrier_products( $atts ){
   if( empty( $products ) )
     return '';
 
-  $html = '<h2>' . get_the_title( $args['post_id'] ) . ' Products and State Availability</h2>';
-  $html.= '<p>These are ' . get_the_title( $args['post_id'] ) . '\'s current products and state availability for ' . date('Y') . ', as well as information on contracting and appointment.</p>';
+  $carriername = get_the_title( $args['post_id'] );
+  $data['carriername'] = $carriername;
+  $data['year'] = date('Y');
 
   // Remove "unpublished" products from $products:
   foreach( $products as $key => $product ){
@@ -32,92 +35,40 @@ function acf_get_carrier_products( $atts ){
       unset( $products[$key] );
   }
 
-  if( 3 > count( $products ) ){
-    foreach( $products as $product ){
-      $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
-      $html.= '<h2 class="product-title">' . $product_title . '</h2>';
+  $x = 1;
+  foreach( $products as $product ){
+    $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
 
-      $html.= '<p><a href="' . get_the_permalink( $args['post_id'] ) . sanitize_title_with_dashes( $product_title ) . '/">View this plan information as a web page.</a></p>';
-
-      $states = ncc_build_state_chiclets( $product['product_details']['states'] );
-      $html.= '<h3>State Availability</h3>';
-      if( ! empty( $product['product_details']['states_review_date'] ) )
-        $html.= '<p class="review-date"> Current as of ' . $product['product_details']['states_review_date'] . '</p><p>' . $states . '</p>';
-
-      $html.= '<h3>Plan Information</h3>';
-      if( ! empty( $product['product_details']['desc_review_date'] ) )
-        $html.= '<p class="review-date">Current as of ' . $product['product_details']['desc_review_date'] . '</p>';
-
-      $product_description = apply_filters( 'the_content', $product['product_details']['description'] );
-      // Is this a Medicare Product? If "yes", add a note.
-      if( ncc_is_medicare_product( $product_title ) )
-        $product_description.= '<p><em>Some information may vary by state. <a href="' . site_url( 'tools/medicare-quote-engine/' ) . '">See state-specific information and rates</a>.</em></p>';
-      $html.= '<div class="product-content">' . $product_description . '</div>';
+    $data['products'][$x]['toggle_id'] = $product['product']->post_name . '-' . $x;
+    $data['products'][$x]['permalink'] = get_the_permalink( $args['post_id'] ) . sanitize_title_with_dashes( $product_title ) . '/';
+    $data['products'][$x]['title'] = $product_title;
+    $data['products'][$x]['description'] = apply_filters( 'the_content', $product['product_details']['description'] );
+    $data['products'][$x]['desc_review_date'] = $product['product_details']['desc_review_date'];
+    $data['products'][$x]['medicare_product'] = ncc_is_medicare_product( $product_title );
+    $data['products'][$x]['medicare_quote_engine_url'] = site_url( 'tools/medicare-quote-engine/' );
+    $data['products'][$x]['states'] = ncc_build_state_chiclets( $product['product_details']['states'] );
+    $data['products'][$x]['states_review_date'] = $product['product_details']['states_review_date'];
+    $data['products'][$x]['carriername'] = $carriername;
+    $data['products'][$x]['kit_request_url'] = site_url('contracting/kit-request/');
+    if( $product['product_details']['lower_issue_age'] && $product['product_details']['upper_issue_age'] ){
+      $data['products'][$x]['lower_issue_age'] = $product['product_details']['lower_issue_age'];
+      $data['products'][$x]['upper_issue_age'] = $product['product_details']['upper_issue_age'];
     }
-  } else {
+    $x++;
+  }
+
+  $html = '';
+  $html.= ncc_hbs_render_template( 'product-list-heading', $data );
+  if( 3 <= count( $products ) ){
     if( NCC_DEV_ENV ){
       wp_enqueue_script('ncc-accordion' );
     } else {
       $accordion_js = file_get_contents( plugin_dir_path( __FILE__ ) . '../js/accordion.js' );
       $html.= '<script type="text/javascript">' . $accordion_js . '</script>';
     }
-
-    $accordion_html = ncc_get_template(['template' => 'accordion.html']);
-    $x = 1;
-    foreach( $products as $product ){
-      $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
-      $product_description = apply_filters( 'the_content', $product['product_details']['description'] );
-      if( ! empty( $product['product_details']['desc_review_date'] ) ){
-        $product_description = '<h3>Plan Information</h3><p class="review-date">Current as of ' . $product['product_details']['desc_review_date'] . '</p>' . $product_description;
-      } else {
-        $product_description = '<h3>Plan Information</h3>' . $product_description;
-      }
-
-      // Is this a Medicare Product? If "yes", add a note.
-      if( ncc_is_medicare_product( $product_title ) )
-        $product_description.= '<p><em>Some information may vary by state. <a href="' . site_url( 'tools/medicare-quote-engine/' ) . '">See state-specific information and rates</a>.</em></p>';
-
-      $states = ncc_build_state_chiclets( $product['product_details']['states'] );
-      if( ! empty( $product['product_details']['states_review_date'] ) ){
-        $states = '<h3>State Availability</h3><p class="review-date">Current as of ' . $product['product_details']['states_review_date'] . '</p>' . $states;
-      } else {
-        $states = '<h3>State Availability</h3>' . $states;
-      }
-
-      $kit_request_html = ncc_get_template([
-        'template' => 'kit-request',
-        'search' => ['{{carriername}}','{{productname}}','{{button}}'],
-        'replace' => [
-          get_the_title( $args['post_id'] ),
-          $product_title,
-          '<p><a class="elementor-button" href="' . site_url('contracting/kit-request/') . '">Request a Kit</a></p>'
-        ]
-      ]);
-
-      $search = [
-        '{{toggle_id}}',
-        '{{toggle_title}}',
-        '{{states}}',
-        '{{description}}',
-        '{{permalink}}',
-        '{{link_text}}',
-        '{{kit_request}}',
-      ];
-
-      $replace = [
-        $product['product']->post_name . '-' . $x,
-        $product_title,
-        $states,
-        $product_description,
-        get_the_permalink( $args['post_id'] ) . sanitize_title_with_dashes( $product_title ) . '/',
-        'View this information as a web page.',
-        $kit_request_html,
-      ];
-      $html.= str_replace( $search, $replace, $accordion_html );
-      $x++;
-    }
-    $html = '<div class="accordion">' . $html . '</div>';
   }
+  $template = ( 3 <= count( $products ) )? 'product-accordion' : 'product-list' ;
+  $html.= ncc_hbs_render_template( $template, $data );
 
   return $html;
 }
