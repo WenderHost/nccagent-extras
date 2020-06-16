@@ -60,14 +60,11 @@ function acf_get_carrier_products( $atts ){
   $html = '';
   $html.= ncc_hbs_render_template( 'product-list-heading', $data );
   if( 3 <= count( $products ) ){
-    if( NCC_DEV_ENV ){
-      wp_enqueue_script('ncc-accordion' );
-    } else {
-      $accordion_js = file_get_contents( plugin_dir_path( __FILE__ ) . '../js/accordion.js' );
-      $html.= '<script type="text/javascript">' . $accordion_js . '</script>';
-    }
+    $template = 'product-accordion';
+    wp_enqueue_script( 'ncc-accordion' );
+  } else {
+    $template = 'product-list';
   }
-  $template = ( 3 <= count( $products ) )? 'product-accordion' : 'product-list' ;
   $html.= ncc_hbs_render_template( $template, $data );
 
   return $html;
