@@ -1,8 +1,8 @@
 === NCCAgent Extras ===
 Contributors: the_webist
 Requires at least: 4.5
-Tested up to: 5.4
-Stable tag: 3.0.5
+Tested up to: 5.4.2
+Stable tag: 3.0.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 3.0.6 =
+* Adding Issue Ages to Carrier Product listings.
+* Adding Handlebars processing with `ncc_hbs_render_template()`.
 
 = 3.0.5 =
 * Updating Product Kit request text to support `typeof selectedState === 'undefined'` in the Product Finder.
