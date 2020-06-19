@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.4.2  
-**Stable tag:** 3.0.7  
+**Stable tag:** 3.0.8  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 3.0.8 ###
+* Updating supercrumbs to work with Product Finder located at `/product-finder/` URL.
 
 ### 3.0.7 ###
 * BUGFIX: Inlining `accordion.js` was causing issues with NitroPack, so I've enqueued it via `wp_enqueue_scripts()`.
