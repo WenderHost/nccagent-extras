@@ -293,7 +293,10 @@ function product_finder( $atts ){
   $args = shortcode_atts([
     'table_id' => 'datatable',
     'table_class' => '',
+    'title' => true,
   ], $atts );
+  if( $args['title'] === 'false' ) $args['title'] = false;
+  $args['title'] = (bool) $args['title'];
 
   global $post;
   $help_graphic = '';
@@ -335,7 +338,15 @@ function product_finder( $atts ){
    */
   $ie_alert = $ie_alert . '<!--[if lte IE 9 ]>' . $ie_alert . '<![endif]-->';
 
-  return $ie_alert . '<div class="product-finder-header"><h2>Product Finder</h2><a href="#" id="reset-form">reset form</a></div><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th class="label" style="width: 40px; font-size: 12px; padding: 4px;">Make your selection(s):</th><th style="width: 40%">States</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th id="selectors">&nbsp;</th></tr><tr><th id="ncc-staff" colspan="5"></th></tr></thead><tbody></tbody></table>';
+  if( $args['title'] ){
+    $title = '<h2 style="margin: 0;">Product Finder</h2>';
+    $style = '';
+  } else {
+    $title = '<span>&nbsp;</span>';
+    $style = ' style="margin-bottom: 0;"';
+  }
+
+  return $ie_alert . '<div class="product-finder-header"' . $style . '>' . $title . '<a href="#" id="reset-form">reset form</a></div><table class="' . $args['table_class'] . '" id="' . $args['table_id']. '"><thead><tr><th class="label" style="width: 40px; font-size: 12px; padding: 4px;">Make your selection(s):</th><th style="width: 40%">States</th><th style="width: 30%">Product</th><th style="width: 30%">Carrier</th><th id="selectors">&nbsp;</th></tr><tr><th id="ncc-staff" colspan="5"></th></tr></thead><tbody></tbody></table>';
 }
 add_shortcode( 'productsbystate', __NAMESPACE__ . '\\product_finder' );
 
