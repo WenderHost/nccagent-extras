@@ -8,7 +8,7 @@
  * Author URI:        https://mwender.com
  * Text Domain:       nccagent-extras
  * Domain Path:       /languages
- * Version:           3.0.8
+ * Version:           3.0.9
  *
  * @package           Nccagent_Extras
  */
@@ -47,6 +47,7 @@ require_once( 'lib/fns/utilities.php' );
 require_once( 'lib/fns/wp_head.php' );
 require_once( 'lib/fns/wp-login.php' );
 require_once( 'lib/fns/wp_nav_menus.php' );
+require_once( 'lib/fns/yoast.php' );
 
 function nccagent_cli_init() {
   require_once( 'lib/cli/ncc-carriers.php' );
