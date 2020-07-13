@@ -410,6 +410,7 @@ function get_subnav( $post_parent_id, $post_type = 'page' ){
       'order'         => 'ASC',
       'orderby'       => 'title',
       'post_type'     => $post_type,
+      'post_status'   => 'publish',
   ];
 
   $children = get_children( $args );
