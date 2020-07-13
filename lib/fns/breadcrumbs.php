@@ -428,7 +428,7 @@ function get_subnav( $post_parent_id, $post_type = 'page' ){
         'Medicare Advantage'      => site_url( 'product/medicare-advantage/' ),
         'Medicare Supplement'     => site_url( 'product/medicare-supplement/' ),
         'Prescription Drug Plan'  => site_url( 'product/medicare-pdp/' ),
-        'Anncillaries'            => site_url( 'product/ancillaries' ),
+        'Ancillaries'            => site_url( 'product/ancillaries' ),
       ];
       foreach( $plans_children as $title => $permalink ){
         $childrens[] = '<a class="' . implode( ' ', $item_classes ) . '" href="' . $permalink . '">' . $title . '</a>';
