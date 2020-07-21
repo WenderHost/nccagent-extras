@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.4.2
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 3.1.2 =
+* Setting new users' username to their NPN when running `register_user_and_send_lead_to_hubspot()`.
 
 = 3.1.1 =
 * Only retrieve `post_status=publish` pages for Supercrumbs dropdowns.
