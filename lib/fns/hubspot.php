@@ -86,7 +86,7 @@ function register_user_and_send_lead_to_hubspot( $record, $handler ){
     [ 'body' => $fields ]);
 
   // Add the user to WordPress
-  if( ! email_exists( $fields['email'] ) ){
+  if( ! email_exists( $fields['email'] ) && ! username_exists( $fields['npn'] ) ){
     $user_id = wp_insert_user([
       'user_pass' => wp_generate_password( 8, false ),
       'user_login' => $fields['npn'],
@@ -100,7 +100,7 @@ function register_user_and_send_lead_to_hubspot( $record, $handler ){
     \NCCAgent\userprofiles\create_user_message( $user_id );
     return true;
   } else {
-    ncc_error_log('🔔 A user with the email `' . $fields['email'] . '` already exists!' );
+    ncc_error_log('🔔 A user with the email `' . $fields['email'] . '` or NPN `' . $fields['npn'] . '` already exists!' );
     return false;
   }
 }
