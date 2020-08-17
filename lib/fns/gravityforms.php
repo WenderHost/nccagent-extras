@@ -46,7 +46,7 @@ function get_online_contracting_message( $message, $form, $entry, $oembed = true
   $showStandard = false;
   $standardCarriers = [];
 
-  $message = strip_tags( $message, '<h2><p><h3><h4><h5><h6><ol><ul><li>');
+  $message = strip_tags( $message, '<script><h2><p><h3><h4><h5><h6><ol><ul><li>');
 
   foreach ($entry as $key => $value) {
     if( GF_CARRIER_CHECKLIST_FIELD_ID == substr( $key, 0, 1 ) && ! empty( $value ) ){
