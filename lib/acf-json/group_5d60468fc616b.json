@@ -6,7 +6,7 @@
             "key": "field_5d6589cbe5ec6",
             "label": "VPN Link",
             "name": "vpn_link",
-            "type": "url",
+            "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -16,7 +16,10 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": ""
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         },
         {
             "key": "field_5dcb195c035a3",
@@ -385,5 +388,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1588183763
+    "modified": 1599853084
 }

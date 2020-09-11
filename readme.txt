@@ -1,8 +1,8 @@
 === NCCAgent Extras ===
 Contributors: the_webist
 Requires at least: 4.5
-Tested up to: 5.4.2
-Stable tag: 3.1.4
+Tested up to: 5.5.1
+Stable tag: 3.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 3.1.5 =
+* Updating VPN Link field to a text field to support VPN paths rather than full URLs.
 
 = 3.1.4 =
 * Leaving `<script/>` tags in message returned by `get_online_contracting_message()` to allow for page redirects by GravityForms JS.
