@@ -46,7 +46,7 @@ use \LightnCandy\SafeString as SafeString;use \LightnCandy\Runtime as LR;return 
     '.((LR::ifvar($cx, (($inary && isset($in['medicare_product'])) ? $in['medicare_product'] : null), false)) ? '<p><em>Some information may vary by state. <a href="'.htmlspecialchars((string)(($inary && isset($in['medicare_quote_engine_url'])) ? $in['medicare_quote_engine_url'] : null), ENT_QUOTES, 'UTF-8').'">See state-specific information and rates</a>.</em></p>' : '').'
     <div class="kit-request">
       <h3>Request a Product Kit for '.htmlspecialchars((string)(($inary && isset($in['carriername'])) ? $in['carriername'] : null), ENT_QUOTES, 'UTF-8').' '.htmlspecialchars((string)(($inary && isset($in['title'])) ? $in['title'] : null), ENT_QUOTES, 'UTF-8').'</h3>
-      <p>We’ll email you a kit with brochures, commissions, and rates all specific to the state of your choice.</p>
+      <p class="kit-details">We’ll email you a kit with brochures, commissions, and rates all specific to the state of your choice.</p>
       <p><a class="elementor-button" href="'.htmlspecialchars((string)(($inary && isset($in['kit_request_url'])) ? $in['kit_request_url'] : null), ENT_QUOTES, 'UTF-8').'">Request a Kit</a></p>
     </div>
   </div>

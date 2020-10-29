@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.5.1
-Stable tag: 3.1.5
+Stable tag: 3.1.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 3.1.6 =
+* Updating "Kit Request" text in product finder and on Carrier pages.
+* Adding background-color and padding to `.kit-details` in Kit Request section.
 
 = 3.1.5 =
 * Updating VPN Link field to a text field to support VPN paths rather than full URLs.
