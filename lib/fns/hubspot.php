@@ -34,6 +34,8 @@ function register_user_and_send_lead_to_hubspot( $record, $handler ){
   if( 'wordpress_and_hubspot_registration' != $form_name )
     return;
 
+  ncc_error_log('🔔 Processing `wordpress_and_hubspot_registration`...');
+
   // Get our form field values
   $raw_fields = $record->get( 'fields' );
   $fields = [];
@@ -105,3 +107,42 @@ function register_user_and_send_lead_to_hubspot( $record, $handler ){
   }
 }
 add_action( 'elementor_pro/forms/new_record', __NAMESPACE__ . '\\register_user_and_send_lead_to_hubspot', 10, 2 );
+
+/**
+ * Validates the User Registration fortm.
+ *
+ * @param      object  $record   The record
+ * @param      <type>  $handler  The handler
+ *
+ * @return     bool    Returns `false` if global constants are not in the system.
+ */
+function validate_user_registration( $record, $handler ){
+  if( ! defined( 'HS_PORTAL_ID' ) ){
+    ncc_error_log('🚨 `HS_PORTAL_ID` not defined. Please add your Hubspot Portal ID to `wp-config.php`.');
+    return false;
+  }
+  if( ! defined( 'HS_AGENT_REGISTRATION_FORM_ID' ) || empty( HS_AGENT_REGISTRATION_FORM_ID ) ){
+    ncc_error_log('🚨 `HS_AGENT_REGISTRATION_FORM_ID` not defined. Please add the corresponding HubSpot `Agent Registration` form ID to `wp-config.php`.');
+    return false;
+  }
+
+  // Only process the form named `wordpress_and_hubspot_registration`:
+  $form_name = $record->get_form_settings( 'form_name' );
+  if( 'wordpress_and_hubspot_registration' != $form_name )
+    return;
+
+  $email_field = $record->get_field([
+    'id' => 'email',
+  ]);
+  $npn_field = $record->get_field([
+    'id' => 'npn',
+  ]);
+
+  if( email_exists( $email_field['email']['value'] ) ){
+    $handler->add_error( $email_field['email']['id'], 'This email address is already in use in our system.' );
+  }
+  if( username_exists( $npn_field['npn']['value'] ) ){
+    $handler->add_error( $npn_field['npn']['id'], 'That NPN is already registered in our system.' );
+  }
+}
+add_action( 'elementor_pro/forms/validation', __NAMESPACE__ . '\\validate_user_registration', 10, 2 );
