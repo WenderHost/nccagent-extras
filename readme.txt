@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.5.1
-Stable tag: 3.2.0
+Stable tag: 3.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,11 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 3.3.0 =
+* Adding "Plan Year" to Carrier > Products.
+  * "Plan Year" displays in the Product Finder, individual Product pages, and Carrier > Product pages.
+  * "Plan Year" is included in `wp ncc carriers export` and `wp ncc carriers export`.
 
 = 3.2.0 =
 * Adding proper user registration validation via the `elementor_pro/forms/validation` hook.
