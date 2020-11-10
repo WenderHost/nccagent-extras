@@ -25,6 +25,7 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
    * - Desc_Review_Date
    * - States
    * - States_Review_Date
+   * - Plan_Year
    *
    * ## OPTIONS
    *
@@ -87,14 +88,15 @@ class NCC_Carriers_CLI  extends WP_CLI_Command{
             'Desc_Review_Date'        => $product_details['desc_review_date'],
             'States'                  => $states,
             'States_Review_Date'      => $product_details['states_review_date'],
+            'Plan_Year'               => $product_details['plan_year'],
           ];
           $items[] = array_merge( $carrier_columns, $product_columns );
         endwhile;
       } else {
-        $items[] = array_merge( $carrier_columns, ['Row_ID' => '', 'Product' => '', 'Alternate_Product_Name' => '', 'Alt_Product_Name_2' => '', 'Lower_Issue_Age' => '' , 'Upper_Issue_Age' => '', 'Source_File_Name' => '', 'Source_File_Date' => '', 'Desc_Review_Date' => '', 'States' => '', 'States_Review_Date' => '' ] );
+        $items[] = array_merge( $carrier_columns, ['Row_ID' => '', 'Product' => '', 'Alternate_Product_Name' => '', 'Alt_Product_Name_2' => '', 'Lower_Issue_Age' => '' , 'Upper_Issue_Age' => '', 'Source_File_Name' => '', 'Source_File_Date' => '', 'Desc_Review_Date' => '', 'States' => '', 'States_Review_Date' => '', 'Plan_Year' => '' ] );
       }
     }
-    $headers = ['ID','Carrier', 'Row_ID','Product','Alternate_Product_Name','Alt_Product_Name_2','Lower_Issue_Age','Upper_Issue_Age','Source_File_Name','Source_File_Date','Desc_Review_Date','States','States_Review_Date'];
+    $headers = ['ID','Carrier', 'Row_ID','Product','Alternate_Product_Name','Alt_Product_Name_2','Lower_Issue_Age','Upper_Issue_Age','Source_File_Name','Source_File_Date','Desc_Review_Date','States','States_Review_Date', 'Plan_Year'];
 
     // Display the data
     \WP_CLI\Utils\format_items( 'table', $items, $headers );
