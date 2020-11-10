@@ -48,6 +48,7 @@ function acf_get_carrier_products( $atts ){
     $data['products'][$x]['medicare_quote_engine_url'] = site_url( 'tools/medicare-quote-engine/' );
     $data['products'][$x]['states'] = ncc_build_state_chiclets( $product['product_details']['states'] );
     $data['products'][$x]['states_review_date'] = $product['product_details']['states_review_date'];
+    $data['products'][$x]['plan_year'] = $product['product_details']['plan_year'];
     $data['products'][$x]['carriername'] = $carriername;
     $data['products'][$x]['kit_request_url'] = site_url('contracting/kit-request/');
     if( $product['product_details']['lower_issue_age'] && $product['product_details']['upper_issue_age'] ){
@@ -244,13 +245,21 @@ function carrierproduct(){
 
         $chiclets = ncc_build_state_chiclets( $product_details['states'] );
         $html.= '<h2>State Availability</h2>';
-        if( ! empty( $product_details['states_review_date'] ) )
-          $html.= '<p class="review-date">Current as of ' . $product_details['states_review_date'] . '</p>';
+        if( ! empty( $product_details['states_review_date'] ) ){
+          $html.= '<p class="review-date">Current as of ' . $product_details['states_review_date'];
+          if( ! empty( $product_details['plan_year'] ) )
+            $html.= ' &ndash; <span class="plan-year">Plan Year ' . $product_details['plan_year'] . '</span>';
+          $html.= '</p>';
+        }
         $html.= $chiclets;
 
         $html.= '<h2>Plan Information</h2>';
-        if( ! empty( $product_details['desc_review_date'] ) )
-          $html.= '<p class="review-date">Current as of ' . $product_details['desc_review_date'] . '</p>';
+        if( ! empty( $product_details['desc_review_date'] ) ){
+          $html.= '<p class="review-date">Current as of ' . $product_details['desc_review_date'];
+          if( ! empty( $product_details['plan_year'] ) )
+            $html.= ' &ndash; <span class="plan-year">Plan Year ' . $product_details['plan_year'] . '</span>';
+          $html.= '</p>';
+        }
 
         $html.= $product_details['description'];
         // Product Kit Request CTA:

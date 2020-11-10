@@ -6,10 +6,10 @@
   <div class="accordion-content" id="{{toggle_id}}-content">
     <p><a href="{{permalink}}">View this information as a web page.</a></p>
     <h3>State Availability</h3>
-    {{#if states_review_date}}<p class="review-date">Current as of {{states_review_date}}</p>{{/if}}
+    {{#if states_review_date}}<p class="review-date">Current as of {{states_review_date}}{{#if plan_year}} &ndash; <span class="plan-year">Plan Year {{plan_year}}</span>{{/if}}</p>{{/if}}
     <p>{{{states}}}</p>
     <h3>Plan Information</h3>
-    {{#if desc_review_date}}<p class="review-date">Current as of {{desc_review_date}}</p>{{/if}}
+    {{#if desc_review_date}}<p class="review-date">Current as of {{desc_review_date}}{{#if plan_year}} &ndash; <span class="plan-year">Plan Year {{plan_year}}</span>{{/if}}</p>{{/if}}
     {{#if lower_issue_age}}<p>Issue ages {{lower_issue_age}}&ndash;{{upper_issue_age}}.</p>{{/if}}
     {{{description}}}
     {{#if medicare_product}}<p><em>Some information may vary by state. <a href="{{medicare_quote_engine_url}}">See state-specific information and rates</a>.</em></p>{{/if}}
