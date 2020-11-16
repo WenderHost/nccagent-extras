@@ -19,6 +19,9 @@ namespace NCCAgent\csg;
 function csg_api(){
   register_rest_route( 'nccagent/v1', 'verifyAccount', [
     'methods'   => 'POST,GET',
+    'permission_callback' => function(){
+      return true;
+    },
     'args'      => [
       'email'     => [
         'validate_callback' => function( $param, $request, $key ){
