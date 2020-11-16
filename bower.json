@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery-file-download": "^1.4.6"
+    "jquery-file-download": "^1.4.6",
+    "papaparse": "papa-parse#^5.3.0"
   }
 }
