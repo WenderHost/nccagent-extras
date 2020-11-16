@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.5.1  
-**Stable tag:** 3.4.1  
+**Stable tag:** 3.5.0  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 3.5.0 ###
+* Rewriting Product Import/Export for better CSV handling.
 
 ### 3.4.1 ###
 * Only load `products-import-export.js` on "Carriers &gt; Import/Export" and "Products &gt; Import/Export".
