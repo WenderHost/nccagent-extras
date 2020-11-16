@@ -135,7 +135,7 @@ function download_carrier_products(){
   }
 
   $filename = 'carrier-products_';
-  if( $args['name'] )
+  if( array_key_exists( 'name', $args ) && ! empty( $args['name'] ) )
     $filename.= $args['name'] . '_';
   $filename.= current_time( 'Y-m-d_His' ) . '.csv';
 
