@@ -22,10 +22,20 @@ add_action( 'init', __NAMESPACE__ . '\\add_rewrite_tags' );
  * Adds admin page for Carrier > Products download GUI.
  */
 function admin_menu(){
-  add_submenu_page( 'edit.php?post_type=carrier', 'Import/Export', 'Import/Export', 'activate_plugins', 'import_export', __NAMESPACE__ . '\\import_export_view' );
-  add_submenu_page( 'edit.php?post_type=product', 'Import/Export', 'Import/Export', 'activate_plugins', 'import_export', __NAMESPACE__ . '\\import_export_view' );
+  $carrier_import_page = add_submenu_page( 'edit.php?post_type=carrier', 'Import/Export', 'Import/Export', 'activate_plugins', 'import_export', __NAMESPACE__ . '\\import_export_view' );
+  $product_import_page = add_submenu_page( 'edit.php?post_type=product', 'Import/Export', 'Import/Export', 'activate_plugins', 'import_export', __NAMESPACE__ . '\\import_export_view' );
+
+  add_action('load-' . $carrier_import_page, __NAMESPACE__ . '\\load_admin_js' );
+  add_action('load-' . $product_import_page, __NAMESPACE__ . '\\load_admin_js' );
 }
 add_action( 'admin_menu', __NAMESPACE__ . '\\admin_menu' );
+
+/**
+ * Callback for loading our JS only on specific pages.
+ */
+function load_admin_js(){
+  add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\admin_enqueue_scripts' );
+}
 
 /**
  * Enqueues scripts and styles for the Carrier > Products download GUI.
@@ -41,7 +51,6 @@ function admin_enqueue_scripts(){
   wp_enqueue_script( 'jquery-file-download', NCC_PLUGIN_URL . 'bower_components/jquery-file-download/src/Scripts/jquery.fileDownload.js', ['jquery', 'jquery-ui-dialog', 'jquery-ui-progressbar'] );
   wp_enqueue_style( 'wp-jquery-ui-dialog' );
 }
-add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\admin_enqueue_scripts' );
 
 /**
  * Downloads a CSV of Carrier > Products
