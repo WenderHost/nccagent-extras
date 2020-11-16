@@ -49,32 +49,25 @@ function products_import_api(){
       return true;
     },
     'callback' => function( $data ){
-      $fields = $data->get_param('fields');
       $product = $data->get_param('product');
-
-      if( is_null( $fields ) || empty( $fields ) )
-        return new \WP_Error( 'nofields', __( 'No fields provided',  'nccagent' ) );
 
       if( is_null( $product ) || empty( $product ) )
         return new \WP_Error( 'noproduct', __( 'No product provided',  'nccagent' ) );
 
-      foreach ($fields as $key => $value) {
-        $formatted_name = trim( $value );
-        $formatted_name = strtolower( $formatted_name );
-        $formatted_name = str_replace(' ', '_', $formatted_name );
-        unset($fields[$key]);
-        $fields[$formatted_name] = $key;
-      }
-
-      foreach ($fields as $field_name => $product_value_key ) {
-        switch( $field_name ){
+      foreach ($product as $key => $value) {
+        $formatted_key = trim( $key );
+        $formatted_key = strtolower( $formatted_key );
+        $formatted_key = str_replace(' ', '_', $formatted_key );
+        unset($product[$key]);
+        $product[$formatted_key] = $value;
+        switch( $formatted_key ){
           case 'alternate_product_name':
           case 'alt_product_name_2':
-            $product_array['alternate_product_name'] = ( ! empty( $product[$fields['alt_product_name_2']] ) )? $product[$fields['alt_product_name_2']] : $product[$fields['alternate_product_name']] ;
+            $product['alternate_product_name'] = ( ! empty( $product['alt_product_name_2'] ) )? $product['alt_product_name_2'] : $product['alternate_product_name'] ;
             break;
 
           case 'states':
-            $states = $product[$product_value_key];
+            $states = $value;
             // Remove spaces
             $states = str_replace(' ', '', $states );
             // Remove leading/trailing commas
@@ -85,44 +78,38 @@ function products_import_api(){
             $states = array_filter( $states );
             // Sort array
             sort( $states );
-            $product_array[$field_name] = $states;
+            $product['states'] = $states;
             break;
 
           default:
-            if( stristr( $field_name, 'date' ) ){
-              if( ! empty( $product[$product_value_key] ) ){
-                $date = date_create( $product[$product_value_key] );
-                $product_array[$field_name] = date_format( $date, 'm/d/Y' );
+            if( stristr( $formatted_key, 'date' ) ){
+              if( ! empty( $value ) ){
+                $date = date_create( $value );
+                $product[$formatted_key] = date_format( $date, 'm/d/Y' );
               } else {
-                $product_array[$field_name] = '';
+                $product[$formatted_key] = '';
               }
             } else {
-              $product_array[$field_name] = $product[$product_value_key];
+              $product[$formatted_key] = $value;
             }
         }
       }
 
-      //map_row_values( $fields, $product );
-
-      //ncc_error_log('🔔 $fields = ' . print_r( $fields, true ) );
-      //ncc_error_log('🔔 $product = ' . print_r( $product, true ) );
-      ncc_error_log('🔔 $product_array = ' . print_r( $product_array, true ) );
-
-      if( empty( $product_array['row_id'] ) ){
-        $row_id = create_carrier_product( $product_array );
+      if( empty( $product['row_id'] ) ){
+        $row_id = create_carrier_product( $product );
         if( ! is_wp_error( $row_id ) ){
           wp_send_json( ['row_created' => true], 200 );
         } else {
           wp_send_json( ['error' => true, 'message' => $row_id->get_error_message() ], 200 );
         }
       } else {
-        $row_id = $product_array['row_id'] - 1;
+        $row_id = $product['row_id'] - 1;
         $row_updated = false;
         $selectors = ['Alternate_Product_Name','Lower_Issue_Age','Upper_Issue_Age','Source_File_Name','Source_File_Date','Desc_Review_Date','States','States_Review_Date','Plan_Year'];
         foreach( $selectors as $selector ){
           $selector = strtolower( $selector );
           $field_name = 'products_' . $row_id . '_product_details_' . $selector;
-          $field_updated = update_field( $field_name, $product_array[$selector], $product_array['id'] );
+          $field_updated = update_field( $field_name, $product[$selector], $product['id'] );
           if( $field_updated )
             $row_updated = true;
         }

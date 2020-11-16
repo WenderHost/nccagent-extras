@@ -41,7 +41,8 @@ function load_admin_js(){
  * Enqueues scripts and styles for the Carrier > Products download GUI.
  */
 function admin_enqueue_scripts(){
-  wp_enqueue_script( 'products-import-export', NCC_PLUGIN_URL . 'lib/js/products-import-export.js', ['jquery'], filemtime( NCC_PLUGIN_DIR . 'lib/js/products-import-export.js' ) );
+  wp_enqueue_script('papa-parse', NCC_PLUGIN_URL . 'bower_components/papaparse/papaparse.min.js', null, filemtime( NCC_PLUGIN_DIR . 'bower_components/papaparse/papaparse.min.js' ) );
+  wp_enqueue_script( 'products-import-export', NCC_PLUGIN_URL . 'lib/js/products-import-export.js', ['jquery','papa-parse'], filemtime( NCC_PLUGIN_DIR . 'lib/js/products-import-export.js' ) );
   wp_localize_script( 'products-import-export', 'wpvars', [
     'restUrl'       => rest_url( 'nccagent/v1/productimport' ),
     'downloadUrl'   => site_url( '/download-carrier-products/' ),
