@@ -165,6 +165,9 @@ add_action( 'rest_api_init', __NAMESPACE__ . '\\register_team_member_fields' );
 function products_rest_api(){
   register_rest_route( 'nccagent/v1', 'products', [
     'methods' => 'GET',
+    'permission_callback' => function(){
+      return true;
+    },
     'callback' => function(){
       $carriers_query_args = [
         'posts_per_page'  => -1,
