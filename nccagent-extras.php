@@ -15,6 +15,8 @@
 $css_dir = ( stristr( site_url(), '.local' ) || SCRIPT_DEBUG )? 'css' : 'dist' ;
 define( 'NCC_CSS_DIR', $css_dir );
 define( 'NCC_DEV_ENV', stristr( site_url(), '.local' ) );
+define( 'NCC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'NCC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 // Use composer autoloader
 require_once('vendor/autoload.php');
@@ -23,6 +25,7 @@ require_once('vendor/autoload.php');
 require_once( 'lib/fns/acf-json-save-point.php' );
 require_once( 'lib/fns/admin-bar.php' );
 require_once( 'lib/fns/admin-custom-columns.php' );
+require_once( 'lib/fns/admin-products-import-export.php' );
 require_once( 'lib/fns/breadcrumbs.php' );
 require_once( 'lib/fns/csg.php' );
 require_once( 'lib/fns/dir-lister.php' );
@@ -37,6 +40,7 @@ require_once( 'lib/fns/options-page.php' );
 require_once( 'lib/fns/query_vars.php' );
 require_once( 'lib/fns/quick_links.php' );
 require_once( 'lib/fns/rest-api.php' );
+require_once( 'lib/fns/rest-api.productimport.php' );
 require_once( 'lib/fns/shortcodes.php' );
 require_once( 'lib/fns/shortcodes.carrierdocs.php' );
 require_once( 'lib/fns/shortcodes.carrier_page.php' );

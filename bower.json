@@ -1,0 +1,21 @@
+{
+  "name": "nccagent-extras",
+  "description": "Extensions for the NCCAgent WordPress-powered website.",
+  "main": "nccagent-extras.php",
+  "authors": [
+    "Michael Wender"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/WenderHost/nccagent-extras",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-file-download": "^1.4.6"
+  }
+}
