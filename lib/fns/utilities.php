@@ -22,6 +22,12 @@ function ncc_build_state_chiclets( $states = array() ){
   return $states;
 }
 
+function ncc_bust_cache(){
+  $css = file_get_contents( NCC_PLUGIN_DIR . 'lib/css/cache-busters.css' );
+  echo '<style type="text/css">' . $css . '</style>';
+}
+add_action( 'wp_footer', 'ncc_bust_cache' );
+
 /**
  * Returns an HTML alert message
  *
