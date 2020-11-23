@@ -9,7 +9,7 @@ function ncc_product_by_state_selector(){
   $product_finder_page_id = get_field('product_finder_page','option');
   $product_finder_url = get_permalink( $product_finder_page_id );
   $selector = ncc_get_state_options();
-  wp_localize_script( 'select2', 'wpvars', ['product' => get_the_title( $product->ID ), 'product_finder_url' => $product_finder_url, 'stateOptionData' => $selector['data'] ] );
+  wp_localize_script( 'select2', 'wpvars', ['product' => get_the_title( $product->ID ), 'product_finder_url' => $product_finder_url, 'product_finder_slug' => str_replace([site_url(),'/'], ['',''], $product_finder_url ), 'stateOptionData' => $selector['data'] ] );
   $script = file_get_contents( plugin_dir_path( __FILE__ ). '../js/plan-by-state-selector.js' );
   wp_add_inline_script( 'select2', $script, 'after' );
 
