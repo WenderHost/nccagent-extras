@@ -30,3 +30,29 @@ function add_rewrites(){
   add_rewrite_rule( 'carrier/([0-9a-zA-Z_\-]+)/([0-9a-zA-Z_\-]+)/?', 'index.php?post_type=carrier&name=$matches[1]&carrierproduct=$matches[2]', 'top' );
 }
 add_action( 'init', __NAMESPACE__ . '\\add_rewrites', 10, 0 );
+
+/**
+ * Redirect back to the parent Carrier page when we have an invalid $carrierproduct.
+ */
+function redirect_invalid_carrierproducts(){
+  global $post;
+  $carrierproduct = sanitize_title_with_dashes( get_query_var( 'carrierproduct' ) );
+
+  if( ! empty( $carrierproduct ) && 'carrier' == get_post_type() ){
+    $carrierproduct_exists = false;
+    if( have_rows( 'products', $post->ID ) ){
+      while( have_rows( 'products' ) ): the_row();
+        $product = get_sub_field( 'product' );
+        $product_details = get_sub_field( 'product_details' );
+        $product_name = ( ! empty( $product_details['alternate_product_name'] ) )? $product_details['alternate_product_name'] : $product->post_title ;
+        if( strtolower( sanitize_title_with_dashes( $product_name ) ) == strtolower( $carrierproduct ) )
+          $carrierproduct_exists = true;
+      endwhile;
+    }
+    if( ! $carrierproduct_exists ){
+      wp_redirect( get_permalink( $post->ID ), 302 );
+      exit();
+    }
+  }
+}
+add_action( 'template_redirect', __NAMESPACE__ . '\\redirect_invalid_carrierproducts' );

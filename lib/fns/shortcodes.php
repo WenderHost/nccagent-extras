@@ -270,6 +270,13 @@ function carrierproduct(){
         return $html;
       }
     endwhile;
+    // We didn't have a Carrier > Product which matched $carrierproduct,
+    // so we'll redirect back to the parent Carrier > Product. However,
+    // we also have a hook to `template_redirect` which does a wp_redirect()
+    // for invalid Carrier > Products, so this code shouldn't ever run:
+    $carrier_name = get_the_title( $carrier->ID );
+    $alert = ncc_get_alert(['type' => 'info', 'title' => 'Not Found', 'description' => 'I could not find ' . $carrier_name . ' &gt; `' . $carrierproduct . '`. Redirecting back to the main ' . $carrier_name . ' page.' ]);
+    return $alert . '<script type="text/javascript">setTimeout( function(){window.location.replace(`' . get_permalink( $carrier->ID ) . '`);}, 3000);</script>';
   } else if ( have_rows( 'products', $carrier->ID ) && empty( $carrierproduct ) ){
     $product_list = [];
     while( have_rows( 'products' ) ): the_row();
