@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.5.3
-Stable tag: 3.5.3
+Stable tag: 3.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 3.6.0 =
+* Saving Product Finder DataTables data in a single location so that the saved state for the finder carries over between different pages (e.g. settings on `/product-finder/` will carry over to `/plans/`).
 
 = 3.5.3 =
 * Adding a 302 Redirect for invalid Carrier &gt; Products so that we'll redirect back to the parent Carrier.

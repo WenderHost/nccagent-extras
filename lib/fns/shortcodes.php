@@ -321,6 +321,8 @@ function product_finder( $atts ){
 
   wp_enqueue_script( 'product-finder' );
   if( ! $called ){
+    $product_finder_page_id = get_field('product_finder_page','option');
+    $product_finder_url = get_permalink( $product_finder_page_id );
     $state_options = ncc_get_state_options();
     wp_localize_script( 'product-finder', 'wpvars', [
       'table_id'        => $args['table_id'],
@@ -331,6 +333,7 @@ function product_finder( $atts ){
       'stateOptionData' => $state_options['data'],
       'stateLibrary'    => $state_options['library'],
       'marketerUrl'     => rest_url( 'wp/v2/team_member/' ),
+      'product_finder_slug' => str_replace( [site_url(),'/'], ['',''], $product_finder_url ),
     ]);
     $called = true;
   }
