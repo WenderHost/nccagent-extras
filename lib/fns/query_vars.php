@@ -50,7 +50,7 @@ function redirect_invalid_carrierproducts(){
       endwhile;
     }
     if( ! $carrierproduct_exists ){
-      wp_redirect( get_permalink( $post->ID ), 302 );
+      wp_redirect( get_permalink( $post->ID ), 301 );
       exit();
     }
   }
