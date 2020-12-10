@@ -302,8 +302,8 @@ function product_finder( $atts ){
 
   global $post;
   $help_graphic = '';
-  if( get_field( 'product_finder_help_graphic', $post->ID ) )
-    $help_graphic = get_field( 'product_finder_help_graphic', $post->ID );
+  if( get_field( 'product_finder_help_graphic', 'option') )
+    $help_graphic = get_field( 'product_finder_help_graphic', 'option' );
 
   wp_enqueue_script( 'product-finder' );
   if( ! $called ){

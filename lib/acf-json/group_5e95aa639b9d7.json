@@ -23,6 +23,30 @@
             "multiple": 0,
             "return_format": "id",
             "ui": 1
+        },
+        {
+            "key": "field_5fd22ee8424a8",
+            "label": "Product Finder Help Graphic",
+            "name": "product_finder_help_graphic",
+            "type": "image",
+            "instructions": "This image is shown when the Product Finder's filters are not set. Use it to help users understand how to use the Product Finder.\r\n\r\nIMPORTANT: Size your graphic at 1800x650 pixels. Maximum filesize is 200Kb.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 1600,
+            "min_height": 575,
+            "min_size": "",
+            "max_width": 1800,
+            "max_height": 650,
+            "max_size": "0.2",
+            "mime_types": ""
         }
     ],
     "location": [
@@ -40,7 +64,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1586866900
+    "modified": 1607610187
 }
