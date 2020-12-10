@@ -240,28 +240,14 @@ function carrierproduct(){
       $product_details = get_sub_field( 'product_details' );
       $product_name = ( ! empty( $product_details['alternate_product_name'] ) )? $product_details['alternate_product_name'] : $product->post_title ;
       if( strtolower( sanitize_title_with_dashes( $product_name ) ) == strtolower( $carrierproduct ) ){
-        $headingEle = ( 1 < count( $products ) && empty( $carrierproduct ) )? 'h2' : 'h1';
-        $html.= '<' . $headingEle . '>' . $carrier->post_title . ' ' . $product_name . '</' . $headingEle . '>';
+        $data['headingElement'] = ( 1 < count( $products ) && empty( $carrierproduct ) )? 'h2' : 'h1';
+        $data['carrier']['name'] = $carrier->post_title;
+        $data['carrier']['product'] = $product_name;
 
-        $chiclets = ncc_build_state_chiclets( $product_details['states'] );
-        $html.= '<h2>State Availability</h2>';
-        if( ! empty( $product_details['states_review_date'] ) ){
-          $html.= '<p class="review-date">Current as of ' . $product_details['states_review_date'];
-          if( ! empty( $product_details['plan_year'] ) )
-            $html.= ' &ndash; <span class="plan-year">Plan Year ' . $product_details['plan_year'] . '</span>';
-          $html.= '</p>';
-        }
-        $html.= $chiclets;
+        $data['product_details'] = $product_details;
+        $data['states'] = ncc_build_state_chiclets( $product_details['states'] );
+        $html.= ncc_hbs_render_template( 'carrier-product', $data );
 
-        $html.= '<h2>Plan Information</h2>';
-        if( ! empty( $product_details['desc_review_date'] ) ){
-          $html.= '<p class="review-date">Current as of ' . $product_details['desc_review_date'];
-          if( ! empty( $product_details['plan_year'] ) )
-            $html.= ' &ndash; <span class="plan-year">Plan Year ' . $product_details['plan_year'] . '</span>';
-          $html.= '</p>';
-        }
-
-        $html.= $product_details['description'];
         // Product Kit Request CTA:
         $html.= '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2547"]') . '</div>';
         // Online Contracting CTA:
