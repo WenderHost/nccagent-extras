@@ -17,7 +17,7 @@ add_action( 'wp_footer', __NAMESPACE__ . '\\hs_tracking', 9999 );
  * @param      object   $record   The form submission object
  * @param      object   $handler  The form handler
  *
- * @return     boolean  ( description_of_the_return_value )
+ * @return     boolean  Returns `true` when new user is created.
  */
 function register_user_and_send_lead_to_hubspot( $record, $handler ){
   if( ! defined( 'HS_PORTAL_ID' ) ){
