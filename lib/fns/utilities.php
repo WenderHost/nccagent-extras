@@ -153,6 +153,11 @@ function ncc_get_template( $atts ){
   return $template;
 }
 
+function ncc_is_elementor(){
+  global $post;
+  return \Elementor\Plugin::$instance->db->is_built_with_elementor($post->ID);
+}
+
 /**
  * Given a product title, returns `true` if it matches
  * any of the medicare related strings we check against.

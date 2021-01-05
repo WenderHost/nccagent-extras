@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.6
-Stable tag: 3.7.0
+Stable tag: 3.7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 3.7.1 =
+* Adding Elementor display for `[contracting_confirmation]` shortcode.
+* Adding `ncc_is_elementor()` to `lib/fns/utilities.php` for detecting if the view is from inside the Elementor Editor.
 
 = 3.7.0 =
 * Adding `[contracting_confirmation]` shortcode which displays the "Thank You" page information found in "NCC Settings &gt; Online Contracting".
