@@ -15,7 +15,7 @@ function custom_confirmation( $confirmation, $form, $entry ){
   $form_title = $form['title'];
   switch( $form_title ){
     case 'Online Contracting':
-      $confirmation = get_online_contracting_message( $confirmation, $form, $entry );
+      $confirmation = get_online_contracting_message( $form, $entry );
 
       // I've added #gf_2 to the below alert b/c when viewing the browser console
       // I found that GravityForms was adding some JS to scroll to the top of #gf_2.
@@ -40,13 +40,13 @@ add_filter( 'gform_confirmation', __NAMESPACE__ . '\\custom_confirmation', 10, 3
  *
  * @return     string   The online contracting message.
  */
-function get_online_contracting_message( $message, $form, $entry, $oembed = true ){
+function get_online_contracting_message( $form, $entry, $oembed = true ){
   $showSureLC = false;
   $sureLCCarriers = [];
   $showStandard = false;
   $standardCarriers = [];
 
-  $message = strip_tags( $message, '<script><h2><p><h3><h4><h5><h6><ol><ul><li>');
+  $message = get_field('introduction','option');
 
   foreach ($entry as $key => $value) {
     if( GF_CARRIER_CHECKLIST_FIELD_ID == substr( $key, 0, 1 ) && ! empty( $value ) ){
@@ -102,7 +102,7 @@ function modify_notification( $notification, $form, $entry ){
     case 'Online Contracting':
       switch( $notification['name'] ){
         case 'Online Contracting Confirmation':
-          $notification['message'] = get_online_contracting_message( $notification['message'], $form, $entry, false );
+          $notification['message'] = get_online_contracting_message( $form, $entry, false );
           $notification['message'] = '<style type="text/css">.message-body, .message-body *{font-family: Arial, sans-serif;}</style><div class="message-body">' . $notification['message'] . '</div>';
           break;
 

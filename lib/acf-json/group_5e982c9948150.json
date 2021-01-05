@@ -3,6 +3,44 @@
     "title": "Online Contracting Settings",
     "fields": [
         {
+            "key": "field_5ff451b900d9d",
+            "label": "Introduction",
+            "name": "introduction",
+            "type": "wysiwyg",
+            "instructions": "This will be the opening for your Online Contracting sign up confirmation page. It will appear above the Standard and SureLC instructions.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_5e9837206a078",
+            "label": "Standard Instructions",
+            "name": "standard_instructions",
+            "type": "wysiwyg",
+            "instructions": "Users who sign up for contracting through Standard Carriers will see these instructions. Available tokens: <code>{carrier_list}<\/code> (list of Standard Carriers the user has chosen).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
             "key": "field_5e982cb2023d7",
             "label": "SureLC Instructions",
             "name": "surelc_instructions",
@@ -36,25 +74,6 @@
             },
             "default_value": "",
             "placeholder": ""
-        },
-        {
-            "key": "field_5e9837206a078",
-            "label": "Standard Instructions",
-            "name": "standard_instructions",
-            "type": "wysiwyg",
-            "instructions": "Users who sign up for contracting through Standard Carriers will see these instructions. Available tokens: <code>{carrier_list}<\/code> (list of Standard Carriers the user has chosen).",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1,
-            "delay": 0
         }
     ],
     "location": [
@@ -72,7 +91,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1587033972
+    "modified": 1609847327
 }

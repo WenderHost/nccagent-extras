@@ -8,7 +8,7 @@
  * Author URI:        https://mwender.com
  * Text Domain:       nccagent-extras
  * Domain Path:       /languages
- * Version:           3.6.4
+ * Version:           3.7.0
  *
  * @package           Nccagent_Extras
  */
@@ -44,6 +44,7 @@ require_once( 'lib/fns/rest-api.productimport.php' );
 require_once( 'lib/fns/shortcodes.php' );
 require_once( 'lib/fns/shortcodes.carrierdocs.php' );
 require_once( 'lib/fns/shortcodes.carrier_page.php' );
+require_once( 'lib/fns/shortcodes.contracting-confirmation.php' );
 require_once( 'lib/fns/shortcodes.product_page.php' );
 require_once( 'lib/fns/product_by_state_selector.php' );
 require_once( 'lib/fns/user-profiles.php' );
