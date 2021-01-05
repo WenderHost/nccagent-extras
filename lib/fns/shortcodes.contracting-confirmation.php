@@ -25,7 +25,7 @@ function contracting_confirmation( $atts ){
   if( ! class_exists( 'GFAPI' ) )
     return \ncc_get_alert([ 'type' => 'danger', 'title' => 'Missing Form Processing!', 'description' => 'Our form processing does not appear to be working at the moment. Please contact <a href="mailto:' . get_bloginfo('admin_email') . '?subject=Error:+Form+Processing+is+Missing">NCC Support</a>, and alert them of this error.' ]);
 
-  if( \ncc_is_elementor() && is_numeric( $args['form_id'] ) ){
+  if( \ncc_is_elementor_edit_mode() && is_numeric( $args['form_id'] ) ){
     $entries = \GFAPI::get_entries( $form_id );
     if( ! is_wp_error( $entries ) ){
       $entry = $entries[0];
@@ -42,7 +42,7 @@ function contracting_confirmation( $atts ){
   }
 
   $message = [];
-  if( \ncc_is_elementor() )
+  if( \ncc_is_elementor_edit_mode() )
     $message[] = \ncc_get_alert(['type' => 'info', 'title' => 'Sample Shown Below', 'description' => 'NCC website admins: The below is a sample confirmation taken from the most recent entry for the Online Contracting sign up form:']);
 
   $message[] = get_online_contracting_message( null, $entry );

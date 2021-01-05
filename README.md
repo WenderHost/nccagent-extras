@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.6  
-**Stable tag:** 3.7.1  
+**Stable tag:** 3.7.2  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 3.7.2 ###
+* Updating `ncc_is_elementor()` to `ncc_is_elementor_edit_mode()`. The function was previously reporting whether or not the current page was built with Elementor. What we want to know is if we are editing inside Elementor, and now the renamed function correctly reports that information.
 
 ### 3.7.1 ###
 * Adding Elementor display for `[contracting_confirmation]` shortcode.

@@ -153,9 +153,13 @@ function ncc_get_template( $atts ){
   return $template;
 }
 
-function ncc_is_elementor(){
-  global $post;
-  return \Elementor\Plugin::$instance->db->is_built_with_elementor($post->ID);
+/**
+ * Returns TRUE if we are editing inside Elementor.
+ *
+ * @return     bool  TRUE if editing in Elementor.
+ */
+function ncc_is_elementor_edit_mode(){
+  return \Elementor\Plugin::$instance->editor->is_edit_mode();
 }
 
 /**
