@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.6  
-**Stable tag:** 3.7.3  
+**Stable tag:** 3.7.4  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 3.7.4 ###
+* Setting GravityForms submit buttons to `#fe0000`.
 
 ### 3.7.3 ###
 * Disabling "Close All" when opening accordion sections in `accordion.js`.
