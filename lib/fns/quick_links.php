@@ -54,7 +54,7 @@ function ncc_quick_links(){
 
   if( ! empty( $carrierproduct ) ){
     $links[] = [
-        'url'  => 'plans',
+        'url'  => 'plans/',
         'text' => 'All Carriers &amp; Products'
     ];
   }
