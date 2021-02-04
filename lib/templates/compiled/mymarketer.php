@@ -58,7 +58,7 @@ use \LightnCandy\SafeString as SafeString;use \LightnCandy\Runtime as LR;return 
         </li>
 '.((LR::ifvar($cx, (($inary && isset($in['chat_query_parameter'])) ? $in['chat_query_parameter'] : null), false)) ? '        <li class="elementor-icon-list-item">
           <a href="#" class="chat-link" style="text-decoration: none;" data-chat-query-parameter="'.htmlspecialchars((string)(($inary && isset($in['chat_query_parameter'])) ? $in['chat_query_parameter'] : null), ENT_QUOTES, 'UTF-8').'">
-            <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-comments"></i></span><span class="elementor-icon-list-text"> Chat with '.htmlspecialchars((string)(($inary && isset($in['name'])) ? $in['name'] : null), ENT_QUOTES, 'UTF-8').'</span>
+            <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-comments"></i></span><span class="elementor-icon-list-text"> Chat with '.htmlspecialchars((string)(($inary && isset($in['firstname'])) ? $in['firstname'] : null), ENT_QUOTES, 'UTF-8').'</span>
           </a>
         </li>
 ' : '').'      </ul>
