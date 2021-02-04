@@ -154,10 +154,14 @@ function my_marketer( $atts ){
   $extension = ( ! empty( $marketerFields['extension'] ) )? ' ext. ' . $marketerFields['extension'] : '' ;
 
   $chat_query_parameter = ( ! empty( $marketerFields['hubspot']['chat_query_parameter'] ) )? $marketerFields['hubspot']['chat_query_parameter'] : false ;
+
+  $firstname = array_pop( array_reverse( explode(' ', $marketer->post_title ) ) ) ;
+
   $html = ncc_hbs_render_template('mymarketer',[
     'photo'         => $photo,
     'marketer_page' => get_permalink( $marketer_id ),
     'name'          => $marketer->post_title,
+    'firstname'     => $firstname,
     'title'         => $marketerFields['title'],
     'phone'         => $marketerFields['phone'],
     'extension'     => $extension,
