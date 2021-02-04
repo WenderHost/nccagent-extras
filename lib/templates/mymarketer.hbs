@@ -1,0 +1,38 @@
+<div class="marketer user-profile">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="stretchy-wrapper"><div class="photo" style="background-image: url('{{photo}}')"></div></div>
+    </div>
+    <div class="col-sm-9">
+      <h3>
+        <a href="{{marketer_page}}">{{name}}</a>
+        <span class="">{{title}}</span>
+      </h3>
+      <ul class="elementor-icon-list-items elementor">
+        <li class="elementor-icon-list-item">
+          <a href="tel:{{phone}}" style="text-decoration: none;">
+            <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-phone-square-alt"></i></span><span class="elementor-icon-list-text">{{phone}}{{extension}}</span>
+          </a>
+        </li>
+        <li class="elementor-icon-list-item">
+          <a href="mailto:{{email}}" style="text-decoration: none;">
+            <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-envelope"></i></span><span class="elementor-icon-list-text">{{email}}</span>
+          </a>
+        </li>
+        <li class="elementor-icon-list-item">
+          <a href="{{calendar_link}}" style="text-decoration: none;" target="_blank">
+            <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-calendar-alt"></i></span><span class="elementor-icon-list-text"> Schedule a Meeting</span>
+          </a>
+        </li>
+        {{#if chat_query_parameter}}
+        <li class="elementor-icon-list-item">
+          <a href="#" class="chat-link" style="text-decoration: none;" data-chat-query-parameter="{{chat_query_parameter}}">
+            <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-comments"></i></span><span class="elementor-icon-list-text"> Chat with {{name}}</span>
+          </a>
+        </li>
+        {{/if}}
+      </ul>
+
+    </div>
+  </div>
+</div>

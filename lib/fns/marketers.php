@@ -127,6 +127,8 @@ add_shortcode( 'marketer_testimonials', __NAMESPACE__ . '\\marketer_testimonials
  * @return     string  Marketer HTML.
  */
 function my_marketer( $atts ){
+  global $post;
+
   $args = shortcode_atts( [
     'id' => null,
   ], $atts );
@@ -136,10 +138,8 @@ function my_marketer( $atts ){
     return '<p><strong>No User Found!</strong> You don\'t appear to be logged in.</p>';
 
   $marketer_id = get_user_meta( $user->ID, 'marketer_id', true );
-  if( ! $marketer_id ){
-    //return ncc_get_alert(['title' => 'No Team Member Assigned', 'description' => 'No Team Member has been assigned to your user profile. Please contact NCC to have our staff assign a Team Member to you.']);
+  if( ! $marketer_id )
     return null;
-  }
 
   $marketer = get_post( $marketer_id );
   if( ! $marketer || 'publish' != $marketer->post_status )
@@ -150,27 +150,21 @@ function my_marketer( $atts ){
   $marketerFields = get_fields( $marketer->ID, false );
   $marketerFields['hubspot'] = get_field( 'hubspot', $marketer->ID );
 
-  /*
-  $name_array = explode(' ', $marketer->post_title );
-  $lastname = array_pop( $name_array );
-  $firstname = implode( ' ', $name_array );
-  $marketer_link = ncc_get_template([
-    'template'  => 'team_member.marketer_link',
-    'search'    => ['{permalink}','{firstname}'],
-    'replace'   => [ $permalink, $firstname],
-  ]);
-  */
-  $marketer_link = '';
-
-  $search = [ '{photo}', '{name}', '{title}', '{phone}', '{email}', '{marketer_page}', '{calendar_link}', '{extension}', '{marketer_link}' ];
   $calendarLink = ( ! empty( $marketerFields['hubspot']['calendar_link'] ) )? $marketerFields['hubspot']['calendar_link'] : '';
   $extension = ( ! empty( $marketerFields['extension'] ) )? ' ext. ' . $marketerFields['extension'] : '' ;
-  $replace = [ $photo, $marketer->post_title, $marketerFields['title'], $marketerFields['phone'], $marketerFields['email'], get_permalink( $marketer_id ), $calendarLink, $extension, $marketer_link ];
 
-  $html = ncc_get_template([
-    'template'  => 'marketer',
-    'search'    => $search,
-    'replace'   => $replace,
+  $chat_query_parameter = ( ! empty( $marketerFields['hubspot']['chat_query_parameter'] ) )? $marketerFields['hubspot']['chat_query_parameter'] : false ;
+  $html = ncc_hbs_render_template('mymarketer',[
+    'photo'         => $photo,
+    'marketer_page' => get_permalink( $marketer_id ),
+    'name'          => $marketer->post_title,
+    'title'         => $marketerFields['title'],
+    'phone'         => $marketerFields['phone'],
+    'extension'     => $extension,
+    'email'         => $marketerFields['email'],
+    'calendar_link' => $calendarLink,
+    'chat_query_parameter'  => $chat_query_parameter,
+    'pageurl'       => get_permalink( $post ),
   ]);
   //$html = str_replace( $search, $replace, $template );
 
