@@ -112,31 +112,15 @@
             "layout": "block",
             "sub_fields": [
                 {
-                    "key": "field_5e3c9117230ff",
-                    "label": "Chat URL",
-                    "name": "chat_url",
-                    "type": "url",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": ""
-                },
-                {
                     "key": "field_601be1191a10e",
                     "label": "Chat Query Parameter",
                     "name": "chat_query_parameter",
                     "type": "text",
-                    "instructions": "",
+                    "instructions": "Get this value from your HubSpot chatflow in the \"Target\" tab. Set your chatflow to trigger by a Query Parameter called \"chat\" and add the \"contains\" string here.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "50",
+                        "width": "33",
                         "class": "",
                         "id": ""
                     },
@@ -155,7 +139,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "50",
+                        "width": "33",
                         "class": "",
                         "id": ""
                     },
@@ -171,7 +155,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "50",
+                        "width": "33",
                         "class": "",
                         "id": ""
                     },
@@ -354,9 +338,9 @@
     "position": "normal",
     "style": "default",
     "label_placement": "top",
-    "instruction_placement": "label",
+    "instruction_placement": "field",
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1612439888
+    "modified": 1612451611
 }
