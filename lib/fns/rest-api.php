@@ -136,6 +136,12 @@ function register_team_member_fields(){
       $phone = get_field('phone');
       $email = get_field('email');
       $bio = get_field('bio');
+
+      // Get ACF HubSpot fields
+      $marketerFields = get_fields( $post->ID, false );
+      $marketerFields['hubspot'] = get_field( 'hubspot', $post->ID );
+      $chat_query_parameter = ( ! empty( $marketerFields['hubspot']['chat_query_parameter'] ) )? $marketerFields['hubspot']['chat_query_parameter'] : false ;
+
       $state_terms = get_the_terms( $post, 'state' );
       $states = [];
       if( $state_terms ){
@@ -148,7 +154,7 @@ function register_team_member_fields(){
       $name_array = explode( ' ', $name );
       $lastname = array_pop( $name_array );
       $firstname = implode(' ', $name_array );
-      $team_member_details = [ 'name' => $name ,'firstname' => $firstname, 'lastname' => $lastname, 'title' => $title, 'phone' => $phone, 'email' => $email, 'bio' => $bio, 'states' => $states, 'photo' => $photo, 'permalink' => $permalink ];
+      $team_member_details = [ 'name' => $name ,'firstname' => $firstname, 'lastname' => $lastname, 'title' => $title, 'phone' => $phone, 'email' => $email, 'bio' => $bio, 'states' => $states, 'photo' => $photo, 'permalink' => $permalink, 'chat_query_parameter' => $chat_query_parameter ];
       return $team_member_details;
     },
     'schema' => [
