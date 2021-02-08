@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.6  
-**Stable tag:** 3.8.2  
+**Stable tag:** 3.8.3  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,11 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 3.8.3 ###
+* Checking HubSpot chat status before attempting to open.
+* Adding Marketer Chat to Product Finder.
+* Adding Marketer Chat to `[marketer_contact_details]` shortcode.
 
 ### 3.8.2 ###
 * Updating "Chat with..." link in `[mymarketer]` to use the Marketer's first name.
