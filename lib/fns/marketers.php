@@ -23,18 +23,21 @@ function marketer_contact_details( $atts ){
   $name = explode(' ', get_the_title( $post ) );
   $lastname = array_pop( $name );
 
-  $html = '';
   $marketerFields = get_fields( $marketer_id, false );
   $marketerFields['hubspot'] = get_field( 'hubspot', $marketer_id );
-  $template = ncc_get_template([
-    'template'  => 'marketer_contact_details',
-    'search'    => ['{{first_name}}'],
-    'replace'   => [ implode(' ', $name ) ],
-  ]);
+
+  $firstname = array_pop( array_reverse( explode(' ', get_the_title( $post ) ) ) ) ;
   $extension = ( ! empty( $marketerFields['extension'] ) )? ' ext. ' . $marketerFields['extension'] : '';
-  $search = [ '{phone}', '{extension}', '{email}', '{calendar_link}' ];
-  $replace = [ $marketerFields['phone'], $extension, $marketerFields['email'], $marketerFields['hubspot']['calendar_link'] ];
-  $html = str_replace( $search, $replace, $template );
+  $chat_query_parameter = ( ! empty( $marketerFields['hubspot']['chat_query_parameter'] ) )? $marketerFields['hubspot']['chat_query_parameter'] : false ;
+
+  $html = ncc_hbs_render_template('marketer_contact_details',[
+    'firstname'            => $firstname,
+    'phone'                => $marketerFields['phone'],
+    'extension'            => $extension,
+    'email'                => $marketerFields['email'],
+    'calendar_link'        => $marketerFields['hubspot']['calendar_link'],
+    'chat_query_parameter' => $chat_query_parameter,
+  ]);
 
   return $html;
 }
