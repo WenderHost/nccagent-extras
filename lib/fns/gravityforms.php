@@ -5,6 +5,11 @@ namespace NCCAgent\gravityforms;
 /**
  * Modifies the on-screen confirmation that appears after the user submits a GF form.
  *
+ * 02/23/2021 (13:25) - Disabling this custom confirmation because this code appears
+ * to be preventing GF forms from redirecting after submission. In particular, we
+ * need the "Online Contracting" form to redirect to another page for conversion
+ * tracking.
+ *
  * @param      string  $confirmation  The confirmation
  * @param      object  $form          The form
  * @param      object  $entry         The entry
@@ -28,7 +33,7 @@ function custom_confirmation( $confirmation, $form, $entry ){
 
   return $confirmation;
 }
-add_filter( 'gform_confirmation', __NAMESPACE__ . '\\custom_confirmation', 10, 3 );
+//add_filter( 'gform_confirmation', __NAMESPACE__ . '\\custom_confirmation', 10, 3 );
 
 /**
  * Gets the online contracting message.
