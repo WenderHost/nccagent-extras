@@ -1,9 +1,8 @@
 <{{headingElement}}>{{carrier.name}} {{carrier.product}}</{{headingElement}}>
 <h2>State Availability</h2>
-{{#if product_details.states_review_date}}<p class="review-date">Current as of {{product_details.states_review_date}}{{#if product_details.plan_year}} &ndash; <span class="plan-year">Plan Year {{product_details.plan_year}}</span>{{/if}}</p>{{/if}}
+{{#if product_details.states_review_date}}<p class="review-date">Last review date: {{product_details.states_review_date}}{{#if product_details.plan_year}} &ndash; <span class="plan-year">Plan Year {{product_details.plan_year}}</span>{{/if}}</p>{{/if}}
   {{{states}}}
 
 <h2>Plan Information</h2>
-{{#if product_details.desc_review_date}}<p class="review-date">Current as of {{product_details.desc_review_date}}{{#if product_details.plan_year}} &ndash; <span class="plan-year">Plan Year {{product_details.plan_year}}</span>{{/if}}</p>{{/if}}
 {{#if product_details.lower_issue_age}}<p>Issue ages {{product_details.lower_issue_age}}&ndash;{{product_details.upper_issue_age}}.</p>{{/if}}
 {{{product_details.description}}}
