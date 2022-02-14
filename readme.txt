@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 4.5
 Tested up to: 5.6
-Stable tag: 3.9.0
+Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ I've built the NCC website using Elementor and the Hello Elementor theme. This i
 == Changelog ==
 
 = 4.0.0 =
-*
+* Adding creation of ActiveCampaign contacts from new user registration.
 * Adding `ncc_get_state_name()` for retrieving a state name given a two letter state abbreviation.
 
 = 3.9.0 =
