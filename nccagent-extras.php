@@ -26,6 +26,7 @@ require_once( 'lib/fns/acf-json-save-point.php' );
 require_once( 'lib/fns/admin-bar.php' );
 require_once( 'lib/fns/admin-custom-columns.php' );
 require_once( 'lib/fns/admin-products-import-export.php' );
+require_once( 'lib/fns/activecampaign.php' );
 require_once( 'lib/fns/breadcrumbs.php' );
 require_once( 'lib/fns/csg.php' );
 require_once( 'lib/fns/dir-lister.php' );
@@ -76,6 +77,19 @@ if ( !function_exists( 'wp_new_user_notification' ) ) :
     return;
   }
 endif;
+
+/**
+ * ACTIVECAMPAIGN API KEY WARNING
+ *
+ * Adds a warning if no ACTIVECAMPAIGN_API_KEY found in wp-config.php
+ */
+if( ! defined( 'ACTIVECAMPAIGN_API_KEY' ) ){
+  add_action( 'admin_notices', function(){
+    $class = 'notice notice-error';
+    $message = __( 'Missing ACTIVECAMPAIGN_API_KEY. Please add your ActiveCampaign API Key to wp-config.php like so: <code>define( \'ACTIVECAMPAIGN_API_KEY\', \'__YOUR_KEY_GOES_HERE__\');</code>.', 'nccagent-extras' );
+    printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+  } );
+}
 
 /**
  * Enhanced logging

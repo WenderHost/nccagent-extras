@@ -14,6 +14,10 @@ I've built the NCC website using Elementor and the Hello Elementor theme. This i
 
 == Changelog ==
 
+= 4.0.0 =
+*
+* Adding `ncc_get_state_name()` for retrieving a state name given a two letter state abbreviation.
+
 = 3.9.0 =
 * Updating Product Finder product listings by changing "State Availability > Current as of" to "Last review date:" and removing the "Current as of" date for "Plan Information".
 
