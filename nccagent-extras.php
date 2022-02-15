@@ -34,7 +34,7 @@ require_once( 'lib/fns/enqueues.php' );
 require_once( 'lib/fns/gettext.php' );
 require_once( 'lib/fns/gravityforms.php' );
 require_once( 'lib/fns/handlebars.php' );
-require_once( 'lib/fns/hubspot.php' );
+//require_once( 'lib/fns/hubspot.php' );
 require_once( 'lib/fns/marketers.php' );
 require_once( 'lib/fns/misc.php' );
 require_once( 'lib/fns/options-page.php' );
