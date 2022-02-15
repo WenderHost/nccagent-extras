@@ -138,9 +138,16 @@ function register_team_member_fields(){
       $bio = get_field('bio');
 
       // Get ACF HubSpot fields
-      $marketerFields = get_fields( $post->ID, false );
-      $marketerFields['hubspot'] = get_field( 'hubspot', $post->ID );
-      $chat_query_parameter = ( ! empty( $marketerFields['hubspot']['chat_query_parameter'] ) )? $marketerFields['hubspot']['chat_query_parameter'] : false ;
+      /**
+       * 02/15/2022 (16:18) - Commenting out the following
+       * fields b/c we are transitiong to ActiveCampaign.
+       * If we ever want to add back "Marketer Chat", we
+       * could do something similar:
+       */
+      //$marketerFields = get_fields( $post->ID, false );
+      //$marketerFields['hubspot'] = get_field( 'hubspot', $post->ID );
+      //$chat_query_parameter = ( ! empty( $marketerFields['hubspot']['chat_query_parameter'] ) )? $marketerFields['hubspot']['chat_query_parameter'] : false ;
+      $chat_query_parameter = false;
 
       $state_terms = get_the_terms( $post, 'state' );
       $states = [];
