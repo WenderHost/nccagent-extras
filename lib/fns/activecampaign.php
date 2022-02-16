@@ -3,6 +3,15 @@
 namespace NCCAgent\activecampaign;
 
 /**
+ * Adds ActiveCampaign Tracking code.
+ */
+function activecampaign_tracking(){
+  $html = file_get_contents( plugin_dir_path( __FILE__ ) . '../html/activecampaign.html' );
+  echo $html;
+}
+add_action( 'wp_footer', __NAMESPACE__ . '\\activecampaign_tracking', 9999 );
+
+/**
  * Registers a new user in WordPress and sends the lead to ActiveCampaign
  *
  * @param      object   $record   The form submission object
