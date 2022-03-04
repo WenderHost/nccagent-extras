@@ -1,8 +1,8 @@
 === NCCAgent Extras ===
 Contributors: the_webist
 Requires at least: 4.5
-Tested up to: 5.6
-Stable tag: 4.0.3
+Tested up to: 5.9.1
+Stable tag: 4.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,11 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 4.1.0 =
+* Adding Marketer's calendar link to `[team_member_list]`.
+* Removing link to Marketer's page from `[team_member_list]`.
+* Removing link to Marketer's page from "My Marketer" widget.
 
 = 4.0.3 =
 * Adding ActiveCampaign JS tracking code.

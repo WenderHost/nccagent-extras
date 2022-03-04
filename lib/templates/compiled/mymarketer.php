@@ -37,7 +37,7 @@ use \LightnCandy\SafeString as SafeString;use \LightnCandy\Runtime as LR;return 
     </div>
     <div class="col-sm-9">
       <h3>
-        <a href="'.htmlspecialchars((string)(($inary && isset($in['marketer_page'])) ? $in['marketer_page'] : null), ENT_QUOTES, 'UTF-8').'">'.htmlspecialchars((string)(($inary && isset($in['name'])) ? $in['name'] : null), ENT_QUOTES, 'UTF-8').'</a>
+        '.htmlspecialchars((string)(($inary && isset($in['name'])) ? $in['name'] : null), ENT_QUOTES, 'UTF-8').'
         <span class="">'.htmlspecialchars((string)(($inary && isset($in['title'])) ? $in['title'] : null), ENT_QUOTES, 'UTF-8').'</span>
       </h3>
       <ul class="elementor-icon-list-items elementor">
@@ -51,12 +51,12 @@ use \LightnCandy\SafeString as SafeString;use \LightnCandy\Runtime as LR;return 
             <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-envelope"></i></span><span class="elementor-icon-list-text">'.htmlspecialchars((string)(($inary && isset($in['email'])) ? $in['email'] : null), ENT_QUOTES, 'UTF-8').'</span>
           </a>
         </li>
-        <li class="elementor-icon-list-item">
+'.((LR::ifvar($cx, (($inary && isset($in['calendar_link'])) ? $in['calendar_link'] : null), false)) ? '        <li class="elementor-icon-list-item">
           <a href="'.htmlspecialchars((string)(($inary && isset($in['calendar_link'])) ? $in['calendar_link'] : null), ENT_QUOTES, 'UTF-8').'" style="text-decoration: none;" target="_blank">
             <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-calendar-alt"></i></span><span class="elementor-icon-list-text"> Schedule a Meeting with '.htmlspecialchars((string)(($inary && isset($in['firstname'])) ? $in['firstname'] : null), ENT_QUOTES, 'UTF-8').'</span>
           </a>
         </li>
-'.((LR::ifvar($cx, (($inary && isset($in['chat_query_parameter'])) ? $in['chat_query_parameter'] : null), false)) ? '        <li class="elementor-icon-list-item">
+' : '').''.((LR::ifvar($cx, (($inary && isset($in['chat_query_parameter'])) ? $in['chat_query_parameter'] : null), false)) ? '        <li class="elementor-icon-list-item">
           <a href="#" class="chat-link" style="text-decoration: none;" data-chat-query-parameter="'.htmlspecialchars((string)(($inary && isset($in['chat_query_parameter'])) ? $in['chat_query_parameter'] : null), ENT_QUOTES, 'UTF-8').'">
             <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-comments"></i></span><span class="elementor-icon-list-text"> Chat with '.htmlspecialchars((string)(($inary && isset($in['firstname'])) ? $in['firstname'] : null), ENT_QUOTES, 'UTF-8').'</span>
           </a>

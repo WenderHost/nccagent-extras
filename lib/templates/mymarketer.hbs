@@ -5,7 +5,7 @@
     </div>
     <div class="col-sm-9">
       <h3>
-        <a href="{{marketer_page}}">{{name}}</a>
+        {{name}}
         <span class="">{{title}}</span>
       </h3>
       <ul class="elementor-icon-list-items elementor">
@@ -19,11 +19,13 @@
             <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-envelope"></i></span><span class="elementor-icon-list-text">{{email}}</span>
           </a>
         </li>
+        {{#if calendar_link}}
         <li class="elementor-icon-list-item">
           <a href="{{calendar_link}}" style="text-decoration: none;" target="_blank">
             <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-calendar-alt"></i></span><span class="elementor-icon-list-text"> Schedule a Meeting with {{firstname}}</span>
           </a>
         </li>
+        {{/if}}
         {{#if chat_query_parameter}}
         <li class="elementor-icon-list-item">
           <a href="#" class="chat-link" style="text-decoration: none;" data-chat-query-parameter="{{chat_query_parameter}}">

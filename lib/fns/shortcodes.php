@@ -444,23 +444,24 @@ function team_member_list( $atts ){
     $firstname = implode( ' ', $name_array );
     $permalink = get_permalink( $team_member->ID );
 
+    $calendar_html = '';
     if( 'marketing' == strtolower( $args['type'] ) ){
-      $name = '<a href="' . $permalink . '">' . $name . '</a>';
-      $photo = '<a href="' . $permalink . '">' . $photo . '</a>';
-      $marketer_link = ncc_get_template([
-        'template'  => 'team_member.marketer_link',
-        'search'    => ['{permalink}','{firstname}'],
-        'replace'   => [ $permalink, $firstname],
-      ]);
-    } else {
-      $marketer_link = '';
+      $marketerFields = get_fields( $team_member->ID, false );
+      $marketerFields['hubspot'] = get_field( 'hubspot', $team_member->ID );
+      if( array_key_exists( 'calendar_link', $marketerFields['hubspot'] ) && ! empty( $marketerFields['hubspot']['calendar_link'] ) ){
+        $calendar_html = '<li class="elementor-icon-list-item">
+          <a href="' . $marketerFields['hubspot']['calendar_link'] . '" style="text-decoration: none;" target="_blank">
+            <span class="elementor-icon-list-icon"><i aria-hidden="true" class="fas fa-calendar-alt"></i></span><span class="elementor-icon-list-text"> Schedule a Meeting with ' . $firstname . '</span>
+          </a>
+        </li>';
+      }
     }
 
     $teamMemberFields = get_fields( $team_member->ID, false );
-    $search = [ '{photo}', '{name}', '{title}', '{bio}', '{tel}', '{phone}', '{email}', '{marketer_link}' ];
+    $search = [ '{photo}', '{name}', '{title}', '{bio}', '{tel}', '{phone}', '{email}', '{calendar_html}' ];
     $phone = ( ! empty( $teamMemberFields['extension'] ) )? $teamMemberFields['phone'] . ' ext. ' . $teamMemberFields['extension'] : $teamMemberFields['phone'] ;
     $tel = ( ! empty( $teamMemberFields['extension'] ) )? $teamMemberFields['phone'] . ';ext=' . $teamMemberFields['extension'] : $teamMemberFields['phone'] ;
-    $replace = [ $photo, $name, $teamMemberFields['title'], apply_filters( 'the_content', $teamMemberFields['bio'] ), $tel, $phone, $teamMemberFields['email'], $marketer_link ];
+    $replace = [ $photo, $name, $teamMemberFields['title'], apply_filters( 'the_content', $teamMemberFields['bio'] ), $tel, $phone, $teamMemberFields['email'], $calendar_html ];
     $html.= str_replace( $search, $replace, $template );
   }
 
