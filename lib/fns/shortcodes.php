@@ -42,7 +42,7 @@ function acf_get_carrier_products( $atts ){
     $data['products'][$x]['toggle_id'] = $product['product']->post_name . '-' . $x;
     $data['products'][$x]['permalink'] = get_the_permalink( $args['post_id'] ) . sanitize_title_with_dashes( $product_title ) . '/';
     $data['products'][$x]['title'] = $product_title;
-    $data['products'][$x]['description'] = apply_filters( 'the_content', $product['product_details']['description'] );
+    $data['products'][$x]['description'] = wpautop( $product['product_details']['description'] );
     $data['products'][$x]['desc_review_date'] = $product['product_details']['desc_review_date'];
     $data['products'][$x]['medicare_product'] = ncc_is_medicare_product( $product_title );
     $data['products'][$x]['medicare_quote_engine_url'] = site_url( 'tools/medicare-quote-engine/' );
@@ -461,7 +461,7 @@ function team_member_list( $atts ){
     $search = [ '{photo}', '{name}', '{title}', '{bio}', '{tel}', '{phone}', '{email}', '{calendar_html}' ];
     $phone = ( ! empty( $teamMemberFields['extension'] ) )? $teamMemberFields['phone'] . ' ext. ' . $teamMemberFields['extension'] : $teamMemberFields['phone'] ;
     $tel = ( ! empty( $teamMemberFields['extension'] ) )? $teamMemberFields['phone'] . ';ext=' . $teamMemberFields['extension'] : $teamMemberFields['phone'] ;
-    $replace = [ $photo, $name, $teamMemberFields['title'], apply_filters( 'the_content', $teamMemberFields['bio'] ), $tel, $phone, $teamMemberFields['email'], $calendar_html ];
+    $replace = [ $photo, $name, $teamMemberFields['title'], wpautop( $teamMemberFields['bio'] ), $tel, $phone, $teamMemberFields['email'], $calendar_html ];
     $html.= str_replace( $search, $replace, $template );
   }
 

@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 5.9.1  
-**Stable tag:** 4.1.0  
+**Stable tag:** 4.1.1  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 4.1.1 ###
+* BUGFIX: Updating Team Member bio in `[team_member_list]` 9to use `wpautop` instead of `apply_filters( 'the_content', ... )`.
+* Updating Product Description in `acf_get_carrier_products()` to use `wpautop` instead of `apply_filters( 'the_content', ... )`.
 
 ### 4.1.0 ###
 * Adding Marketer's calendar link to `[team_member_list]`.
