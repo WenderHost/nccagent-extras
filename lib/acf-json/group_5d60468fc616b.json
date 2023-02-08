@@ -3,9 +3,30 @@
     "title": "Carrier Options",
     "fields": [
         {
+            "key": "field_63e41e022416b",
+            "label": "Requires authentication?",
+            "name": "requires_authentication",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Check if this carrier requires users to be logged in to view their content.",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_5d6589cbe5ec6",
             "label": "VPN Link",
             "name": "vpn_link",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -25,6 +46,7 @@
             "key": "field_5dcb195c035a3",
             "label": "Online Contracting Link",
             "name": "online_contracting_link",
+            "aria-label": "",
             "type": "radio",
             "instructions": "",
             "required": 0,
@@ -50,6 +72,7 @@
             "key": "field_5e6b959f649f8",
             "label": "Agent Black Book",
             "name": "agent_black_book",
+            "aria-label": "",
             "type": "page_link",
             "instructions": "",
             "required": 0,
@@ -69,6 +92,7 @@
             "key": "field_5e6b9bb254f4a",
             "label": "AHIP Certification",
             "name": "ahip_certification",
+            "aria-label": "",
             "type": "page_link",
             "instructions": "",
             "required": 0,
@@ -88,6 +112,7 @@
             "key": "field_5d60469883e10",
             "label": "Products",
             "name": "products",
+            "aria-label": "",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -101,12 +126,13 @@
             "min": 0,
             "max": 0,
             "layout": "table",
-            "button_label": "",
+            "button_label": "Add Row",
             "sub_fields": [
                 {
                     "key": "field_5d682b3ac28db",
                     "label": "Product",
                     "name": "product",
+                    "aria-label": "",
                     "type": "post_object",
                     "instructions": "",
                     "required": 1,
@@ -123,12 +149,14 @@
                     "allow_null": 0,
                     "multiple": 0,
                     "return_format": "object",
-                    "ui": 1
+                    "ui": 1,
+                    "parent_repeater": "field_5d60469883e10"
                 },
                 {
                     "key": "field_5d682cacffa29",
                     "label": "Product Details",
                     "name": "product_details",
+                    "aria-label": "",
                     "type": "group",
                     "instructions": "",
                     "required": 0,
@@ -144,6 +172,7 @@
                             "key": "field_5d8a08accf789",
                             "label": "Alternate Product Name",
                             "name": "alternate_product_name",
+                            "aria-label": "",
                             "type": "text",
                             "instructions": "Replace the name of this product with one specific to this carrier. For example, many carriers offer multiple annuities under their own product brand names. Use this field to relabel the heading for this product with the carrier's brand specific wordmark.",
                             "required": 0,
@@ -163,6 +192,7 @@
                             "key": "field_5e664b6f2d67a",
                             "label": "Lower Issue Age",
                             "name": "lower_issue_age",
+                            "aria-label": "",
                             "type": "number",
                             "instructions": "",
                             "required": 0,
@@ -184,6 +214,7 @@
                             "key": "field_5e664b852d67b",
                             "label": "Upper Issue Age",
                             "name": "upper_issue_age",
+                            "aria-label": "",
                             "type": "number",
                             "instructions": "",
                             "required": 0,
@@ -205,6 +236,7 @@
                             "key": "field_5e4e687458e41",
                             "label": "Source File Name",
                             "name": "source_file_name",
+                            "aria-label": "",
                             "type": "text",
                             "instructions": "",
                             "required": 0,
@@ -224,6 +256,7 @@
                             "key": "field_5e4e688858e42",
                             "label": "Source File Date",
                             "name": "source_file_date",
+                            "aria-label": "",
                             "type": "date_picker",
                             "instructions": "",
                             "required": 0,
@@ -241,6 +274,7 @@
                             "key": "field_5d682b6fc28dc",
                             "label": "Description",
                             "name": "description",
+                            "aria-label": "",
                             "type": "wysiwyg",
                             "instructions": "",
                             "required": 0,
@@ -260,6 +294,7 @@
                             "key": "field_5e4e685e58e40",
                             "label": "Description Review Date",
                             "name": "desc_review_date",
+                            "aria-label": "",
                             "type": "date_picker",
                             "instructions": "",
                             "required": 0,
@@ -277,6 +312,7 @@
                             "key": "field_5d682b94c28dd",
                             "label": "States",
                             "name": "states",
+                            "aria-label": "",
                             "type": "select",
                             "instructions": "Select the states where this insurer provides this product.",
                             "required": 0,
@@ -353,6 +389,7 @@
                             "key": "field_5ea9c25a1704a",
                             "label": "States Review Date",
                             "name": "states_review_date",
+                            "aria-label": "",
                             "type": "date_picker",
                             "instructions": "",
                             "required": 0,
@@ -370,6 +407,7 @@
                             "key": "field_5faa7c00d2af7",
                             "label": "Plan Year",
                             "name": "plan_year",
+                            "aria-label": "",
                             "type": "number",
                             "instructions": "",
                             "required": 0,
@@ -387,9 +425,11 @@
                             "max": "",
                             "step": ""
                         }
-                    ]
+                    ],
+                    "parent_repeater": "field_5d60469883e10"
                 }
-            ]
+            ],
+            "rows_per_page": 20
         }
     ],
     "location": [
@@ -409,5 +449,6 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1605008744
+    "show_in_rest": 0,
+    "modified": 1675895472
 }

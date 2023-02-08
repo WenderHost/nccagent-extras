@@ -29,6 +29,16 @@ function acf_get_carrier_products( $atts ){
   $data['carriername'] = $carriername;
   $data['year'] = date('Y');
 
+  $requires_authentication = get_field( 'requires_authentication' );
+  if( $requires_authentication  && ! is_user_logged_in() ){
+    $html = ncc_hbs_render_template( 'product-list-heading', $data );
+    $html.= ncc_get_alert([
+      'title'       => 'REGISTRATION REQUIRED',
+      'description' => 'Please <a href="' . site_url( 'login-register' ) . '">register or login</a> to view ' . $carriername . '\'s current products and state availability for ' . $data['year'] . '.',
+    ]);
+    return $html;
+  }
+
   // Remove "unpublished" products from $products:
   foreach( $products as $key => $product ){
     if( ! is_object( $product['product'] ) || 'publish' != $product['product']->post_status )
