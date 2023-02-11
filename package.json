@@ -26,6 +26,6 @@
     "devbuild": "npm-run-all -p build-task:*"
   },
   "dependencies": {
-    "npm-check-updates": "^4.0.4"
+    "npm-check-updates": "^16.7.4"
   }
 }
