@@ -27,6 +27,10 @@ function carrier_page(){
     $html[] = '<div style="margin-bottom: 2em;">' . \NCCAgent\shortcodes\readmore_content() . '</div>';
     $html[] = '<div style="margin-bottom: 2em;">' . \NCCAgent\shortcodes\acf_get_carrier_products([ 'post_id' => $carrier->ID ]) . '</div>';
 
+    $requires_authentication = get_field( 'requires_authentication' );
+    if( $requires_authentication && ! is_user_logged_in() )
+      return implode( '', $html );
+
     // Product Kit Request CTA:
     $html[] = '<div style="margin-bottom: 2em;">' . do_shortcode('[elementor-template id="2547"]') . '</div>';
     // Online Contracting CTA:
