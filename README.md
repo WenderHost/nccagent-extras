@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
 **Tested up to:** 6.2  
-**Stable tag:** 4.2.1.1  
+**Stable tag:** 4.2.1.2  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 4.2.1.2 ###
+* Updating Invalid Carrier Name alert email to go to hard-coded email address.
 
 ### 4.2.1.1 ###
 * BUGFIX: Checking for array before running `usort()` in `acf_get_product_carriers()`.
