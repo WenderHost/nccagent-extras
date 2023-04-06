@@ -107,9 +107,11 @@ function acf_get_product_carriers( $atts ){
       unset( $carriers[$key] );
   }
 
-  usort( $carriers, function( $a, $b ){
-    return strcmp( $a->post_title, $b->post_title );
-  });
+  if( is_array( $carriers ) ):
+    usort( $carriers, function( $a, $b ){
+      return strcmp( $a->post_title, $b->post_title );
+    });
+  endif;
 
   if( empty( $carriers ) )
     return '<p><code>No carriers found for `' . get_the_title( $post_id ) . '`.</code></p>';
