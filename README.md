@@ -1,8 +1,8 @@
 # NCCAgent Extras #
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 4.5  
-**Tested up to:** 6.2  
-**Stable tag:** 4.2.1.2  
+**Tested up to:** 6.4.2  
+**Stable tag:** 4.3.0  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,9 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 4.3.0 ###
+* Updating `composer.json` to allow for deploying via Composer inside the new Bedrock boilerplate version of the NCC Agent website.
 
 ### 4.2.1.2 ###
 * Updating Invalid Carrier Name alert email to go to hard-coded email address.
