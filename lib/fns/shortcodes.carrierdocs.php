@@ -20,7 +20,7 @@ function carrierdocs(){
     $carrierdocslink = ncc_hbs_render_template( 'agent-docs-login-or-register', [ 'home_url' => home_url() ] );
   }
 
-  $html = ncc_hbs_render_template( 'carrierdocs', [ 'carrierdocslink' => $carrierdocslink, 'carrier' => $carrier ] );
+  $html = ncc_hbs_render_template( 'carrierdocs', [ 'carrierdocslink' => $carrierdocslink, 'carrier' => get_the_title( $post ) ] );
 
   return $html;
 }
