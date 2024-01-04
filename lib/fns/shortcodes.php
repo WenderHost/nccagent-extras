@@ -139,7 +139,8 @@ function acf_get_product_carriers( $atts ){
     if( ! $logo || empty( $logo ) )
       $logo = plugin_dir_url( __FILE__ ) . '../img/placeholder_logo_800x450.png';
     $carriername = get_the_title( $carrier );
-    $link = get_the_permalink( $post->ID ) . $carrier->post_name . '/';
+    //$link = get_the_permalink( $post->ID ) . $carrier->post_name . '/';
+    $link = get_the_permalink( $carrier->ID );
     $html.= '<li><a href="' . $link . '"><img src="' . $logo . '" alt="' . $carriername . '" /></a><h3><a href="' . $link . '">' . $carriername . '</a></h3></li>';
   }
   $html.= '</ul>';
