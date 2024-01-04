@@ -33,6 +33,7 @@ function custom_breadcrumbs( $atts ) {
 
     $carrierproduct = sanitize_title_with_dashes( get_query_var( 'carrierproduct' ) );
     $productcarrier = sanitize_title_with_dashes( get_query_var( 'productcarrier' ) );
+    $children_subnav = ''; // Initializing variable
 
     // If you have any custom post types with custom taxonomies, put the taxonomy name below (e.g. product_cat)
     $custom_taxonomy    = 'product_cat';
