@@ -12,7 +12,7 @@ function dirlister_rest_api(){
     'methods' => 'GET',
     'permission_callback' => function(){
       if( ! current_user_can('read') ){
-        return new \WP_Error('forbidden', __('Only <a href="' . site_url( 'login' ) . '">registered users</a> can access the carrier document library.','nccagent') );
+        return new \WP_Error('forbidden', __('Only <a href="' . home_url( 'login' ) . '">registered users</a> can access the carrier document library.','nccagent') );
       } else {
         return true;
       }
@@ -233,8 +233,8 @@ function products_rest_api(){
                 'states'  => $states,
                 'states_review_date' => $product['product_details']['states_review_date'],
                 'plan_year' => $product['product_details']['plan_year'],
-                'online_contracting_url' => site_url( 'contracting/contract-online/' ),
-                'kit_request_url' => site_url( 'contracting/kit-request/' ),
+                'online_contracting_url' => home_url( 'contracting/contract-online/' ),
+                'kit_request_url' => home_url( 'contracting/kit-request/' ),
               ];
             }
           }

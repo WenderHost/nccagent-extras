@@ -47,7 +47,7 @@ function ncc_quick_links(){
     $vpn_link = get_field( 'vpn_link');
     if( $vpn_link )
       $links[] = [
-        'url'   => site_url('carrier-documents/'). '?path=' . $vpn_link,
+        'url'   => home_url('carrier-documents/'). '?path=' . $vpn_link,
         'text'  => get_the_title( $post->ID ) . ' Document Library',
       ];
   }
@@ -64,7 +64,7 @@ function ncc_quick_links(){
     if( isset( $link['post_type'] ) && ( $link['post_type'] != $post_type ) )
       continue;
 
-    $url = ( ! ('http' == substr( $link['url'], 0, 4 ) ) )? site_url( $link['url'] ) : $link['url'] ;
+    $url = ( ! ('http' == substr( $link['url'], 0, 4 ) ) )? home_url( $link['url'] ) : $link['url'] ;
     $list[] = '<a href="' . $url . '">' . $link['text'] . '</a>';
   }
   $html[] = '<ul><li>' . implode('</li><li>', $list ) . '</li></ul>';

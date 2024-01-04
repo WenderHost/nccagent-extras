@@ -56,7 +56,7 @@ function dirlister_button(){
     </div>
   </div>';
   $search = ['{siteurl}','{vpn_link}','{carrier}'];
-  $replace = [ site_url( '/tools/carrier-documents/' ), $vpn_link, get_the_title( $post->ID ) ];
+  $replace = [ home_url( '/tools/carrier-documents/' ), $vpn_link, get_the_title( $post->ID ) ];
   return str_replace( $search, $replace, $html );
 }
 add_shortcode( 'dirlisterbutton', __NAMESPACE__ . '\\dirlister_button' );

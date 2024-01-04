@@ -36,7 +36,7 @@ function contracting_confirmation( $atts ){
       $entry_id = $_GET['lid'];
 
     if( ! $entry_id || ! is_numeric( $entry_id ) )
-      return \ncc_get_alert([ 'title' => 'No Form Submission!', 'description' => 'You\'ve accessed this page without submitting the Online Contracting form. Please visit our <a href="' . site_url( 'contracting/contract-online/' ) . '">Online Contracting page</a> to sign up.' ]);
+      return \ncc_get_alert([ 'title' => 'No Form Submission!', 'description' => 'You\'ve accessed this page without submitting the Online Contracting form. Please visit our <a href="' . home_url( 'contracting/contract-online/' ) . '">Online Contracting page</a> to sign up.' ]);
 
     $entry = \GFAPI::get_entry( $entry_id );
   }

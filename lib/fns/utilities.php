@@ -161,8 +161,8 @@ function ncc_get_template( $atts ){
 
   $replace = [
     plugin_dir_url( __FILE__ ) . '../img/',
-    site_url('contracting/kit-request/'),
-    site_url(),
+    home_url('contracting/kit-request/'),
+    home_url(),
   ];
   if( ! is_null( $args['replace'] ) && is_array( $args['replace'] ) && 0 < count( $args['replace'] ) )
     $replace = array_merge( $replace, $args['replace'] );

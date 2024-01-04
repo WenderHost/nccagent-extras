@@ -26,11 +26,11 @@ function approve_user_message($user_id){
   // Get the "Approve User Message" from our ACF Options Page
   $approve_user_message = get_field( 'approve_user_message', 'option' );
   if( ! $approve_user_message || empty( $approve_user_message ) )
-    $approve_user_message = nl2br( "Your account at {site_name} has been approved.\n\nGet started by setting your password here: {site_url}/login\n\nBest Regards,\nThe NCC Team");
+    $approve_user_message = nl2br( "Your account at {site_name} has been approved.\n\nGet started by setting your password here: {home_url}/login\n\nBest Regards,\nThe NCC Team");
 
   // Replace any tokens in the message
-  $search = ['{site_name}','{site_url}'];
-  $replace = [ get_bloginfo( 'name' ), site_url() ];
+  $search = ['{site_name}','{home_url}'];
+  $replace = [ get_bloginfo( 'name' ), home_url() ];
   $approve_user_message = str_replace( $search, $replace, $approve_user_message );
 
     // Send mail.

@@ -42,7 +42,7 @@ function acf_get_carrier_products( $atts ){
     $html = ncc_hbs_render_template( 'product-list-heading', $data );
     $html.= ncc_get_alert([
       'title'       => 'REGISTRATION REQUIRED',
-      'description' => 'Please <a href="' . site_url( 'login-register' ) . '">register or login</a> to view ' . $carriername . '\'s current products and state availability for ' . $data['year'] . '.',
+      'description' => 'Please <a href="' . home_url( 'login-register' ) . '">register or login</a> to view ' . $carriername . '\'s current products and state availability for ' . $data['year'] . '.',
     ]);
     return $html;
   }
@@ -63,12 +63,12 @@ function acf_get_carrier_products( $atts ){
     $data['products'][$x]['description'] = wpautop( $product['product_details']['description'] );
     $data['products'][$x]['desc_review_date'] = $product['product_details']['desc_review_date'];
     $data['products'][$x]['medicare_product'] = ncc_is_medicare_product( $product_title );
-    $data['products'][$x]['medicare_quote_engine_url'] = site_url( 'tools/medicare-quote-engine/' );
+    $data['products'][$x]['medicare_quote_engine_url'] = home_url( 'tools/medicare-quote-engine/' );
     $data['products'][$x]['states'] = ncc_build_state_chiclets( $product['product_details']['states'] );
     $data['products'][$x]['states_review_date'] = $product['product_details']['states_review_date'];
     $data['products'][$x]['plan_year'] = $product['product_details']['plan_year'];
     $data['products'][$x]['carriername'] = $carriername;
-    $data['products'][$x]['kit_request_url'] = site_url('contracting/kit-request/');
+    $data['products'][$x]['kit_request_url'] = home_url('contracting/kit-request/');
     if( $product['product_details']['lower_issue_age'] && $product['product_details']['upper_issue_age'] ){
       $data['products'][$x]['lower_issue_age'] = $product['product_details']['lower_issue_age'];
       $data['products'][$x]['upper_issue_age'] = $product['product_details']['upper_issue_age'];
@@ -345,7 +345,7 @@ function product_finder( $atts ){
       'stateOptionData' => $state_options['data'],
       'stateLibrary'    => $state_options['library'],
       'marketerUrl'     => rest_url( 'wp/v2/team_member/' ),
-      'product_finder_slug' => str_replace( [site_url(),'/'], ['',''], $product_finder_url ),
+      'product_finder_slug' => str_replace( [home_url(),'/'], ['',''], $product_finder_url ),
     ]);
     $called = true;
   }
@@ -406,7 +406,7 @@ function readmore_content(){
 add_shortcode( 'readmore_content', __NAMESPACE__ . '\\readmore_content' );
 
 /**
- * Returns the WP logout URL, redirect defauts to `site_url()`.
+ * Returns the WP logout URL, redirect defauts to `home_url()`.
  *
  * @param      array  $atts   The shortcode atts
  *
@@ -414,7 +414,7 @@ add_shortcode( 'readmore_content', __NAMESPACE__ . '\\readmore_content' );
  */
 function logout_url( $atts ){
   $args = shortcode_atts([
-    'redirect' => site_url(),
+    'redirect' => home_url(),
   ], $atts );
   return wp_logout_url( $args['redirect'] );
 }

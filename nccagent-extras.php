@@ -12,9 +12,9 @@
  *
  * @package           Nccagent_Extras
  */
-$css_dir = ( stristr( site_url(), '.local' ) || SCRIPT_DEBUG )? 'css' : 'dist' ;
+$css_dir = ( stristr( home_url(), '.local' ) || SCRIPT_DEBUG )? 'css' : 'dist' ;
 define( 'NCC_CSS_DIR', $css_dir );
-define( 'NCC_DEV_ENV', stristr( site_url(), '.local' ) );
+define( 'NCC_DEV_ENV', stristr( home_url(), '.local' ) );
 define( 'NCC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'NCC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 

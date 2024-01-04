@@ -93,7 +93,7 @@ function custom_breadcrumbs( $atts ) {
 
         if( 'Carriers' == $post_type_object->labels->name || 'Products' == $post_type_object->labels->name ){
           $link_text = 'Carriers &amp; Products';
-          $post_type_archive = site_url( 'plans/' );
+          $post_type_archive = home_url( 'plans/' );
           /**
            * 03/27/2020 - Uncomment the folloiwng lines to add a drop down of Carriers to the "Carriers & Products"
            * breadcrumb. To really make this work, I need to code something to appropriately handle the list of
@@ -122,7 +122,7 @@ function custom_breadcrumbs( $atts ) {
         }
       } else {
         // Add a link to the "Blog" when we're on a post single.
-        $html[] = '<li><a href="' . site_url( 'blog/' ) .'">Blog</a></li>';
+        $html[] = '<li><a href="' . home_url( 'blog/' ) .'">Blog</a></li>';
         $html[] = '<li class="separator"> ' . $separator . ' </li>';
       }
 
@@ -194,7 +194,7 @@ function custom_breadcrumbs( $atts ) {
     } else if ( is_category() ) {
 
         // Category page
-        $html[] = '<li><a href="' . site_url( 'blog/' ) . '">Blog</a></li>';
+        $html[] = '<li><a href="' . home_url( 'blog/' ) . '">Blog</a></li>';
         $html[] = $separator_html;
         $html[] = '<li class="item-current item-cat"><span class="bread-current bread-cat">' . single_cat_title('', false) . '</span></li>';
 
@@ -288,7 +288,7 @@ function custom_breadcrumbs( $atts ) {
             case 'Carriers':
             case 'Product Finder':
             case 'Plans':
-              $link_text = '<a href="' . site_url( 'plans/' ) . '">Carriers &amp; Products</a>';
+              $link_text = '<a href="' . home_url( 'plans/' ) . '">Carriers &amp; Products</a>';
               break;
 
             case 'Carriers &#038; Products':
@@ -364,7 +364,7 @@ function custom_breadcrumbs( $atts ) {
     } else if ( get_query_var('paged') ) {
 
         // Paginated archives
-        $html[] = '<li><a href="' . site_url('blog/') . '">Blog</a></li>';
+        $html[] = '<li><a href="' . home_url('blog/') . '">Blog</a></li>';
         $html[] = $separator_html;
         $html[] = '<li class="item-current-' . get_query_var('paged') . '"><span class="bread-current bread-current-' . get_query_var('paged') . '" title="Page ' . get_query_var('paged') . '">'.__('Page') . ' ' . get_query_var('paged') . '</span></li>';
 
@@ -424,12 +424,12 @@ function get_subnav( $post_parent_id, $post_type = 'page' ){
     ){
       $item_classes = ['subnav-item'];
       $plans_children = [
-        'Product Finder'          => site_url( 'product-finder/' ),
-        'All Carriers'            => site_url( 'carriers/' ),
-        'Medicare Advantage'      => site_url( 'product/medicare-advantage/' ),
-        'Medicare Supplement'     => site_url( 'product/medicare-supplement/' ),
-        'Prescription Drug Plan'  => site_url( 'product/medicare-pdp/' ),
-        'Ancillaries'            => site_url( 'product/ancillaries/' ),
+        'Product Finder'          => home_url( 'product-finder/' ),
+        'All Carriers'            => home_url( 'carriers/' ),
+        'Medicare Advantage'      => home_url( 'product/medicare-advantage/' ),
+        'Medicare Supplement'     => home_url( 'product/medicare-supplement/' ),
+        'Prescription Drug Plan'  => home_url( 'product/medicare-pdp/' ),
+        'Ancillaries'            => home_url( 'product/ancillaries/' ),
       ];
       foreach( $plans_children as $title => $permalink ){
         $childrens[] = '<a class="' . implode( ' ', $item_classes ) . '" href="' . $permalink . '">' . $title . '</a>';
