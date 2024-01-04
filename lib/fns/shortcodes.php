@@ -70,13 +70,15 @@ function acf_get_carrier_products( $atts ){
 
   $html = '';
   $html.= ncc_hbs_render_template( 'product-list-heading', $data );
+  /*
   if( 3 <= count( $products ) ){
     $template = 'product-accordion';
     wp_enqueue_script( 'ncc-accordion' );
   } else {
     $template = 'product-list';
   }
-  $html.= ncc_hbs_render_template( $template, $data );
+  /**/
+  $html.= ncc_hbs_render_template( 'product-list', $data );
 
   return $html;
 }
