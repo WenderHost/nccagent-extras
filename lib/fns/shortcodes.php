@@ -115,9 +115,11 @@ function acf_get_product_carriers( $atts ){
   $carriers = get_field( 'carriers' );
 
   // Remove unpublished carriers
-  foreach ($carriers as $key => $carrier) {
-    if( 'publish' != $carrier->post_status )
-      unset( $carriers[$key] );
+  if( is_array( $carriers ) ){
+    foreach ($carriers as $key => $carrier) {
+      if( 'publish' != $carrier->post_status )
+        unset( $carriers[$key] );
+    }
   }
 
   if( is_array( $carriers ) ):
