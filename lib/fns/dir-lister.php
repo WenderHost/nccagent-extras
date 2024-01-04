@@ -47,7 +47,7 @@ function dirlister_button(){
   $html = '<div class="elementor-element elementor-widget elementor-widget-button">
     <div class="elementor-widget-container">
       <div class="elementor-button-wrapper">
-        <a href="{siteurl}?path={vpn_link}" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+        <a href="{home_url}?path={vpn_link}" class="elementor-button-link elementor-button elementor-size-sm" role="button">
           <span class="elementor-button-content-wrapper">
             <span class="elementor-button-text">Open {carrier} Document Library</span>
           </span>
@@ -55,7 +55,7 @@ function dirlister_button(){
       </div>
     </div>
   </div>';
-  $search = ['{siteurl}','{vpn_link}','{carrier}'];
+  $search = ['{home_url}','{vpn_link}','{carrier}'];
   $replace = [ home_url( '/tools/carrier-documents/' ), $vpn_link, get_the_title( $post->ID ) ];
   return str_replace( $search, $replace, $html );
 }

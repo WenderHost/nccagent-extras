@@ -30,9 +30,23 @@ use \LightnCandy\SafeString as SafeString;use \LightnCandy\Runtime as LR;return 
     );
     
     $inary=is_array($in);
-    return '<h2>'.htmlspecialchars((string)(($inary && isset($in['carriername'])) ? $in['carriername'] : null), ENT_QUOTES, 'UTF-8').' Products</h2>
-<ul class="'.htmlspecialchars((string)(($inary && isset($in['css_classes'])) ? $in['css_classes'] : null), ENT_QUOTES, 'UTF-8').'">
-'.LR::sec($cx, (($inary && isset($in['products'])) ? $in['products'] : null), null, $in, true, function($cx, $in) {$inary=is_array($in);return '  <li>'.htmlspecialchars((string)(($inary && isset($in['title'])) ? $in['title'] : null), ENT_QUOTES, 'UTF-8').'</li>
-';}).'</ul>';
+    return '<p>To view our Agent Docs Library, you\'ll need to either login or register for a free account:</p>
+
+<div class="elementor-button-wrapper" style="display: inline">
+  <a href="'.htmlspecialchars((string)(($inary && isset($in['home_url'])) ? $in['home_url'] : null), ENT_QUOTES, 'UTF-8').'/login/" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+    <span class="elementor-button-content-wrapper">
+      <span class="elementor-button-text">Login</span>
+    </span>
+  </a>
+</div>
+
+<div class="elementor-button-wrapper" style="display: inline">
+  <a href="'.htmlspecialchars((string)(($inary && isset($in['home_url'])) ? $in['home_url'] : null), ENT_QUOTES, 'UTF-8').'/register/" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+    <span class="elementor-button-content-wrapper">
+      <span class="elementor-button-text">Register</span>
+    </span>
+  </a>
+</div>
+';
 };
 ?>

@@ -30,9 +30,9 @@ use \LightnCandy\SafeString as SafeString;use \LightnCandy\Runtime as LR;return 
     );
     
     $inary=is_array($in);
-    return '<h2>'.htmlspecialchars((string)(($inary && isset($in['carriername'])) ? $in['carriername'] : null), ENT_QUOTES, 'UTF-8').' Products</h2>
-<ul class="'.htmlspecialchars((string)(($inary && isset($in['css_classes'])) ? $in['css_classes'] : null), ENT_QUOTES, 'UTF-8').'">
-'.LR::sec($cx, (($inary && isset($in['products'])) ? $in['products'] : null), null, $in, true, function($cx, $in) {$inary=is_array($in);return '  <li>'.htmlspecialchars((string)(($inary && isset($in['title'])) ? $in['title'] : null), ENT_QUOTES, 'UTF-8').'</li>
-';}).'</ul>';
+    return '<h2>'.htmlspecialchars((string)(($inary && isset($in['carrier'])) ? $in['carrier'] : null), ENT_QUOTES, 'UTF-8').' Documents</h2>
+<p>Explore our up to date library of tens of thousands of files from dozens of carriers, organized by state. Rate sheets, applications, underwriting guides, brochures, and more.</p>
+
+'.(($inary && isset($in['carrierdocslink'])) ? $in['carrierdocslink'] : null).'';
 };
 ?>
