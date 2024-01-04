@@ -6,20 +6,28 @@ namespace NCCAgent\shortcodes;
  * Lists Carrier > Products in an accordion
  *
  * @param      array  $atts{
- *  @type   int   $post_id  The post ID.
+ *   @type   int     $post_id  The post ID.
+ *   @type   bool    $expanded When TRUE, shows expanded Product information.
+ *   @type   string  $css_classes Space separated list of CSS classes to apply to the list.
  * }
  *
  * @return     string  HTML for the Carrier > Products accordion
  */
 function acf_get_carrier_products( $atts ){
   $args = shortcode_atts( [
-    'post_id' => null,
+    'post_id'     => null,
+    'expanded'    => false,
+    'css_classes' => 'product-list',
   ], $atts );
 
   $data = []; // Initialize the array we will pass to our handlebars templates.
+  $data['css_classes'] = $args['css_classes'];
 
   global $post;
   $post_id = ( is_null( $args['post_id'] ) )? $post->ID : $args['post_id'] ;
+
+  if ( $args['expanded'] === 'false' ) $args['expanded'] = false;
+  $args['expanded'] = (bool) $args['expanded'];
 
   $products = get_field( 'products' );
   if( empty( $products ) )
@@ -69,20 +77,23 @@ function acf_get_carrier_products( $atts ){
   }
 
   $html = '';
-  $html.= ncc_hbs_render_template( 'product-list-heading', $data );
-  /*
-  if( 3 <= count( $products ) ){
-    $template = 'product-accordion';
-    wp_enqueue_script( 'ncc-accordion' );
+  if( $args['expanded'] ){
+    $html.= ncc_hbs_render_template( 'product-list-heading', $data );
+    if( 3 <= count( $products ) ){
+      $template = 'product-accordion';
+      wp_enqueue_script( 'ncc-accordion' );
+    } else {
+      $template = 'product-list-expanded';
+    }
   } else {
     $template = 'product-list';
   }
-  /**/
-  $html.= ncc_hbs_render_template( 'product-list', $data );
+  $html.= ncc_hbs_render_template( $template, $data );
 
   return $html;
 }
 add_shortcode( 'acf_carrier_products', __NAMESPACE__ . '\\acf_get_carrier_products' );
+add_shortcode( 'carrier_products', __NAMESPACE__ . '\\acf_get_carrier_products' );
 
 /**
  * Displays a list of Carriers for a Product

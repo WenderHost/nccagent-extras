@@ -28,3 +28,4 @@ function carrierdocs(){
   return $html;
 }
 add_shortcode( 'carrierdocs', __NAMESPACE__ . '\\carrierdocs' );
+add_shortcode( 'carrier_docs', __NAMESPACE__ . '\\carrierdocs' );
