@@ -26,7 +26,7 @@ function product_page(){
   } else {
     $html[] = '<h1>' . get_the_title( $product->ID ) . ' FMO for Agent Contracting</h1>';
     $html[] = '<div style="margin-bottom: 2em;">' . get_the_content() . '</div>';
-    $html[] = ncc_product_by_state_selector();
+    //$html[] = ncc_product_by_state_selector();
     $html[] = '<div style="margin-bottom: 2em;"><h3>Explore ' . get_the_title( $product->ID ) . ' Products from these Carriers</h3>' . \NCCAgent\shortcodes\acf_get_product_carriers([ 'post_id' => $product->ID ] ) . '</div>';
   }
   return implode( '', $html );
