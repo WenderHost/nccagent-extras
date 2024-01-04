@@ -424,7 +424,7 @@ function get_subnav( $post_parent_id, $post_type = 'page' ){
     ){
       $item_classes = ['subnav-item'];
       $plans_children = [
-        'Product Finder'          => home_url( 'product-finder/' ),
+        /*'Product Finder'          => home_url( 'product-finder/' ),*/
         'All Carriers'            => home_url( 'carriers/' ),
         'Medicare Advantage'      => home_url( 'product/medicare-advantage/' ),
         'Medicare Supplement'     => home_url( 'product/medicare-supplement/' ),
