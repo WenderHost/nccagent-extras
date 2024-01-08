@@ -1,0 +1,42 @@
+{
+    "key": "group_5daf2482a15e0",
+    "title": "News Item Options",
+    "fields": [
+        {
+            "key": "field_5daf248efe4aa",
+            "label": "Link URL",
+            "name": "link_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Add a link for your News Item title and featured image.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "whatsnew"
+            }
+        ]
+    ],
+    "menu_order": 2,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1704730994
+}
