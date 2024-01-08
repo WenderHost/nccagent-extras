@@ -4,26 +4,22 @@
   "main": "Gruntfile.js",
   "author": "Michael Wender",
   "devDependencies": {
-    "autoprefixer": "^9.7.4",
-    "chokidar-cli": "^2.1.0",
+    "globcat": "^3.1.1",
     "grunt": "^1.1.0",
     "grunt-wp-i18n": "^1.0.3",
     "grunt-wp-readme-to-markdown": "~2.0.1",
-    "node-sass-chokidar": "^1.5.0",
     "npm-run-all": "^4.1.5",
-    "postcss-cli": "^7.1.0"
+    "onchange": "^7.1.0",
+    "sass": "^1.69.7",
+    "uglify-js": "^3.17.4"
   },
   "scripts": {
-    "build-task:scss-compile": "node-sass-chokidar --source-map true lib/scss/ -o lib/css",
-    "build-task:autoprefixer": "postcss lib/css/*.css --use autoprefixer -d lib/css",
-    "development:browsersync": "browser-sync start --proxy 'https://nccagent.local' --files 'lib/css/*.css' 'lib/html/*.*' 'lib/fns/*.*' 'lib/js/*.js'",
-    "development:build": "npm-run-all -p build-task:*",
-    "development:watch": "chokidar 'lib/scss/**/*.scss' -c 'npm run development:build'",
-    "production:scss-compile": "node-sass-chokidar lib/scss/ -o lib/dist --output-style compressed ",
-    "production:autoprefixer": "postcss lib/dist/*.css --no-map --use autoprefixer -d lib/dist",
-    "dev": "npm-run-all -p development:*",
-    "prod": "npm-run-all -p production:*",
-    "devbuild": "npm-run-all -p build-task:*"
+    "build": "npm run sass:prod",
+    "build:css": "npm-run-all --parallel sass:*",
+    "sass:dev": "sass --update --style=expanded lib/scss:lib/css",
+    "sass:prod": "sass --no-source-map --style=compressed lib/scss:lib/dist",
+    "watch:css": "onchange 'lib/scss/*.scss' -- npm run build:css",
+    "watch": "npm-run-all --parallel watch:*"
   },
   "dependencies": {
     "npm-check-updates": "^4.0.4"
