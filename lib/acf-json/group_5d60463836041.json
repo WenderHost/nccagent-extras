@@ -1,0 +1,54 @@
+{
+    "key": "group_5d60463836041",
+    "title": "Product Options",
+    "fields": [
+        {
+            "key": "field_5d60465a3d7db",
+            "label": "Carriers",
+            "name": "carriers",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "<strong>Instructions:<\/strong> Use the interface below to control which Carriers show on the Product Page for this Product. <strong>On the left:<\/strong> List of all available Carriers. <strong>On the right:<\/strong> For any Carriers who offer this product, add them to the list on the right by clicking on the Carrier. After making your edits, be sure to save this Product by clicking UPDATE in the right sidebar.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "carrier"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "filters": [
+                "search"
+            ],
+            "return_format": "object",
+            "min": "",
+            "max": "",
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            }
+        ]
+    ],
+    "menu_order": 3,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1704729384
+}
