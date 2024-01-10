@@ -127,6 +127,7 @@
             "max": 0,
             "layout": "table",
             "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
                     "key": "field_5d682b3ac28db",
@@ -150,7 +151,8 @@
                     "multiple": 0,
                     "return_format": "object",
                     "ui": 1,
-                    "parent_repeater": "field_5d60469883e10"
+                    "parent_repeater": "field_5d60469883e10",
+                    "bidirectional_target": []
                 },
                 {
                     "key": "field_5d682cacffa29",
@@ -167,6 +169,7 @@
                         "id": ""
                     },
                     "layout": "block",
+                    "parent_repeater": "field_5d60469883e10",
                     "sub_fields": [
                         {
                             "key": "field_5d8a08accf789",
@@ -187,249 +190,10 @@
                             "prepend": "",
                             "append": "",
                             "maxlength": ""
-                        },
-                        {
-                            "key": "field_5e664b6f2d67a",
-                            "label": "Lower Issue Age",
-                            "name": "lower_issue_age",
-                            "aria-label": "",
-                            "type": "number",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "15",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "min": "",
-                            "max": "",
-                            "step": ""
-                        },
-                        {
-                            "key": "field_5e664b852d67b",
-                            "label": "Upper Issue Age",
-                            "name": "upper_issue_age",
-                            "aria-label": "",
-                            "type": "number",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "15",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "min": "",
-                            "max": "",
-                            "step": ""
-                        },
-                        {
-                            "key": "field_5e4e687458e41",
-                            "label": "Source File Name",
-                            "name": "source_file_name",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "50",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "maxlength": ""
-                        },
-                        {
-                            "key": "field_5e4e688858e42",
-                            "label": "Source File Date",
-                            "name": "source_file_date",
-                            "aria-label": "",
-                            "type": "date_picker",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "20",
-                                "class": "",
-                                "id": ""
-                            },
-                            "display_format": "m\/d\/Y",
-                            "return_format": "m\/d\/Y",
-                            "first_day": 0
-                        },
-                        {
-                            "key": "field_5d682b6fc28dc",
-                            "label": "Description",
-                            "name": "description",
-                            "aria-label": "",
-                            "type": "wysiwyg",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "tabs": "all",
-                            "toolbar": "full",
-                            "media_upload": 0,
-                            "delay": 0
-                        },
-                        {
-                            "key": "field_5e4e685e58e40",
-                            "label": "Description Review Date",
-                            "name": "desc_review_date",
-                            "aria-label": "",
-                            "type": "date_picker",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "100",
-                                "class": "",
-                                "id": ""
-                            },
-                            "display_format": "m\/d\/Y",
-                            "return_format": "m\/d\/Y",
-                            "first_day": 0
-                        },
-                        {
-                            "key": "field_5d682b94c28dd",
-                            "label": "States",
-                            "name": "states",
-                            "aria-label": "",
-                            "type": "select",
-                            "instructions": "Select the states where this insurer provides this product.",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "100",
-                                "class": "",
-                                "id": ""
-                            },
-                            "choices": {
-                                "AK": "AK",
-                                "AL": "AL",
-                                "AZ": "AZ",
-                                "AR": "AR",
-                                "CA": "CA",
-                                "CO": "CO",
-                                "CT": "CT",
-                                "DC": "DC",
-                                "DE": "DE",
-                                "FL": "FL",
-                                "GA": "GA",
-                                "HI": "HI",
-                                "ID": "ID",
-                                "IL": "IL",
-                                "IN": "IN",
-                                "IA": "IA",
-                                "KS": "KS",
-                                "KY": "KY",
-                                "LA": "LA",
-                                "ME": "ME",
-                                "MD": "MD",
-                                "MA": "MA",
-                                "MI": "MI",
-                                "MN": "MN",
-                                "MS": "MS",
-                                "MO": "MO",
-                                "MT": "MT",
-                                "NE": "NE",
-                                "NV": "NV",
-                                "NH": "NH",
-                                "NJ": "NJ",
-                                "NM": "NM",
-                                "NY": "NY",
-                                "NC": "NC",
-                                "ND": "ND",
-                                "OH": "OH",
-                                "OK": "OK",
-                                "OR": "OR",
-                                "PA": "PA",
-                                "RI": "RI",
-                                "SC": "SC",
-                                "SD": "SD",
-                                "TN": "TN",
-                                "TX": "TX",
-                                "UT": "UT",
-                                "VT": "VT",
-                                "VA": "VA",
-                                "WA": "WA",
-                                "WV": "WV",
-                                "WI": "WI",
-                                "WY": "WY"
-                            },
-                            "default_value": [
-                                "Select states..."
-                            ],
-                            "allow_null": 0,
-                            "multiple": 1,
-                            "ui": 1,
-                            "ajax": 0,
-                            "return_format": "value",
-                            "placeholder": ""
-                        },
-                        {
-                            "key": "field_5ea9c25a1704a",
-                            "label": "States Review Date",
-                            "name": "states_review_date",
-                            "aria-label": "",
-                            "type": "date_picker",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "100",
-                                "class": "",
-                                "id": ""
-                            },
-                            "display_format": "m\/d\/Y",
-                            "return_format": "m\/d\/Y",
-                            "first_day": 0
-                        },
-                        {
-                            "key": "field_5faa7c00d2af7",
-                            "label": "Plan Year",
-                            "name": "plan_year",
-                            "aria-label": "",
-                            "type": "number",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "100",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "min": "",
-                            "max": "",
-                            "step": ""
                         }
-                    ],
-                    "parent_repeater": "field_5d60469883e10"
+                    ]
                 }
-            ],
-            "rows_per_page": 20
+            ]
         }
     ],
     "location": [
@@ -450,5 +214,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1704731243
+    "modified": 1704921521
 }
