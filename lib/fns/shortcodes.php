@@ -153,26 +153,39 @@ add_shortcode( 'acf_product_carriers', __NAMESPACE__ . '\\acf_get_product_carrie
  * Displays the `[ncclistall]` shortcode.
  *
  * @param      array  $atts {
- *   @type  string  $type  The post type we are displaying. Can be either "carrier" or "product".
+ *   @type  string  $type     The post type we are displaying. Can be either "carrier" or "product".
+ *   @type  mixed   $depth    Set this to "1" to only show CPTs which are not children. Defaults to "all".
+ *   @type  string  $exclude  Comma separated list of Post IDs for posts we want to exclude from the listing.
  * }
  *
  * @return     string  HTML display of all NCC Carrier or Product post types.
  */
 function list_all( $atts ){
   $args = shortcode_atts( [
-    'type' => 'carriers'
+    'type' => 'carrier',
+    'depth' => 'all',
+    'exclude' => null,
   ], $atts );
 
   $post_type = ( ! in_array( $args['type'], ['carrier','product'] ) )? 'carrier' : $args['type'] ;
 
-  $args = [
+  $get_posts_args = [
     'post_type'       => $post_type,
     'posts_per_page'  => -1,
     'orderby'         => 'title',
     'order'           => 'ASC',
     'post_status'     => 'publish',
   ];
-  $posts = get_posts( $args );
+
+  if( 1 == $args['depth'] )
+    $get_posts_args['post_parent'] = 0;
+
+  if( ! empty( $args['exclude'] ) ){
+    $exclude = ( stristr( $args['exclude'], ',' ) )? explode( ',', $args['exclude'] ) : [ $args['exclude'] ] ;
+    $get_posts_args['exclude'] = $exclude;
+  }
+
+  $posts = get_posts( $get_posts_args );
   if( ! $posts )
     return ncc_get_alert( ['title' => 'No "' . $post_type . '" Posts Found', 'description' => 'No ' . $post_type . ' posts were found. Please add some via the admin.'] );
 
