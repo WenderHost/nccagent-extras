@@ -149,6 +149,49 @@ function acf_get_product_carriers( $atts ){
 }
 add_shortcode( 'acf_product_carriers', __NAMESPACE__ . '\\acf_get_product_carriers' );
 
+function list_all( $atts ){
+  $args = shortcode_atts( [
+    'type' => 'carriers'
+  ], $atts );
+
+  $post_type = ( ! in_array( $args['type'], ['carrier','product'] ) )? 'carriers' : $args['type'] ;
+
+  $args = [
+    'post_type'       => $post_type,
+    'posts_per_page'  => -1,
+    'orderby'         => 'title',
+    'order'           => 'ASC',
+    'post_status'     => 'publish',
+  ];
+  $posts = get_posts( $args );
+  if( ! $posts )
+    return ncc_get_alert( ['No "' . $post_type . '" Posts Found', 'description' => 'No ' . $post_type . ' posts were found. Please add some via the admin.'] );
+
+  $html = '';
+  $html.= '<ul class="carriers">';
+
+  foreach( $posts as $post ){
+    $logo = plugin_dir_url( __FILE__ ) . '../img/placeholder_logo_800x450.png';
+    if( has_post_thumbnail( $post->ID ) ){
+      $thumbnail_id = get_post_thumbnail_id( $post->ID );
+      $image_metadata = wp_get_attachment_metadata( $thumbnail_id );
+      if( $image_metadata ){
+        $width = $image_metadata['width'];
+        $height = $image_metadata['height'];
+      }
+      if( 800 == $width && 450 == $height )
+        $logo = get_the_post_thumbnail_url( $post->ID, 'full' );
+    }
+    $name = get_the_title( $post->ID );
+    $link = get_the_permalink( $post->ID );
+    $html.= '<li><a href="' . $link . '"><img src="' . $logo . '" alt="' . $name . '" /></a><h3><a href="' . $link . '">' . $name . '</a></h3></li>';
+  }
+
+  $html.= '</ul>';
+  return $html;
+}
+add_shortcode( 'ncclistall', __NAMESPACE__ . '\\list_all' );
+
 /**
  * Sets the excerpt length at 25 words.
  *
