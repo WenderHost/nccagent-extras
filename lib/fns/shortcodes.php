@@ -149,12 +149,21 @@ function acf_get_product_carriers( $atts ){
 }
 add_shortcode( 'acf_product_carriers', __NAMESPACE__ . '\\acf_get_product_carriers' );
 
+/**
+ * Displays the `[ncclistall]` shortcode.
+ *
+ * @param      array  $atts {
+ *   @type  string  $type  The post type we are displaying. Can be either "carrier" or "product".
+ * }
+ *
+ * @return     string  HTML display of all NCC Carrier or Product post types.
+ */
 function list_all( $atts ){
   $args = shortcode_atts( [
     'type' => 'carriers'
   ], $atts );
 
-  $post_type = ( ! in_array( $args['type'], ['carrier','product'] ) )? 'carriers' : $args['type'] ;
+  $post_type = ( ! in_array( $args['type'], ['carrier','product'] ) )? 'carrier' : $args['type'] ;
 
   $args = [
     'post_type'       => $post_type,
@@ -165,7 +174,7 @@ function list_all( $atts ){
   ];
   $posts = get_posts( $args );
   if( ! $posts )
-    return ncc_get_alert( ['No "' . $post_type . '" Posts Found', 'description' => 'No ' . $post_type . ' posts were found. Please add some via the admin.'] );
+    return ncc_get_alert( ['title' => 'No "' . $post_type . '" Posts Found', 'description' => 'No ' . $post_type . ' posts were found. Please add some via the admin.'] );
 
   $html = '';
   $html.= '<ul class="carriers">';
