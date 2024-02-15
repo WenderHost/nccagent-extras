@@ -60,19 +60,19 @@ function acf_get_carrier_products( $atts ){
     $data['products'][$x]['toggle_id'] = $product['product']->post_name . '-' . $x;
     $data['products'][$x]['permalink'] = get_the_permalink( $args['post_id'] ) . sanitize_title_with_dashes( $product_title ) . '/';
     $data['products'][$x]['title'] = $product_title;
-    $data['products'][$x]['description'] = wpautop( $product['product_details']['description'] );
-    $data['products'][$x]['desc_review_date'] = $product['product_details']['desc_review_date'];
+    //$data['products'][$x]['description'] = wpautop( $product['product_details']['description'] );
+    //$data['products'][$x]['desc_review_date'] = $product['product_details']['desc_review_date'];
     $data['products'][$x]['medicare_product'] = ncc_is_medicare_product( $product_title );
     $data['products'][$x]['medicare_quote_engine_url'] = home_url( 'tools/medicare-quote-engine/' );
-    $data['products'][$x]['states'] = ncc_build_state_chiclets( $product['product_details']['states'] );
-    $data['products'][$x]['states_review_date'] = $product['product_details']['states_review_date'];
-    $data['products'][$x]['plan_year'] = $product['product_details']['plan_year'];
+    //$data['products'][$x]['states'] = ncc_build_state_chiclets( $product['product_details']['states'] );
+    //$data['products'][$x]['states_review_date'] = $product['product_details']['states_review_date'];
+    //$data['products'][$x]['plan_year'] = $product['product_details']['plan_year'];
     $data['products'][$x]['carriername'] = $carriername;
     $data['products'][$x]['kit_request_url'] = home_url('contracting/kit-request/');
-    if( $product['product_details']['lower_issue_age'] && $product['product_details']['upper_issue_age'] ){
-      $data['products'][$x]['lower_issue_age'] = $product['product_details']['lower_issue_age'];
-      $data['products'][$x]['upper_issue_age'] = $product['product_details']['upper_issue_age'];
-    }
+    //if( $product['product_details']['lower_issue_age'] && $product['product_details']['upper_issue_age'] ){
+      //$data['products'][$x]['lower_issue_age'] = $product['product_details']['lower_issue_age'];
+      //$data['products'][$x]['upper_issue_age'] = $product['product_details']['upper_issue_age'];
+    //}
     $x++;
   }
 
