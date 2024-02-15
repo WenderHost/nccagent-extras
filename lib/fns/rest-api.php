@@ -210,8 +210,8 @@ function products_rest_api(){
                 continue;
 
               // Get our array of `states`, sort them alphabetically, and format them as a string of HTML `chiclets`:
-              $states = $product['product_details']['states'];
-              $states = ncc_build_state_chiclets( $product['product_details']['states'] );
+              //$states = $product['product_details']['states'];
+              //$states = ncc_build_state_chiclets( $product['product_details']['states'] );
 
               // Set $product_title to not be empty so that this product always has an `alt_name`:
               $product_title = ( ! empty( $product['product_details']['alternate_product_name'] ) )? $product['product_details']['alternate_product_name'] : $product['product']->post_title ;
@@ -226,13 +226,13 @@ function products_rest_api(){
                   'name'  => get_the_title( $carrier->ID ),
                   'url'   => get_the_permalink( $carrier->ID )
                 ],
-                'lower_issue_age' => $product['product_details']['lower_issue_age'],
-                'upper_issue_age' => $product['product_details']['upper_issue_age'],
-                'description' => $product['product_details']['description'],
-                'desc_review_date' => $product['product_details']['desc_review_date'],
-                'states'  => $states,
-                'states_review_date' => $product['product_details']['states_review_date'],
-                'plan_year' => $product['product_details']['plan_year'],
+                //'lower_issue_age' => $product['product_details']['lower_issue_age'],
+                //'upper_issue_age' => $product['product_details']['upper_issue_age'],
+                //'description' => $product['product_details']['description'],
+                //'desc_review_date' => $product['product_details']['desc_review_date'],
+                //'states'  => $states,
+                //'states_review_date' => $product['product_details']['states_review_date'],
+                //'plan_year' => $product['product_details']['plan_year'],
                 'online_contracting_url' => home_url( 'contracting/contract-online/' ),
                 'kit_request_url' => home_url( 'contracting/kit-request/' ),
               ];
