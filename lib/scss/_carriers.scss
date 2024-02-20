@@ -23,6 +23,18 @@
   li{
     margin-left: 12px;
   }
+
+  @media screen and (max-width: 800px){
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+
+  @media screen and (max-width: 420px){
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+  }
 }
 
 .carriers li{
