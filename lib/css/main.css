@@ -978,7 +978,7 @@ body.logged-in .logged-out {
   margin-bottom: 0;
 }
 .carriers-multi-column li {
-  margin-left: 12px;
+  margin-left: 15px;
 }
 @media screen and (max-width: 800px) {
   .carriers-multi-column {
