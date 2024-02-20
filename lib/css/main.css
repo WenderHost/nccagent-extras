@@ -975,6 +975,7 @@ body.logged-in .logged-out {
   column-gap: 20px;
   list-style-type: none;
   padding: 0;
+  margin-bottom: 0;
 }
 
 .carriers li {
