@@ -106,13 +106,17 @@ add_shortcode( 'carrier_products', __NAMESPACE__ . '\\acf_get_carrier_products' 
  */
 function acf_get_product_carriers( $atts ){
   $args = shortcode_atts( [
-    'post_id' => null,
+    'post_id'   => null,
+    'textonly'  => false,
   ], $atts );
 
   global $post;
   $post_id = ( is_null( $args['post_id'] ) )? $post->ID : $args['post_id'] ;
 
   $carriers = get_field( 'carriers' );
+
+  if ( $args['textonly'] === 'false' ) $args['textonly'] = false;
+  $args['textonly'] = (bool) $args['textonly'];
 
   // Remove unpublished carriers
   if( is_array( $carriers ) ){
@@ -134,15 +138,26 @@ function acf_get_product_carriers( $atts ){
   $html = '';
   $html.= '<ul class="carriers">';
 
-  foreach( $carriers as $carrier ){
-    $logo = get_the_post_thumbnail_url( $carrier, 'full' );
-    if( ! $logo || empty( $logo ) )
-      $logo = plugin_dir_url( __FILE__ ) . '../img/placeholder_logo_800x450.png';
-    $carriername = get_the_title( $carrier );
-    //$link = get_the_permalink( $post->ID ) . $carrier->post_name . '/';
-    $link = get_the_permalink( $carrier->ID );
-    $html.= '<li><a href="' . $link . '"><img src="' . $logo . '" alt="' . $carriername . '" /></a><h3><a href="' . $link . '">' . $carriername . '</a></h3></li>';
+  if( $args['textonly'] ){
+    $html = '<ul class="carriers-multi-column">';
+    foreach( $carriers as $carrier ){
+      $carriername = get_the_title( $carrier );
+      $link = get_the_permalink( $carrier->ID );
+      $html.= '<li><a href="' . $link . '">' . $carriername . '</a></li>';
+    }
+  } else {
+    foreach( $carriers as $carrier ){
+      $logo = get_the_post_thumbnail_url( $carrier, 'full' );
+      if( ! $logo || empty( $logo ) )
+        $logo = plugin_dir_url( __FILE__ ) . '../img/placeholder_logo_800x450.png';
+      $carriername = get_the_title( $carrier );
+      //$link = get_the_permalink( $post->ID ) . $carrier->post_name . '/';
+      $link = get_the_permalink( $carrier->ID );
+      $html.= '<li><a href="' . $link . '"><img src="' . $logo . '" alt="' . $carriername . '" /></a><h3><a href="' . $link . '">' . $carriername . '</a></h3></li>';
+    }
   }
+
+
   $html.= '</ul>';
 
   return $html;
