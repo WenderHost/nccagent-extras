@@ -3,38 +3,62 @@
     "title": "Email Settings",
     "fields": [
         {
+            "key": "field_67d281725c85d",
+            "label": "FROM Address",
+            "name": "from_address",
+            "aria-label": "",
+            "type": "email",
+            "instructions": "The emails below will use this email address for the FROM address. <strong>IMPORTANT:<\/strong> Please ensure this email uses the same domain as this website. Otherwise, emails sent by this site will be rejected as spam.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_5e90b367db7f1",
             "label": "Create User Message Subject",
             "name": "create_user_message_subject",
+            "aria-label": "",
             "type": "text",
             "instructions": "This is the subject of the email sent to the user after he\/she submits the registration form.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "30",
                 "class": "",
                 "id": ""
             },
             "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 1,
             "placeholder": "",
             "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "append": ""
         },
         {
             "key": "field_5e90b38edb7f2",
             "label": "Create User Message",
             "name": "create_user_message",
+            "aria-label": "",
             "type": "wysiwyg",
-            "instructions": "This is the message sent to the user after he\/she registers on the site. Allow tokens: <code>{site_name}<\/code>, <code>{firstname}<\/code>.",
+            "instructions": "This is the message sent to the user after he\/she registers on the site. Allowed tokens: <code>{site_name}<\/code>, <code>{firstname}<\/code>.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "70",
                 "class": "",
                 "id": ""
             },
             "default_value": "",
+            "allow_in_bindings": 1,
             "tabs": "all",
             "toolbar": "full",
             "media_upload": 1,
@@ -44,35 +68,39 @@
             "key": "field_5e90a79a9384e",
             "label": "Approve User Message Subject",
             "name": "approve_user_message_subject",
+            "aria-label": "",
             "type": "text",
             "instructions": "This is the subject of the email that gets sent to approved users.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "30",
                 "class": "",
                 "id": ""
             },
             "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 1,
             "placeholder": "",
             "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "append": ""
         },
         {
             "key": "field_5e90a7bbea54f",
             "label": "Approve User Message",
             "name": "approve_user_message",
+            "aria-label": "",
             "type": "wysiwyg",
             "instructions": "This is the text of the email message sent to users when you approve them. Allowed tokens: <code>{site_url}<\/code>, <code>{site_name}<\/code>.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "70",
                 "class": "",
                 "id": ""
             },
             "default_value": "",
+            "allow_in_bindings": 1,
             "tabs": "all",
             "toolbar": "basic",
             "media_upload": 0,
@@ -82,6 +110,7 @@
             "key": "field_5ebaa278da9ee",
             "label": "Disable Delete User Message",
             "name": "disable_delete_user_message",
+            "aria-label": "",
             "type": "checkbox",
             "instructions": "When checked, WordPress will not send the following message when the user's account is deleted.",
             "required": 0,
@@ -95,45 +124,50 @@
                 "true": "Disable"
             },
             "allow_custom": 0,
-            "default_value": [],
+            "default_value": false,
             "layout": "vertical",
             "toggle": 0,
             "return_format": "array",
-            "save_custom": 0
+            "save_custom": 0,
+            "custom_choice_button_text": "Add new choice"
         },
         {
             "key": "field_5e909b592b520",
             "label": "Delete User Message Subject",
             "name": "delete_user_message_subject",
+            "aria-label": "",
             "type": "text",
             "instructions": "This is the subject of the email sent to a user when his\/her account is not approved (i.e. deleted).",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "30",
                 "class": "",
                 "id": ""
             },
             "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 1,
             "placeholder": "",
             "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "append": ""
         },
         {
             "key": "field_5e909b0a00192",
             "label": "Delete User Message",
             "name": "delete_user_message",
+            "aria-label": "",
             "type": "wysiwyg",
             "instructions": "This message is sent to the user when their registration is not approved. Use may use these tokens: <code>{site_name}<\/code>.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "70",
                 "class": "",
                 "id": ""
             },
             "default_value": "",
+            "allow_in_bindings": 1,
             "tabs": "all",
             "toolbar": "basic",
             "media_upload": 0,
@@ -155,7 +189,8 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1589290662
+    "show_in_rest": 0,
+    "modified": 1741850175
 }
