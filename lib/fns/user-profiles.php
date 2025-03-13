@@ -33,8 +33,12 @@ function approve_user_message($user_id){
   $replace = [ get_bloginfo( 'name' ), home_url() ];
   $approve_user_message = str_replace( $search, $replace, $approve_user_message );
 
+  $from_address = get_field( 'from_address', 'option' );
+  if( empty( $from_address ) || ! is_email( $from_address ) )
+    $from_address = get_bloginfo( 'admin_email' );  
+
     // Send mail.
-  $headers[] = 'From: ' . get_bloginfo("name") . ' <' . get_bloginfo("admin_email") . '>' . "\r\n";
+  $headers[] = 'From: ' . get_bloginfo("name") . ' <' . $from_address . '>' . "\r\n";
   $headers[] = 'Content-Type: text/html; charset=UTF-8';
   $sent = wp_mail(
     $user->user_email,
@@ -78,7 +82,11 @@ function create_user_message( $user_id ){
   $replace = [ get_bloginfo( 'name' ), $user->first_name ];
   $create_user_message = str_replace( $search, $replace, $create_user_message );
 
-  $headers[] = 'From: ' . get_bloginfo("name") . ' <' . get_bloginfo("admin_email") . '>' . "\r\n";
+  $from_address = get_field( 'from_address', 'option' );
+  if( empty( $from_address ) || ! is_email( $from_address ) )
+    $from_address = get_bloginfo( 'admin_email' );
+
+  $headers[] = 'From: ' . get_bloginfo("name") . ' <' . $from_address . '>' . "\r\n";
   $headers[] = 'Content-Type: text/html; charset=UTF-8';
   wp_mail($user->user_email, $create_user_message_subject, $create_user_message, $headers);
 }
@@ -111,7 +119,11 @@ function delete_user_message( $user_id ){
   $replace = [ get_bloginfo( 'name' ) ];
   $delete_user_message = str_replace( $search, $replace, $delete_user_message );
 
-  $headers[] = 'From: ' . get_bloginfo("name") . ' <' . get_bloginfo("admin_email") . '>' . "\r\n";
+  $from_address = get_field( 'from_address', 'option' );
+  if( empty( $from_address ) || ! is_email( $from_address ) )
+    $from_address = get_bloginfo( 'admin_email' );  
+
+  $headers[] = 'From: ' . get_bloginfo("name") . ' <' . $from_address . '>' . "\r\n";
   $headers[] = 'Content-Type: text/html; charset=UTF-8';
   wp_mail($email, $delete_user_message_subject, $delete_user_message, $headers);
 }
