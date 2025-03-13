@@ -2,7 +2,7 @@
 Contributors: the_webist
 Requires at least: 6.4
 Tested up to: 6.7.2
-Stable tag: 4.4.0
+Stable tag: 4.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 == Changelog ==
+
+= 4.5.0 =
+* Adding ACF Local JSON.
+* Setting FROM address via ACF Field.
 
 = 4.4.0 =
 * Removing Product Finder.
