@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 6.4  
 **Tested up to:** 6.7.2  
-**Stable tag:** 4.6.0  
+**Stable tag:** 4.6.1  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,10 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 4.6.1 ###
+* Dequeuing `global.js` as it only contains deprecated/unused JavaScript.
+* Disabling `enqueue_cleanup()`. Restores "X" icon in social media icons widget.
 
 ### 4.6.0 ###
 * Adding Elementor Cloudflare Turnstile integration.

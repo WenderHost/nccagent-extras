@@ -17,7 +17,7 @@ function enqueue_cleanup(){
   wp_dequeue_style( 'font-awesome-v4-shims' );
   wp_dequeue_style( 'jet-menu-public' );
 }
-add_action( 'elementor/frontend/after_register_styles', __NAMESPACE__ . '\\enqueue_cleanup', 999 );
+//add_action( 'elementor/frontend/after_register_styles', __NAMESPACE__ . '\\enqueue_cleanup', 999 );
 
 /**
  * Enqueues our scripts and styles.
@@ -41,7 +41,8 @@ function enqueue_scripts(){
   wp_register_script( 'dirlister', plugin_dir_url( __FILE__ ) . '../js/dirlister.js', ['jquery'], filemtime( plugin_dir_path( __FILE__ ) . '../js/dirlister.js' ), true );
 
   // Global JS
-  wp_enqueue_script( 'globaljs', plugin_dir_url( __FILE__ ) . '../js/global.js', ['jquery'], filemtime( plugin_dir_path( __FILE__ ) ) . '../js/global.js', true );
+  // 01/07/2026 (13:10) - globaljs only contains deprecated code, disabling
+  //wp_enqueue_script( 'globaljs', plugin_dir_url( __FILE__ ) . '../js/global.js', ['jquery'], filemtime( plugin_dir_path( __FILE__ ) ) . '../js/global.js', true );
 
   // Accordion JS
   wp_register_script( 'ncc-accordion', plugin_dir_url( __FILE__ ) . '../js/accordion.js', null, filemtime( plugin_dir_path( __FILE__ ) . '../js/accordion.js' ) );
