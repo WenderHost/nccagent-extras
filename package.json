@@ -22,6 +22,6 @@
     "watch": "npm-run-all --parallel watch:*"
   },
   "dependencies": {
-    "npm-check-updates": "^4.0.4"
+    "npm-check-updates": "^19.3.1"
   }
 }
