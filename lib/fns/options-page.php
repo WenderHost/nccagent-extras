@@ -2,7 +2,15 @@
 
 namespace NCCAgent\optionspage;
 
-if( function_exists('acf_add_options_page') ) {
+/**
+ * Registers our ACF options pages.
+ *
+ * Hooked to `acf/init` so ACF doesn't load its translations before `init`.
+ */
+function add_options_pages(){
+  if( ! function_exists('acf_add_options_page') )
+    return;
+
   \acf_add_options_page([
     'page_title'  => 'General',
     'menu_title'  => 'NCC Settings',
@@ -23,3 +31,4 @@ if( function_exists('acf_add_options_page') ) {
     'parent_slug' => 'ncc-settings',
   ]);
 }
+add_action( 'acf/init', __NAMESPACE__ . '\\add_options_pages' );

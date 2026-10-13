@@ -3,6 +3,8 @@
  * NCC Carrier import/export.
  */
 class NCC_Carriers_CLI  extends WP_CLI_Command{
+  public $data_keys = [];
+
   public function __construct(){
     $this->data_keys = [];
   }

@@ -2,7 +2,7 @@
 **Contributors:** [the_webist](https://profiles.wordpress.org/the_webist)  
 **Requires at least:** 6.4  
 **Tested up to:** 6.7.2  
-**Stable tag:** 4.6.1  
+**Stable tag:** 4.6.2  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -13,6 +13,11 @@ Helper code for the NCC website.
 I've built the NCC website using Elementor and the Hello Elementor theme. This is where I add additional code and CSS.
 
 ## Changelog ##
+
+### 4.6.2 ###
+* Disabling GravityForms post creation via `gform_disable_post_creation`. Prevents "Untitled" draft posts from being created by forms with Post Custom Fields.
+* Registering ACF options pages on `acf/init`. Fixes "Translation loading for the `acf` domain was triggered too early" notice.
+* Declaring `$data_keys` in the `ncc carriers` and `ncc users` WP-CLI commands. Fixes PHP 8.2+ dynamic property deprecation.
 
 ### 4.6.1 ###
 * Dequeuing `global.js` as it only contains deprecated/unused JavaScript.

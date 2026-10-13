@@ -223,3 +223,13 @@ if( defined( 'GF_ONLINE_CONTRACTING_FORM_ID' ) ){
   add_filter( 'gform_pre_submission_filter_' . GF_ONLINE_CONTRACTING_FORM_ID, __NAMESPACE__ . '\\populate_select_carriers_checkbox' );
   add_filter( 'gform_admin_pre_render_' . GF_ONLINE_CONTRACTING_FORM_ID, __NAMESPACE__ . '\\populate_select_carriers_checkbox' );
 }
+
+/**
+ * Disables GravityForms' legacy post creation.
+ *
+ * Several of our lead forms use "Post Custom Field" fields (e.g. NPN, Resident
+ * State). Any form containing a Post Field causes GravityForms to create a
+ * draft post ("Untitled", "Untitled_1", etc) for every submission. We don't use
+ * GravityForms to create posts on this site, so we disable it for all forms.
+ */
+add_filter( 'gform_disable_post_creation', '__return_true' );

@@ -4,6 +4,8 @@
  * NCC User importer.
  */
 class NCC_Users_CLI  extends WP_CLI_Command{
+  public $data_keys = [];
+
   public function __construct(){
     $this->data_keys = [];
   }
